@@ -14,23 +14,8 @@
  * limitations under the License.
  * 
  */
-package sius.unit;
+package sius.dimension;
 
-import sius.dimension.Dimension;
-
-public interface Unit<D extends Dimension<D>, S extends Unit<D, S>> {
-
-	public D getDimension();
-
-	public UnitIdentifier<D> getIdentifier();
-
-	public S convert(Unit<D, ?> other);
-
-	public S toUnit(double scalar);
-
-	/* scalar values only..., vectors not yet supported */
-	public double getScalar();
-
-	@Override
-	public String toString();
+public enum Mass implements Dimension<Mass> {
+	INSTANCE;
 }

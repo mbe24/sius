@@ -14,23 +14,18 @@
  * limitations under the License.
  * 
  */
-package sius.unit;
+package sius.unit.length;
 
-import sius.dimension.Dimension;
+public final class LengthFactory {
+	private LengthFactory() {
+		// private constructor to prevent instantiation
+	}
 
-public interface Unit<D extends Dimension<D>, S extends Unit<D, S>> {
+	public static Metre meter(double value) {
+		return new MetreImpl(value);
+	}
 
-	public D getDimension();
-
-	public UnitIdentifier<D> getIdentifier();
-
-	public S convert(Unit<D, ?> other);
-
-	public S toUnit(double scalar);
-
-	/* scalar values only..., vectors not yet supported */
-	public double getScalar();
-
-	@Override
-	public String toString();
+	public static Mile mile(double value) {
+		return new MileImpl(value);
+	}
 }

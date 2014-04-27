@@ -14,23 +14,11 @@
  * limitations under the License.
  * 
  */
-package sius.unit;
+package sius.unit.mass;
 
-import sius.dimension.Dimension;
+import sius.dimension.Mass;
+import sius.unit.Unit;
 
-public interface Unit<D extends Dimension<D>, S extends Unit<D, S>> {
+public interface Pound extends Unit<Mass, Pound> {
 
-	public D getDimension();
-
-	public UnitIdentifier<D> getIdentifier();
-
-	public S convert(Unit<D, ?> other);
-
-	public S toUnit(double scalar);
-
-	/* scalar values only..., vectors not yet supported */
-	public double getScalar();
-
-	@Override
-	public String toString();
 }
