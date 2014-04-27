@@ -3,7 +3,7 @@ package example;
 import sius.operation.Operation;
 import sius.unit.UnitIdentifier;
 import sius.unit.length.LengthFactory;
-import sius.unit.length.Metre;
+import sius.unit.length.Meter;
 import sius.unit.length.Mile;
 import sius.unit.mass.KiloGram;
 import sius.unit.mass.MassFactory;
@@ -13,13 +13,13 @@ public class Example {
 
 	public static void main(String[] args) {
 		System.out.println("Length example");
-		Metre lengthFirst = LengthFactory.meter(1000);
+		Meter lengthFirst = LengthFactory.meter(1000);
 		Mile lengthSecond = LengthFactory.mile(1);
 
 		System.out.println(String.format("Operator \t= %s", lengthFirst));
 		System.out.println(String.format("Operator \t= %s", lengthSecond));
 
-		Metre sum1 = Operation.add(lengthFirst, lengthSecond);
+		Meter sum1 = Operation.add(lengthFirst, lengthSecond);
 		System.out.println("SUM \t\t= " + sum1);
 
 		Mile sum2 = Operation.add(lengthSecond, lengthFirst);
@@ -42,7 +42,7 @@ public class Example {
 		Pound convertedMass = Operation.convert(weightFirst, UnitIdentifier.POUND);
 		System.out.println(String.format("Converted %s to %s", weightFirst, convertedMass));
 		
-		Metre convertedLength = Operation.convert(lengthSecond, UnitIdentifier.METER);
+		Meter convertedLength = Operation.convert(lengthSecond, UnitIdentifier.METER);
 		System.out.println(String.format("Converted %s to %s", lengthSecond, convertedLength));
 	}
 }

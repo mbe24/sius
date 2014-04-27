@@ -18,11 +18,17 @@ package sius.unit;
 
 import sius.dimension.Length;
 import sius.dimension.Mass;
-import sius.unit.length.Metre;
+import sius.unit.length.Meter;
 import sius.unit.length.Mile;
+import sius.unit.length.Yard;
 import sius.unit.mass.KiloGram;
 import sius.unit.mass.Pound;
 
+/**
+ * 
+ * @author mbeyene
+ *
+ */
 public final class UnitIdentifier {
 
 	private UnitIdentifier() {
@@ -30,10 +36,14 @@ public final class UnitIdentifier {
 	}
 
 	/* length */
-	public static final UnitId<Length, Metre> METER = new UnitId<Length, Metre>() {};
-	public static final UnitId<Length, Mile> MILE = new UnitId<Length, Mile>(){};
+	public static final UnitId<Length, Meter, Meter> METER = new UnitId<Length, Meter, Meter>() {};
+
+	public static final UnitId<Length, Meter, Mile> MILE = new UnitId<Length, Meter, Mile>(){};
+	
+	public static final UnitId<Length, Meter, Yard> YARD = new UnitId<Length, Meter, Yard>(){};
 
 	/* mass */
-	public static final UnitId<Mass, KiloGram> KILOGRAM = new UnitId<Mass, KiloGram>() {};
-	public static final UnitId<Mass, Pound> POUND = new UnitId<Mass, Pound>() {};
+	public static final UnitId<Mass, KiloGram, KiloGram> KILOGRAM = new UnitId<Mass, KiloGram, KiloGram>() {};
+	
+	public static final UnitId<Mass, KiloGram, Pound> POUND = new UnitId<Mass, KiloGram, Pound>() {};
 }

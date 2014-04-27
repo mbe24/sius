@@ -19,6 +19,6 @@ package sius.unit.mass;
 import sius.dimension.Mass;
 import sius.unit.Unit;
 
-public interface KiloGram extends Unit<Mass, KiloGram> {
+public interface KiloGram extends Unit<Mass, KiloGram, KiloGram> {
 
 }

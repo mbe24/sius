@@ -16,6 +16,12 @@
  */
 package sius.dimension;
 
+/**
+ * 
+ * @author Miky
+ *
+ * @param <T> self-reference
+ */
 public interface Dimension<T extends Dimension<T>> {
 
 	/*

@@ -28,8 +28,11 @@ import sius.unit.length.LengthFactory;
 import sius.unit.mass.MassFactory;
 
 final class Converter {
+	private Converter() {
+		// private constructor to prevent instantiation
+	}
 
-	private static final Map<UnitId<?, ?>, Unit<?, ?>> instanceMapMutable = new HashMap<>();
+	private static final Map<UnitId<?, ?, ?>, Unit<?, ?, ?>> instanceMapMutable = new HashMap<>();
 
 	/* initialize map */
 	static {
@@ -40,24 +43,18 @@ final class Converter {
 		/* length */
 		instanceMapMutable.put(UnitIdentifier.METER, LengthFactory.meter(0));
 		instanceMapMutable.put(UnitIdentifier.MILE, LengthFactory.mile(0));
+		instanceMapMutable.put(UnitIdentifier.YARD, LengthFactory.yard(0));
 	}
+	private static final Map<UnitId<?, ?, ?>, Unit<?, ?, ?>> instanceMap = Collections.unmodifiableMap(instanceMapMutable);
 
-	private static final Map<UnitId<?, ?>, Unit<?, ?>> instanceMap = Collections
-			.unmodifiableMap(instanceMapMutable);
-
-	private Converter() {
-		// private constructor to prevent instantiation
-	}
-
-	public static <D extends Dimension<D>, OP extends Unit<D, OP>, CU extends Unit<D, CU>, CuId extends UnitId<D, CU>> CU convert(
-			OP op, CuId cunitId) {
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>, CU extends Unit<D, B, CU>, CuId extends UnitId<D, B, CU>> CU convert(OP op, CuId cunitId) {
 		@SuppressWarnings("unchecked")
 		CU conversionUnit = (CU) instanceMap.get(cunitId);
 
 		if (conversionUnit == null)
 			throw new IllegalConversionException();
-
-		return conversionUnit.convert(op);
+		 
+		return conversionUnit.convert(op.toBaseUnit());
 	}
 
 	static class IllegalConversionException extends RuntimeException {

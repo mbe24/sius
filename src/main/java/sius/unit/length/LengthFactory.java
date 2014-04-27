@@ -21,11 +21,15 @@ public final class LengthFactory {
 		// private constructor to prevent instantiation
 	}
 
-	public static Metre meter(double value) {
-		return new MetreImpl(value);
+	public static Meter meter(double value) {
+		return new MeterImpl(value);
 	}
 
 	public static Mile mile(double value) {
 		return new MileImpl(value);
+	}
+	
+	public static Yard yard(double value) {
+		return new YardImpl(value);
 	}
 }

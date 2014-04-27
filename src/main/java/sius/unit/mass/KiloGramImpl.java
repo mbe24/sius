@@ -17,6 +17,7 @@
 package sius.unit.mass;
 
 import sius.dimension.Mass;
+import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
@@ -35,23 +36,26 @@ final class KiloGramImpl implements KiloGram {
 	}
 
 	@Override
-	public UnitId<Mass, KiloGram> getIdentifier() {
+	public UnitId<Mass, KiloGram, KiloGram> getIdentifier() {
 		return UnitIdentifier.KILOGRAM;
 	}
 
 	@Override
-	public KiloGram convert(Unit<Mass, ?> other) {
+	public <O extends Unit<Mass, KiloGram, O>> KiloGram convert(O other) {
 		KiloGram converted;
 		if (other.getIdentifier().equals(UnitIdentifier.KILOGRAM))
 			converted = new KiloGramImpl(other.getScalar());
-		else if (other.getIdentifier().equals(UnitIdentifier.POUND))
-			converted = new KiloGramImpl(other.getScalar() * 0.45359237);
 		else
-			throw new IllegalStateException("Define all necessary cases!");
+			converted = Operation.convert(other, UnitIdentifier.KILOGRAM);
 
 		return converted;
 	}
 
+	@Override
+	public KiloGram toBaseUnit() {
+		return MassFactory.kg(scalar);
+	}
+	
 	@Override
 	public KiloGram toUnit(double scalar) {
 		return new KiloGramImpl(scalar);
@@ -66,5 +70,4 @@ final class KiloGramImpl implements KiloGram {
 	public String toString() {
 		return "KiloGram [value=" + scalar + "]";
 	}
-
 }

@@ -17,6 +17,7 @@
 package sius.unit.mass;
 
 import sius.dimension.Mass;
+import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
@@ -35,24 +36,25 @@ final class PoundImpl implements Pound {
 	}
 
 	@Override
-	public UnitId<Mass, Pound> getIdentifier() {
+	public UnitId<Mass, KiloGram, Pound> getIdentifier() {
 		return UnitIdentifier.POUND;
 	}
 
 	@Override
-	public Pound convert(Unit<Mass, ?> other) {
+	public <O extends Unit<Mass, KiloGram, O>> Pound convert(O other) {
 		Pound converted;
-		if (other.getIdentifier().equals(UnitIdentifier.KILOGRAM))
-			if (other.getScalar() != 0)
-				converted = new PoundImpl(other.getScalar() / 0.45359237);
-			else
-				converted = new PoundImpl(0);
-		else if (other.getIdentifier().equals(UnitIdentifier.POUND))
+		if (other.getIdentifier().equals(UnitIdentifier.POUND))
 			converted = new PoundImpl(other.getScalar());
+		else if (other.getIdentifier().equals(UnitIdentifier.KILOGRAM))
+			converted = new PoundImpl(other.getScalar() / Constants.KILOGRAM_PER_POUND);
 		else
-			throw new IllegalStateException("Define all necessary cases!");
-
+			converted = Operation.convert(other, UnitIdentifier.POUND);
 		return converted;
+	}
+
+	@Override
+	public KiloGram toBaseUnit() {
+		return MassFactory.kg(scalar * Constants.KILOGRAM_PER_POUND);
 	}
 
 	@Override
@@ -69,5 +71,4 @@ final class PoundImpl implements Pound {
 	public String toString() {
 		return "Pound [value=" + scalar + "]";
 	}
-
 }

@@ -18,5 +18,7 @@ package sius.unit;
 
 import sius.dimension.Dimension;
 
-public interface UnitId<D extends Dimension<D>, S extends Unit<D, S>> {
+public interface UnitId<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, S extends Unit<D, BASE, S>> {
+	
+//	public <O extends Unit<D, O>> O getBaseUnit();
 }

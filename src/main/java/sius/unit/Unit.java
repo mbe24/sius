@@ -18,14 +18,23 @@ package sius.unit;
 
 import sius.dimension.Dimension;
 
-public interface Unit<D extends Dimension<D>, S extends Unit<D, S>> {
+/**
+ * 
+ * @author mbeyene
+ *
+ * @param <D>
+ * @param <S>
+ */
+public interface Unit<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, S extends Unit<D, BASE, S>> {
 
 	public D getDimension();
 
-	public UnitId<D, S> getIdentifier();
+	public UnitId<D, BASE, S> getIdentifier();
 
-	public S convert(Unit<D, ?> other);
-
+	public <O extends Unit<D, BASE, O>> S convert(O other);
+	
+	public BASE toBaseUnit();
+	
 	public S toUnit(double scalar);
 
 	/* scalar values only..., vectors not yet supported */

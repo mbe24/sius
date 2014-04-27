@@ -16,6 +16,11 @@
  */
 package sius.dimension;
 
+/**
+ * 
+ * @author mbeyene
+ *
+ */
 public enum Length implements Dimension<Length> {
 	INSTANCE;
 }

@@ -14,11 +14,12 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.unit.mass;
 
-import sius.dimension.Length;
-import sius.unit.Unit;
-
-public interface Metre extends Unit<Length, Metre> {
-
+final class Constants {
+	private Constants() {
+		// private constructor to prevent instantiation
+	}
+	
+	public static final double KILOGRAM_PER_POUND = 0.45359237;
 }

@@ -17,15 +17,16 @@
 package sius.unit.length;
 
 import sius.dimension.Length;
+import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
 
-final class MetreImpl implements Metre {
+final class MeterImpl implements Meter {
 
 	private final double scalar;
 
-	public MetreImpl(double scalar) {
+	public MeterImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
@@ -40,26 +41,28 @@ final class MetreImpl implements Metre {
 	}
 
 	@Override
-	public UnitId<Length, Metre> getIdentifier() {
+	public UnitId<Length, Meter, Meter> getIdentifier() {
 		return UnitIdentifier.METER;
 	}
 
 	@Override
-	public Metre convert(Unit<Length, ?> other) {
-		Metre converted;
+	public <O extends Unit<Length, Meter, O>> Meter convert(O other) {
+		Meter converted;
 		if (other.getIdentifier().equals(UnitIdentifier.METER))
-			converted = new MetreImpl(other.getScalar());
-		else if (other.getIdentifier().equals(UnitIdentifier.MILE))
-			converted = new MetreImpl(other.getScalar() * 1609.344);
+			converted = new MeterImpl(other.getScalar());
 		else
-			throw new IllegalStateException("Define all necessary cases!");
-
+			converted = Operation.convert(other, UnitIdentifier.METER);
 		return converted;
 	}
 
 	@Override
-	public Metre toUnit(double scalar) {
-		return new MetreImpl(scalar);
+	public Meter toBaseUnit() {
+		return LengthFactory.meter(scalar);
+	}
+	
+	@Override
+	public Meter toUnit(double scalar) {
+		return new MeterImpl(scalar);
 	}
 
 	@Override

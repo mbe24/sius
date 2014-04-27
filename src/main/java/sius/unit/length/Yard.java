@@ -19,6 +19,6 @@ package sius.unit.length;
 import sius.dimension.Length;
 import sius.unit.Unit;
 
-public interface Mile extends Unit<Length, Meter, Mile> {
+public interface Yard extends Unit<Length, Meter, Yard> {
 
 }

@@ -17,6 +17,7 @@
 package sius.unit.length;
 
 import sius.dimension.Length;
+import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
@@ -40,26 +41,27 @@ final class MileImpl implements Mile {
 	}
 
 	@Override
-	public UnitId<Length, Mile> getIdentifier() {
+	public UnitId<Length, Meter, Mile> getIdentifier() {
 		return UnitIdentifier.MILE;
 	}
 
 	@Override
-	public Mile convert(Unit<Length, ?> other) {
-		MileImpl converted;
-		if (other.getIdentifier().equals(UnitIdentifier.METER))
-			if (other.getScalar() != 0)
-				converted = new MileImpl(other.getScalar() / 1609.344);
-			else
-				converted = new MileImpl(0);
-		else if (other.getIdentifier().equals(UnitIdentifier.MILE))
+	public <O extends Unit<Length, Meter, O>> Mile convert(O other) {
+		Mile converted;
+		if (other.getIdentifier().equals(UnitIdentifier.MILE))
 			converted = new MileImpl(other.getScalar());
+		else if (other.getIdentifier().equals(UnitIdentifier.METER))
+			converted = new MileImpl(other.getScalar() / Constants.METER_PER_MILE);
 		else
-			throw new IllegalStateException("Define all necessary cases!");
-
+			converted = Operation.convert(other, UnitIdentifier.MILE);
 		return converted;
 	}
 
+	@Override
+	public Meter toBaseUnit() {
+		return LengthFactory.meter(scalar * Constants.METER_PER_MILE);
+	}
+	
 	@Override
 	public Mile toUnit(double scalar) {
 		return new MileImpl(scalar);
@@ -69,5 +71,4 @@ final class MileImpl implements Mile {
 	public String toString() {
 		return "Mile [value=" + scalar + "]";
 	}
-
 }

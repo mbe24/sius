@@ -16,9 +16,12 @@
  */
 package sius.unit.length;
 
-import sius.dimension.Length;
-import sius.unit.Unit;
-
-public interface Mile extends Unit<Length, Meter, Mile> {
-
+final class Constants {
+	private Constants() {
+		// private constructor to prevent instantiation
+	}
+	
+	public static final double METER_PER_MILE = 1609.344;
+	
+	public static final double METER_PER_YARD = 0.9144;
 }
