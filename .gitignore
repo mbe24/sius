@@ -1,4 +1,6 @@
-/target
-/.settings
+target/
+!target/sius-0.0.1-SNAPSHOT
+!target/sius-0.0.1-SNAPSHOT-sources
+.settings/
 .classpath
 .project

@@ -28,4 +28,9 @@ public final class Operation {
 	public static <D extends Dimension<D>, OP1 extends Unit<D, OP1>, OP2 extends Unit<D, OP2>> OP1 add(OP1 op1, OP2 op2) {
 		return op1.toUnit(op1.getScalar() + op1.convert(op2).getScalar());
 	}
+	
+	/* op1 - op2 */
+	public static <D extends Dimension<D>, OP1 extends Unit<D, OP1>, OP2 extends Unit<D, OP2>> OP1 sub(OP1 op1, OP2 op2) {
+		return op1.toUnit(op1.getScalar() - op1.convert(op2).getScalar());
+	}
 }

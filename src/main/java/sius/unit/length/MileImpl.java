@@ -43,7 +43,10 @@ final class MileImpl implements Mile {
 	public Mile convert(Unit<Length, ?> other) {
 		MileImpl converted;
 		if (other.getIdentifier().equals(UnitIdentifier.METER))
+			if (other.getScalar() != 0)
 			converted = new MileImpl(other.getScalar() / 1609.344);
+			else
+			converted = new MileImpl(0);
 		else if (other.getIdentifier().equals(UnitIdentifier.MILE))
 			converted = new MileImpl(other.getScalar());
 		else

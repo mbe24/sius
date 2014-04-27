@@ -36,11 +36,13 @@ final class PoundImpl implements Pound {
 		return UnitIdentifier.POUND;
 	}
 
-	// TODO check for zero
 	public Pound convert(Unit<Mass, ?> other) {
 		Pound converted;
 		if (other.getIdentifier().equals(UnitIdentifier.KILOGRAM))
-			converted = new PoundImpl(other.getScalar() / 0.45359237);
+			if (other.getScalar() != 0)
+				converted = new PoundImpl(other.getScalar() / 0.45359237);
+			else
+				converted = new PoundImpl(0);
 		else if (other.getIdentifier().equals(UnitIdentifier.POUND))
 			converted = new PoundImpl(other.getScalar());
 		else
@@ -56,7 +58,7 @@ final class PoundImpl implements Pound {
 	public double getScalar() {
 		return scalar;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Pound [value=" + scalar + "]";
