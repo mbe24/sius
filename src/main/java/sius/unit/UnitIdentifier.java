@@ -18,18 +18,22 @@ package sius.unit;
 
 import sius.dimension.Length;
 import sius.dimension.Mass;
+import sius.unit.length.Metre;
+import sius.unit.length.Mile;
+import sius.unit.mass.KiloGram;
+import sius.unit.mass.Pound;
 
-public final class UnitIdentifier<Dimension> {
+public final class UnitIdentifier {
 
 	private UnitIdentifier() {
 		// private constructor to prevent instantiation
 	}
 
 	/* length */
-	public static final UnitIdentifier<Length> METER = new UnitIdentifier<Length>();
-	public static final UnitIdentifier<Length> MILE = new UnitIdentifier<Length>();
-	
+	public static final UnitId<Length, Metre> METER = new UnitId<Length, Metre>() {};
+	public static final UnitId<Length, Mile> MILE = new UnitId<Length, Mile>(){};
+
 	/* mass */
-	public static final UnitIdentifier<Mass> KILOGRAM = new UnitIdentifier<Mass>();
-	public static final UnitIdentifier<Mass> POUND = new UnitIdentifier<Mass>();
+	public static final UnitId<Mass, KiloGram> KILOGRAM = new UnitId<Mass, KiloGram>() {};
+	public static final UnitId<Mass, Pound> POUND = new UnitId<Mass, Pound>() {};
 }

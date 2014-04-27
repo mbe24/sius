@@ -18,19 +18,28 @@ package sius.operation;
 
 import sius.dimension.Dimension;
 import sius.unit.Unit;
+import sius.unit.UnitId;
 
 public final class Operation {
 
 	private Operation() {
+		// private constructor to prevent instantiation
+	}
+
+	public static <D extends Dimension<D>, OP extends Unit<D, OP>, CU extends Unit<D, CU>, CuId extends UnitId<D, CU>> CU convert(
+			OP op, CuId cunitId) {
+		return Converter.convert(op, cunitId);
 	}
 
 	/* op1 is reference unit */
-	public static <D extends Dimension<D>, OP1 extends Unit<D, OP1>, OP2 extends Unit<D, OP2>> OP1 add(OP1 op1, OP2 op2) {
+	public static <D extends Dimension<D>, OP1 extends Unit<D, OP1>, OP2 extends Unit<D, OP2>> OP1 add(
+			OP1 op1, OP2 op2) {
 		return op1.toUnit(op1.getScalar() + op1.convert(op2).getScalar());
 	}
-	
+
 	/* op1 - op2 */
-	public static <D extends Dimension<D>, OP1 extends Unit<D, OP1>, OP2 extends Unit<D, OP2>> OP1 sub(OP1 op1, OP2 op2) {
+	public static <D extends Dimension<D>, OP1 extends Unit<D, OP1>, OP2 extends Unit<D, OP2>> OP1 sub(
+			OP1 op1, OP2 op2) {
 		return op1.toUnit(op1.getScalar() - op1.convert(op2).getScalar());
 	}
 }

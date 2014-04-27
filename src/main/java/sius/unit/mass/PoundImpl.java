@@ -18,6 +18,7 @@ package sius.unit.mass;
 
 import sius.dimension.Mass;
 import sius.unit.Unit;
+import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
 
 final class PoundImpl implements Pound {
@@ -28,14 +29,17 @@ final class PoundImpl implements Pound {
 		this.scalar = scalar;
 	}
 
+	@Override
 	public Mass getDimension() {
 		return Mass.INSTANCE;
 	}
 
-	public UnitIdentifier<Mass> getIdentifier() {
+	@Override
+	public UnitId<Mass, Pound> getIdentifier() {
 		return UnitIdentifier.POUND;
 	}
 
+	@Override
 	public Pound convert(Unit<Mass, ?> other) {
 		Pound converted;
 		if (other.getIdentifier().equals(UnitIdentifier.KILOGRAM))
@@ -51,10 +55,12 @@ final class PoundImpl implements Pound {
 		return converted;
 	}
 
+	@Override
 	public Pound toUnit(double scalar) {
 		return new PoundImpl(scalar);
 	}
 
+	@Override
 	public double getScalar() {
 		return scalar;
 	}
@@ -63,4 +69,5 @@ final class PoundImpl implements Pound {
 	public String toString() {
 		return "Pound [value=" + scalar + "]";
 	}
+
 }

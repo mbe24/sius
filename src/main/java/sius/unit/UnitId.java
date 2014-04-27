@@ -18,19 +18,5 @@ package sius.unit;
 
 import sius.dimension.Dimension;
 
-public interface Unit<D extends Dimension<D>, S extends Unit<D, S>> {
-
-	public D getDimension();
-
-	public UnitId<D, S> getIdentifier();
-
-	public S convert(Unit<D, ?> other);
-
-	public S toUnit(double scalar);
-
-	/* scalar values only..., vectors not yet supported */
-	public double getScalar();
-
-	@Override
-	public String toString();
+public interface UnitId<D extends Dimension<D>, S extends Unit<D, S>> {
 }

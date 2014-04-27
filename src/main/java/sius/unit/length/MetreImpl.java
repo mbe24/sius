@@ -18,6 +18,7 @@ package sius.unit.length;
 
 import sius.dimension.Length;
 import sius.unit.Unit;
+import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
 
 final class MetreImpl implements Metre {
@@ -28,18 +29,22 @@ final class MetreImpl implements Metre {
 		this.scalar = scalar;
 	}
 
+	@Override
 	public Length getDimension() {
 		return Length.INSTANCE;
 	}
 
+	@Override
 	public double getScalar() {
 		return scalar;
 	}
 
-	public UnitIdentifier<Length> getIdentifier() {
+	@Override
+	public UnitId<Length, Metre> getIdentifier() {
 		return UnitIdentifier.METER;
 	}
 
+	@Override
 	public Metre convert(Unit<Length, ?> other) {
 		Metre converted;
 		if (other.getIdentifier().equals(UnitIdentifier.METER))
@@ -52,6 +57,7 @@ final class MetreImpl implements Metre {
 		return converted;
 	}
 
+	@Override
 	public Metre toUnit(double scalar) {
 		return new MetreImpl(scalar);
 	}
