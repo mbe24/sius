@@ -25,7 +25,8 @@ import sius.unit.UnitIdentifier;
 final class PoundImpl implements Pound {
 
 	private final double scalar;
-
+	private final UnitId<Mass, KiloGram, Pound> unitId = UnitIdentifier.POUND;
+	
 	public PoundImpl(double scalar) {
 		this.scalar = scalar;
 	}
@@ -37,18 +38,18 @@ final class PoundImpl implements Pound {
 
 	@Override
 	public UnitId<Mass, KiloGram, Pound> getIdentifier() {
-		return UnitIdentifier.POUND;
+		return unitId;
 	}
 
 	@Override
 	public <O extends Unit<Mass, KiloGram, O>> Pound convert(O other) {
 		Pound converted;
-		if (other.getIdentifier().equals(UnitIdentifier.POUND))
+		if (other.getIdentifier().equals(unitId))
 			converted = new PoundImpl(other.getScalar());
 		else if (other.getIdentifier().equals(UnitIdentifier.KILOGRAM))
 			converted = new PoundImpl(other.getScalar() / Constants.KILOGRAM_PER_POUND);
 		else
-			converted = Operation.convert(other, UnitIdentifier.POUND);
+			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
@@ -58,7 +59,7 @@ final class PoundImpl implements Pound {
 	}
 
 	@Override
-	public Pound toUnit(double scalar) {
+	public Pound valueOf(double scalar) {
 		return new PoundImpl(scalar);
 	}
 

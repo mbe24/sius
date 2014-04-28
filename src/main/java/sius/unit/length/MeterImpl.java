@@ -25,7 +25,8 @@ import sius.unit.UnitIdentifier;
 final class MeterImpl implements Meter {
 
 	private final double scalar;
-
+	private final UnitId<Length, Meter, Meter> unitId = UnitIdentifier.METER;
+	
 	public MeterImpl(double scalar) {
 		this.scalar = scalar;
 	}
@@ -48,21 +49,21 @@ final class MeterImpl implements Meter {
 	@Override
 	public <O extends Unit<Length, Meter, O>> Meter convert(O other) {
 		Meter converted;
-		if (other.getIdentifier().equals(UnitIdentifier.METER))
+		if (other.getIdentifier().equals(unitId))
 			converted = new MeterImpl(other.getScalar());
 		else
-			converted = Operation.convert(other, UnitIdentifier.METER);
+			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
 	@Override
 	public Meter toBaseUnit() {
-		return LengthFactory.meter(scalar);
+		return new MeterImpl(scalar);
 	}
 	
 	@Override
-	public Meter toUnit(double scalar) {
-		return new MeterImpl(scalar);
+	public Meter valueOf(double d) {
+		return new MeterImpl(d);
 	}
 
 	@Override

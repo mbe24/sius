@@ -14,52 +14,55 @@
  * limitations under the License.
  * 
  */
-package sius.unit.mass;
+package sius.unit.temperature;
 
-import sius.dimension.Mass;
+import sius.dimension.Temperature;
 import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
 
-final class KiloGramImpl implements KiloGram {
+final class CelsiusImpl implements Celsius {
 
 	private final double scalar;
-	private final UnitId<Mass, KiloGram, KiloGram> unitId = UnitIdentifier.KILOGRAM;
+	private final UnitId<Temperature, Kelvin, Celsius> unitId = UnitIdentifier.CELSIUS;
 	
-	public KiloGramImpl(double scalar) {
+	public CelsiusImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Mass getDimension() {
-		return Mass.INSTANCE;
+	public Temperature getDimension() {
+		return Temperature.INSTANCE;
 	}
 
 	@Override
-	public UnitId<Mass, KiloGram, KiloGram> getIdentifier() {
+	public UnitId<Temperature, Kelvin, Celsius> getIdentifier() {
 		return unitId;
 	}
 
 	@Override
-	public <O extends Unit<Mass, KiloGram, O>> KiloGram convert(O other) {
-		KiloGram converted;
+	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Celsius convert(
+			OTHER other) {
+		Celsius converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = new KiloGramImpl(other.getScalar());
+			converted = new CelsiusImpl(other.getScalar());
+		else if (other.getIdentifier().equals(UnitIdentifier.KELVIN))
+			converted = new CelsiusImpl(other.getScalar() - Constants.CELSIUS_KELVIN_OFFSET);
 		else
 			converted = Operation.convert(other, unitId);
-
+		
 		return converted;
 	}
 
 	@Override
-	public KiloGram toBaseUnit() {
-		return new KiloGramImpl(scalar);
+	public Kelvin toBaseUnit() {
+		return TemperatureFactory.kelvin(scalar + Constants.CELSIUS_KELVIN_OFFSET);
 	}
-	
+
 	@Override
-	public KiloGram valueOf(double scalar) {
-		return new KiloGramImpl(scalar);
+	public Celsius valueOf(double d) {
+		return new CelsiusImpl(d);
 	}
 
 	@Override
@@ -69,6 +72,6 @@ final class KiloGramImpl implements KiloGram {
 
 	@Override
 	public String toString() {
-		return "KiloGram [value=" + scalar + "]";
+		return "Celsius [value=" + scalar + "]";
 	}
 }

@@ -8,6 +8,9 @@ import sius.unit.length.Mile;
 import sius.unit.mass.KiloGram;
 import sius.unit.mass.MassFactory;
 import sius.unit.mass.Pound;
+import sius.unit.temperature.Celsius;
+import sius.unit.temperature.Fahrenheit;
+import sius.unit.temperature.TemperatureFactory;
 
 public class Example {
 
@@ -44,5 +47,9 @@ public class Example {
 		
 		Meter convertedLength = Operation.convert(lengthSecond, UnitIdentifier.METER);
 		System.out.println(String.format("Converted %s to %s", lengthSecond, convertedLength));
+		
+		Celsius zero = TemperatureFactory.celsius(0);
+		Fahrenheit convertedTemperature = Operation.convert(zero, UnitIdentifier.FAHRENHEIT);
+		System.out.println(String.format("Converted %s to %s", zero, convertedTemperature));
 	}
 }

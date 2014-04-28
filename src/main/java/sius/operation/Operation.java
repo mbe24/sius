@@ -20,26 +20,74 @@ import sius.dimension.Dimension;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 
+/**
+ * 
+ * @author mbeyene
+ * 
+ */
 public final class Operation {
 
 	private Operation() {
 		// private constructor to prevent instantiation
 	}
 
-	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>, CU extends Unit<D, B, CU>, CuId extends UnitId<D, B, CU>> CU convert(
-			OP op, CuId cunitId) {
+	/**
+	 * Converts a unit into another unit of same dimension.
+	 * 
+	 * @param op unit to convert
+	 * @param cunitId identifier of new unit
+	 * @return value of <code>op</code> converted to new unit.
+	 */
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>, CU extends Unit<D, B, CU>, CuId extends UnitId<D, B, CU>> CU convert(OP op, CuId cunitId) {
 		return Converter.convert(op, cunitId);
 	}
 
-	/* op1 is reference unit */
+	/**
+	 * Adds two (different) units of the same dimension. Result is of same type as first operand.
+	 * 
+	 * @param op1 first operand. Determines type of result.
+	 * @param op2 second operand. Gets added to first operand.
+	 * @return sum
+	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP1 extends Unit<D, B, OP1>, OP2 extends Unit<D, B, OP2>> OP1 add(
 			OP1 op1, OP2 op2) {
-		return op1.toUnit(op1.getScalar() + op1.convert(op2).getScalar());
+		return op1.valueOf(op1.getScalar() + op1.convert(op2).getScalar());
 	}
 
-	/* op1 - op2 */
-	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP1 extends Unit<D, B, OP1>, OP2 extends Unit<D, B, OP2>> OP1 sub(
-			OP1 op1, OP2 op2) {
-		return op1.toUnit(op1.getScalar() - op1.convert(op2).getScalar());
+	/**
+	 * Subtracts two (different) units of the same dimension. Result is of same type as first operand.
+	 * 
+	 * @param op1 first operand. Determines type of result.
+	 * @param op2 second operand. Gets subtracted from first operand.
+	 * @return difference
+	 */
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP1 extends Unit<D, B, OP1>, OP2 extends Unit<D, B, OP2>> OP1 sub(OP1 op1, OP2 op2) {
+		return op1.valueOf(op1.getScalar() - op1.convert(op2).getScalar());
+	}
+
+	/**
+	 * Scalar multiplication.
+	 * 
+	 * @param op operand and first factor
+	 * @param scalar scalar and second factor
+	 * @return product
+	 */
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>> OP mul(OP op, double scalar) {
+		return op.valueOf(op.getScalar() * scalar);
+	}
+
+	/**
+	 * Scalar division.
+	 * 
+	 * @param op dividend
+	 * @param scalar divisor
+	 * @return quotient
+	 */
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>> OP div(OP op, double scalar) {
+		// TODO maybe throw exception, since this is java standard
+		if (scalar == 0)
+			return op.valueOf(op.getScalar());
+		else
+			return op.valueOf(op.getScalar() / scalar);
 	}
 }

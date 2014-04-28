@@ -14,52 +14,51 @@
  * limitations under the License.
  * 
  */
-package sius.unit.mass;
+package sius.unit.time;
 
-import sius.dimension.Mass;
+import sius.dimension.Time;
 import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
 
-final class KiloGramImpl implements KiloGram {
+final class SecondImpl implements Second {
 
 	private final double scalar;
-	private final UnitId<Mass, KiloGram, KiloGram> unitId = UnitIdentifier.KILOGRAM;
+	private final UnitId<Time, Second, Second> unitId = UnitIdentifier.SECOND;
 	
-	public KiloGramImpl(double scalar) {
+	public SecondImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Mass getDimension() {
-		return Mass.INSTANCE;
+	public Time getDimension() {
+		return Time.INSTANCE;
 	}
 
 	@Override
-	public UnitId<Mass, KiloGram, KiloGram> getIdentifier() {
+	public UnitId<Time, Second, Second> getIdentifier() {
 		return unitId;
 	}
 
 	@Override
-	public <O extends Unit<Mass, KiloGram, O>> KiloGram convert(O other) {
-		KiloGram converted;
+	public <OTHER extends Unit<Time, Second, OTHER>> Second convert(OTHER other) {
+		Second converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = new KiloGramImpl(other.getScalar());
+			converted = new SecondImpl(other.getScalar());
 		else
 			converted = Operation.convert(other, unitId);
-
 		return converted;
 	}
 
 	@Override
-	public KiloGram toBaseUnit() {
-		return new KiloGramImpl(scalar);
+	public Second toBaseUnit() {
+		return new SecondImpl(scalar);
 	}
-	
+
 	@Override
-	public KiloGram valueOf(double scalar) {
-		return new KiloGramImpl(scalar);
+	public Second valueOf(double d) {
+		return new SecondImpl(d);
 	}
 
 	@Override
@@ -69,6 +68,6 @@ final class KiloGramImpl implements KiloGram {
 
 	@Override
 	public String toString() {
-		return "KiloGram [value=" + scalar + "]";
+		return "Second [value=" + scalar + "]";
 	}
 }

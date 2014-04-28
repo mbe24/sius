@@ -16,17 +16,6 @@
  */
 package sius.dimension;
 
-/**
- * Dimension of physical unit.
- * 
- * @author mbeyene
- *
- * @param <T> self-reference
- */
-public interface Dimension<T extends Dimension<T>> {
-
-	/*
-	 * Add methods about composition of dimension
-	 * E.g. speed = length / time
-	 */
+public enum Temperature implements Dimension<Temperature> {
+	INSTANCE;
 }

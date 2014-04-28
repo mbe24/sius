@@ -14,19 +14,11 @@
  * limitations under the License.
  * 
  */
-package sius.dimension;
+package sius.unit.temperature;
 
-/**
- * Dimension of physical unit.
- * 
- * @author mbeyene
- *
- * @param <T> self-reference
- */
-public interface Dimension<T extends Dimension<T>> {
+import sius.dimension.Temperature;
+import sius.unit.Unit;
 
-	/*
-	 * Add methods about composition of dimension
-	 * E.g. speed = length / time
-	 */
+public interface Celsius extends Unit<Temperature, Kelvin, Celsius> {
+
 }

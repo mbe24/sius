@@ -14,52 +14,51 @@
  * limitations under the License.
  * 
  */
-package sius.unit.mass;
+package sius.unit.temperature;
 
-import sius.dimension.Mass;
+import sius.dimension.Temperature;
 import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
 
-final class KiloGramImpl implements KiloGram {
+final class KelvinImpl implements Kelvin {
 
 	private final double scalar;
-	private final UnitId<Mass, KiloGram, KiloGram> unitId = UnitIdentifier.KILOGRAM;
+	private final UnitId<Temperature, Kelvin, Kelvin> unitId = UnitIdentifier.KELVIN;
 	
-	public KiloGramImpl(double scalar) {
+	public KelvinImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Mass getDimension() {
-		return Mass.INSTANCE;
+	public Temperature getDimension() {
+		return Temperature.INSTANCE;
 	}
 
 	@Override
-	public UnitId<Mass, KiloGram, KiloGram> getIdentifier() {
+	public UnitId<Temperature, Kelvin, Kelvin> getIdentifier() {
 		return unitId;
 	}
 
 	@Override
-	public <O extends Unit<Mass, KiloGram, O>> KiloGram convert(O other) {
-		KiloGram converted;
+	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Kelvin convert(OTHER other) {
+		Kelvin converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = new KiloGramImpl(other.getScalar());
+			converted = new KelvinImpl(other.getScalar());
 		else
 			converted = Operation.convert(other, unitId);
-
 		return converted;
 	}
 
 	@Override
-	public KiloGram toBaseUnit() {
-		return new KiloGramImpl(scalar);
+	public Kelvin toBaseUnit() {
+		return new KelvinImpl(scalar);
 	}
-	
+
 	@Override
-	public KiloGram valueOf(double scalar) {
-		return new KiloGramImpl(scalar);
+	public Kelvin valueOf(double d) {
+		return new KelvinImpl(d);
 	}
 
 	@Override
@@ -69,6 +68,6 @@ final class KiloGramImpl implements KiloGram {
 
 	@Override
 	public String toString() {
-		return "KiloGram [value=" + scalar + "]";
+		return "Kelvin [value=" + scalar + "]";
 	}
 }

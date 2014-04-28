@@ -26,6 +26,8 @@ import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
 import sius.unit.length.LengthFactory;
 import sius.unit.mass.MassFactory;
+import sius.unit.temperature.TemperatureFactory;
+import sius.unit.time.TimeFactory;
 
 final class Converter {
 	private Converter() {
@@ -44,9 +46,24 @@ final class Converter {
 		instanceMapMutable.put(UnitIdentifier.METER, LengthFactory.meter(0));
 		instanceMapMutable.put(UnitIdentifier.MILE, LengthFactory.mile(0));
 		instanceMapMutable.put(UnitIdentifier.YARD, LengthFactory.yard(0));
+		
+		/* time */
+		instanceMapMutable.put(UnitIdentifier.SECOND, TimeFactory.second(0));
+	
+		/* temperature */
+		instanceMapMutable.put(UnitIdentifier.KELVIN, TemperatureFactory.kelvin(0));
+		instanceMapMutable.put(UnitIdentifier.CELSIUS, TemperatureFactory.celsius(0));
+		instanceMapMutable.put(UnitIdentifier.FAHRENHEIT, TemperatureFactory.fahrenheit(0));
 	}
 	private static final Map<UnitId<?, ?, ?>, Unit<?, ?, ?>> instanceMap = Collections.unmodifiableMap(instanceMapMutable);
 
+	/**
+	 * Converts a unit into another unit of the same dimension.
+	 * 
+	 * @param op operand
+	 * @param cunitId conversion unit id
+	 * @return converted unit
+	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>, CU extends Unit<D, B, CU>, CuId extends UnitId<D, B, CU>> CU convert(OP op, CuId cunitId) {
 		@SuppressWarnings("unchecked")
 		CU conversionUnit = (CU) instanceMap.get(cunitId);

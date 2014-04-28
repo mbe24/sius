@@ -14,19 +14,22 @@
  * limitations under the License.
  * 
  */
-package sius.dimension;
+package sius.unit.temperature;
 
-/**
- * Dimension of physical unit.
- * 
- * @author mbeyene
- *
- * @param <T> self-reference
- */
-public interface Dimension<T extends Dimension<T>> {
-
-	/*
-	 * Add methods about composition of dimension
-	 * E.g. speed = length / time
-	 */
+public final class TemperatureFactory {
+	private TemperatureFactory() {
+		// private constructor to prevent instantiation
+	}
+	
+	public static Kelvin kelvin(double value) {
+		return new KelvinImpl(value);
+	}
+	
+	public static Celsius celsius(double value) {
+		return new CelsiusImpl(value);
+	}
+	
+	public static Fahrenheit fahrenheit(double value) {
+		return new FahrenheitImpl(value);
+	}
 }

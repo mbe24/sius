@@ -14,19 +14,16 @@
  * limitations under the License.
  * 
  */
-package sius.dimension;
+package sius.unit.temperature;
 
-/**
- * Dimension of physical unit.
- * 
- * @author mbeyene
- *
- * @param <T> self-reference
- */
-public interface Dimension<T extends Dimension<T>> {
-
-	/*
-	 * Add methods about composition of dimension
-	 * E.g. speed = length / time
-	 */
+final class Constants {
+	private Constants() {
+		// private constructor to prevent instantiation
+	}
+	
+	public static final double CELSIUS_KELVIN_OFFSET = 273.15;
+	
+	public static final double FAHRENHEIT_KELVIN_SCALE_FIVE = 5;
+	public static final double FAHRENHEIT_KELVIN_SCALE_NINE = 9;
+	public static final double FAHRENHEIT_KELVIN_OFFSET = 459.67;
 }

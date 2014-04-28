@@ -19,27 +19,35 @@ package sius.unit;
 import sius.dimension.Dimension;
 
 /**
+ * Physical unit.
  * 
  * @author mbeyene
  *
- * @param <D>
- * @param <S>
+ * @param <D> dimension of unit
+ * @param <BASE> base unit of unit's dimension
+ * @param <SELF> self reference
  */
-public interface Unit<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, S extends Unit<D, BASE, S>> {
+public interface Unit<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, SELF extends Unit<D, BASE, SELF>> {
 
 	public D getDimension();
 
-	public UnitId<D, BASE, S> getIdentifier();
+	public UnitId<D, BASE, SELF> getIdentifier();
 
-	public <O extends Unit<D, BASE, O>> S convert(O other);
+	public <OTHER extends Unit<D, BASE, OTHER>> SELF convert(OTHER other);
 	
 	public BASE toBaseUnit();
 	
-	public S toUnit(double scalar);
+	public SELF valueOf(double d);
 
 	/* scalar values only..., vectors not yet supported */
 	public double getScalar();
 
+	@Override
+	public int hashCode();
+	
+	@Override
+	public boolean equals(Object obj);
+	
 	@Override
 	public String toString();
 }

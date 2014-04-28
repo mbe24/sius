@@ -14,19 +14,14 @@
  * limitations under the License.
  * 
  */
-package sius.dimension;
+package sius.unit.time;
 
-/**
- * Dimension of physical unit.
- * 
- * @author mbeyene
- *
- * @param <T> self-reference
- */
-public interface Dimension<T extends Dimension<T>> {
-
-	/*
-	 * Add methods about composition of dimension
-	 * E.g. speed = length / time
-	 */
+public final class TimeFactory {
+	private TimeFactory() {
+		// private constructor to prevent instantiation
+	}
+	
+	public static Second second(double value) {
+		return null;
+	}
 }
