@@ -1,7 +1,10 @@
 package example;
 
 import sius.dimension.Length;
+import sius.dimension.Mass;
 import sius.operation.Operation;
+import sius.operation.functor.Adder;
+import sius.operation.functor.ArithmeticMean;
 import sius.operation.functor.FunctorFactory;
 import sius.unit.UnitIdentifier;
 import sius.unit.length.Foot;
@@ -60,7 +63,7 @@ public class Example {
 		Inch inch = Operation.convert(foot, UnitIdentifier.INCH);
 		System.out.println(String.format("Converted %s to %s", foot, inch));
 		
-		Meter res = FunctorFactory.<Length>sum()
+		Adder<Length, Meter, Meter> adder = FunctorFactory.sum(UnitIdentifier.METER)
 		.op(lengthSecond)
 		.op(lengthSecond)
 		.op(lengthSecond)
@@ -72,9 +75,9 @@ public class Example {
 		.op(lengthSecond)
 		.op(lengthSecond)
 		.op(foot)
-		.op(foot)
-		.apply(UnitIdentifier.METER);
-		System.out.println(res);
+		.op(foot);
+		System.out.println(adder);
+		System.out.println(adder.apply());
 		
 		Meter sameRes = Operation.add(UnitIdentifier.METER,
 				lengthSecond,
@@ -90,5 +93,13 @@ public class Example {
 				foot,
 				foot);
 		System.out.println(sameRes);
+		
+		ArithmeticMean<Mass, KiloGram, KiloGram> mean = FunctorFactory.mean(UnitIdentifier.KILOGRAM)
+				.op(MassFactory.kg(10))
+				.op(MassFactory.kg(100))
+				.op(MassFactory.lb(100))
+				.op(MassFactory.lb(100));
+		System.out.println(mean);
+		System.out.println(mean.apply());
 	}
 }

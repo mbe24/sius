@@ -19,33 +19,6 @@ package sius.operation.functor;
 import sius.dimension.Dimension;
 import sius.unit.Unit;
 
-/**
- * Functor that performs operation on arbitrary number of operands.
- * 
- * @author mbeyene
- *
- * @param <D> dimension
- * @param <B> base unit
- * @param <CU> target unit
- * @param <F> self reference
- */
-public interface Functor<D extends Dimension<D>, B extends Unit<D, B, B>,  CU extends Unit<D, B, CU>, F extends Functor<D, B, CU, F>> {
+public interface ArithmeticMean<D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>> extends Functor<D, B, CU, ArithmeticMean<D, B, CU>> {
 
-	/**
-	 * Adds operand.
-	 * 
-	 * @param op operand to be added
-	 * @return <code>this<code>
-	 */
-	public F op(Unit<D, B, ?> op);
-	
-	/**
-	 * Applies functor.
-	 * 
-	 * @return result
-	 */
-	public CU apply();
-	
-	@Override
-	public String toString();
 }

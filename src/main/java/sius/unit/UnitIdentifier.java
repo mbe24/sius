@@ -104,6 +104,11 @@ public final class UnitIdentifier {
 				return false;
 			return true;
 		}
+
+		@Override
+		public String toString() {
+			return "UnitId [id=" + this.getClass().getSimpleName() + "]";
+		}
 	}
 	
 	/* length */

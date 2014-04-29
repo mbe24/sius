@@ -17,13 +17,31 @@
 package sius.operation.functor;
 
 import sius.dimension.Dimension;
+import sius.unit.Unit;
+import sius.unit.UnitId;
 
 public final class FunctorFactory {
 	private FunctorFactory() {
 		// private constructor to prevent instantiation
 	}
 	
-	public static <D extends Dimension<D>> Adder<D> sum() {
-		return new AdderImpl<D>();
+	/**
+	 * Creates adder.
+	 * 
+	 * @param cuid conversion unit id
+	 * @return functor that performs addition
+	 */
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>> Adder<D, B, CU> sum(UnitId<D, B, CU> cuid) {
+		return new AdderImpl<D, B, CU>(cuid);
+	}
+	
+	/**
+	 * Creates mean.
+	 * 
+	 * @param cuid conversion unit id
+	 * @return functor that computes mean
+	 */
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>> ArithmeticMean<D, B, CU> mean(UnitId<D, B, CU> cuid) {
+		return new ArithmeticMeanImpl<D, B, CU>(cuid);
 	}
 }

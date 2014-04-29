@@ -23,19 +23,30 @@ import sius.dimension.Dimension;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 
-abstract class AbstractFunctor<D extends Dimension<D>, F extends Functor<D, F>> implements Functor<D, F>{
-
-	protected final List<Unit<D, ?, ?>> operands = new LinkedList<>();
+abstract class AbstractFunctor<D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>, F extends Functor<D, B, CU, F>> implements Functor<D, B, CU, F>{
+	
+	protected final UnitId<D, B, CU> cunitId;
+	protected final List<Unit<D, B, ?>> operands = new LinkedList<>();
+	
+	public AbstractFunctor(UnitId<D, B, CU> cunitId) {
+		this.cunitId = cunitId;
+	}
 
 	@Override
-	public <B extends Unit<D, B, B>> F op(Unit<D, B, ?> op) {
+	public F op(Unit<D, B, ?> op) {
+		resetCache();
 		operands.add(op);
 		return self();
 	}
 
 	@Override
-	public abstract <B extends Unit<D, B, B>, CU extends Unit<D, B, CU>, CUID extends UnitId<D, B, CU>> CU apply(CUID cUnitId);
+	public abstract CU apply();
 	
 	/* should return this */
 	protected abstract F self();
+	
+	protected abstract void resetCache();
+	
+	@Override
+	public abstract String toString();
 }

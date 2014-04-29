@@ -22,11 +22,11 @@ import sius.unit.Unit;
 import sius.unit.UnitFactory;
 import sius.unit.UnitId;
 
-final class AdderImpl<D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>> extends AbstractFunctor<D, B, CU, Adder<D, B, CU>> implements Adder<D, B, CU> {
-	
+final class ArithmeticMeanImpl<D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>> extends AbstractFunctor<D, B, CU, ArithmeticMean<D, B, CU>> implements ArithmeticMean<D, B, CU> {
+
 	private CU cachedResult;
 	
-	public AdderImpl(UnitId<D, B, CU> cunitId) {
+	public ArithmeticMeanImpl(UnitId<D, B, CU> cunitId) {
 		super(cunitId);
 	}
 
@@ -39,27 +39,28 @@ final class AdderImpl<D extends Dimension<D>, B extends Unit<D, B, B>, CU extend
 			return cachedResult;
 		
 		double res = 0d;
-		for (Unit<D, B, ?> op : operands)
+		for (Unit<D, ?, ?> op : operands)
 			res += op.toBaseUnit().getScalar();
 
-		B base = UnitFactory.valueOf(res, operands.get(0).toBaseUnit().getIdentifier());
-		
+		double mean = res / operands.size();
+		B base = UnitFactory.valueOf(mean, operands.get(0).toBaseUnit().getIdentifier());
+
 		cachedResult = Operation.convert(base, cunitId);
 		return cachedResult;
 	}
 
 	@Override
-	protected Adder<D, B, CU> self() {
+	protected ArithmeticMean<D, B, CU> self() {
 		return this;
 	}
 
 	@Override
 	protected void resetCache() {
-		cachedResult = null;
+		this.cachedResult = null;
 	}
-	
+
 	@Override
 	public String toString() {
-		return String.format("Adder [cunitId=%s, operands=%s]", cunitId, operands);
+		return String.format("ArithmeticMean [cunitId=%s, operands=%s]", cunitId, operands);
 	}
 }

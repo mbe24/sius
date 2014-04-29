@@ -17,7 +17,8 @@
 package sius.operation.functor;
 
 import sius.dimension.Dimension;
+import sius.unit.Unit;
 
-public interface Adder<D extends Dimension<D>> extends Functor<D, Adder<D>> {
+public interface Adder<D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>> extends Functor<D, B, CU, Adder<D, B, CU>> {
 
 }
