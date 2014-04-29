@@ -25,7 +25,7 @@ import sius.unit.UnitIdentifier;
 final class SecondImpl implements Second {
 
 	private final double scalar;
-	private final UnitId<Time, Second, Second> unitId = UnitIdentifier.SECOND;
+	private static final UnitId<Time, Second, Second> unitId = UnitIdentifier.SECOND;
 	
 	public SecondImpl(double scalar) {
 		this.scalar = scalar;
@@ -45,7 +45,7 @@ final class SecondImpl implements Second {
 	public <OTHER extends Unit<Time, Second, OTHER>> Second convert(OTHER other) {
 		Second converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = new SecondImpl(other.getScalar());
+			converted = TimeFactory.second(other.getScalar());
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
@@ -53,12 +53,12 @@ final class SecondImpl implements Second {
 
 	@Override
 	public Second toBaseUnit() {
-		return new SecondImpl(scalar);
+		return TimeFactory.second(scalar);
 	}
 
 	@Override
 	public Second valueOf(double d) {
-		return new SecondImpl(d);
+		return TimeFactory.second(d);
 	}
 
 	@Override

@@ -14,9 +14,8 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.unit.time;
 
-
-public interface Yard extends LengthUnit<Yard> {
+public interface Minute extends TimeUnit<Minute> {
 
 }

@@ -25,7 +25,7 @@ import sius.unit.UnitIdentifier;
 final class CelsiusImpl implements Celsius {
 
 	private final double scalar;
-	private final UnitId<Temperature, Kelvin, Celsius> unitId = UnitIdentifier.CELSIUS;
+	private static final UnitId<Temperature, Kelvin, Celsius> unitId = UnitIdentifier.CELSIUS;
 	
 	public CelsiusImpl(double scalar) {
 		this.scalar = scalar;
@@ -42,13 +42,12 @@ final class CelsiusImpl implements Celsius {
 	}
 
 	@Override
-	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Celsius convert(
-			OTHER other) {
+	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Celsius convert(OTHER other) {
 		Celsius converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = new CelsiusImpl(other.getScalar());
+			converted = TemperatureFactory.celsius(other.getScalar());
 		else if (other.getIdentifier().equals(UnitIdentifier.KELVIN))
-			converted = new CelsiusImpl(other.getScalar() - Constants.CELSIUS_KELVIN_OFFSET);
+			converted = TemperatureFactory.celsius(other.getScalar() - Constants.CELSIUS_KELVIN_OFFSET);
 		else
 			converted = Operation.convert(other, unitId);
 		
@@ -62,7 +61,7 @@ final class CelsiusImpl implements Celsius {
 
 	@Override
 	public Celsius valueOf(double d) {
-		return new CelsiusImpl(d);
+		return TemperatureFactory.celsius(d);
 	}
 
 	@Override

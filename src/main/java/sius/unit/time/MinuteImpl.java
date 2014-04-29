@@ -14,62 +14,57 @@
  * limitations under the License.
  * 
  */
-package sius.unit.mass;
+package sius.unit.time;
 
-import sius.dimension.Mass;
+import sius.dimension.Time;
 import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
 
-final class PoundImpl implements Pound {
+final class MinuteImpl implements Minute {
 
 	private final double scalar;
-	private static final UnitId<Mass, KiloGram, Pound> unitId = UnitIdentifier.POUND;
+	private static final UnitId<Time, Second, Minute> unitId = UnitIdentifier.MINUTE;
 	
-	public PoundImpl(double scalar) {
+	public MinuteImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Mass getDimension() {
-		return Mass.INSTANCE;
+	public Time getDimension() {
+		return Time.INSTANCE;
 	}
 
 	@Override
-	public UnitId<Mass, KiloGram, Pound> getIdentifier() {
+	public UnitId<Time, Second, Minute> getIdentifier() {
 		return unitId;
 	}
 
 	@Override
-	public <O extends Unit<Mass, KiloGram, O>> Pound convert(O other) {
-		Pound converted;
+	public <OTHER extends Unit<Time, Second, OTHER>> Minute convert(OTHER other) {
+		Minute converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = MassFactory.lb(other.getScalar());
-		else if (other.getIdentifier().equals(UnitIdentifier.KILOGRAM))
-			converted = MassFactory.lb(other.getScalar() / Constants.KILOGRAM_PER_POUND);
+			converted = TimeFactory.minute(other.getScalar());
+		else if (other.getIdentifier().equals(UnitIdentifier.SECOND))
+			converted = TimeFactory.minute(other.getScalar() / Constants.SECONDS_PER_MINUTE);
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
 	@Override
-	public KiloGram toBaseUnit() {
-		return MassFactory.kg(scalar * Constants.KILOGRAM_PER_POUND);
+	public Second toBaseUnit() {
+		return TimeFactory.second(scalar * Constants.SECONDS_PER_MINUTE);
 	}
 
 	@Override
-	public Pound valueOf(double scalar) {
-		return MassFactory.lb(scalar);
+	public Minute valueOf(double d) {
+		return TimeFactory.minute(d);
 	}
 
 	@Override
 	public double getScalar() {
 		return scalar;
-	}
-
-	@Override
-	public String toString() {
-		return "Pound [value=" + scalar + "]";
 	}
 }

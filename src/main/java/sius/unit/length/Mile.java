@@ -16,9 +16,7 @@
  */
 package sius.unit.length;
 
-import sius.dimension.Length;
-import sius.unit.Unit;
 
-public interface Mile extends Unit<Length, Meter, Mile> {
+public interface Mile extends LengthUnit<Mile> {
 
 }

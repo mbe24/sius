@@ -25,7 +25,7 @@ import sius.unit.UnitIdentifier;
 final class YardImpl implements Yard {
 
 	private final double scalar;
-	private final UnitId<Length, Meter, Yard> unitId = UnitIdentifier.YARD;
+	private static final UnitId<Length, Meter, Yard> unitId = UnitIdentifier.YARD;
 	
 	public YardImpl(double scalar) {
 		this.scalar = scalar;
@@ -45,9 +45,9 @@ final class YardImpl implements Yard {
 	public <O extends Unit<Length, Meter, O>> Yard convert(O other) {
 		Yard converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = new YardImpl(other.getScalar());
+			converted = LengthFactory.yard(other.getScalar());
 		else if (other.getIdentifier().equals(UnitIdentifier.METER))
-			converted = new YardImpl(other.getScalar() / Constants.METER_PER_YARD);
+			converted = LengthFactory.yard(other.getScalar() / Constants.METER_PER_YARD);
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
@@ -60,7 +60,7 @@ final class YardImpl implements Yard {
 
 	@Override
 	public Yard valueOf(double scalar) {
-		return new YardImpl(scalar);
+		return LengthFactory.yard(scalar);
 	}
 
 	@Override

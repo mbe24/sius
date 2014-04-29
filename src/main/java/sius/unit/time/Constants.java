@@ -14,9 +14,12 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.unit.time;
 
-
-public interface Yard extends LengthUnit<Yard> {
-
+final class Constants {
+	private Constants() {
+		// private constructor to prevent instantiation
+	}
+	
+	public static final double SECONDS_PER_MINUTE = 60;
 }

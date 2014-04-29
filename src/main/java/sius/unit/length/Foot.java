@@ -16,7 +16,6 @@
  */
 package sius.unit.length;
 
-
-public interface Yard extends LengthUnit<Yard> {
+public interface Foot extends LengthUnit<Foot> {
 
 }

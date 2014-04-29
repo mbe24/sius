@@ -32,4 +32,12 @@ public final class LengthFactory {
 	public static Yard yard(double value) {
 		return new YardImpl(value);
 	}
+	
+	public static Inch inch(double value) {
+		return new InchImpl(value);
+	}
+	
+	public static Foot foot(double value) {
+		return new FootImpl(value);
+	}
 }

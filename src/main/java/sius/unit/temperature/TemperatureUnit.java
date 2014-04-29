@@ -14,9 +14,11 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.unit.temperature;
 
+import sius.dimension.Temperature;
+import sius.unit.Unit;
 
-public interface Yard extends LengthUnit<Yard> {
+interface TemperatureUnit<U extends TemperatureUnit<U>> extends Unit<Temperature, Kelvin, U> {
 
 }

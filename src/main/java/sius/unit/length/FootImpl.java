@@ -14,53 +14,53 @@
  * limitations under the License.
  * 
  */
-package sius.unit.mass;
+package sius.unit.length;
 
-import sius.dimension.Mass;
+import sius.dimension.Length;
 import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
 
-final class PoundImpl implements Pound {
+final class FootImpl implements Foot {
 
 	private final double scalar;
-	private static final UnitId<Mass, KiloGram, Pound> unitId = UnitIdentifier.POUND;
+	private static final UnitId<Length, Meter, Foot> unitId = UnitIdentifier.FOOT;
 	
-	public PoundImpl(double scalar) {
+	public FootImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Mass getDimension() {
-		return Mass.INSTANCE;
+	public Length getDimension() {
+		return Length.INSTANCE;
 	}
 
 	@Override
-	public UnitId<Mass, KiloGram, Pound> getIdentifier() {
+	public UnitId<Length, Meter, Foot> getIdentifier() {
 		return unitId;
 	}
 
 	@Override
-	public <O extends Unit<Mass, KiloGram, O>> Pound convert(O other) {
-		Pound converted;
+	public <OTHER extends Unit<Length, Meter, OTHER>> Foot convert(OTHER other) {
+		Foot converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = MassFactory.lb(other.getScalar());
-		else if (other.getIdentifier().equals(UnitIdentifier.KILOGRAM))
-			converted = MassFactory.lb(other.getScalar() / Constants.KILOGRAM_PER_POUND);
+			converted = LengthFactory.foot(other.getScalar());
+		else if (other.getIdentifier().equals(UnitIdentifier.METER))
+			converted = LengthFactory.foot(other.getScalar() / Constants.METER_PER_FOOT);
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
 	@Override
-	public KiloGram toBaseUnit() {
-		return MassFactory.kg(scalar * Constants.KILOGRAM_PER_POUND);
+	public Meter toBaseUnit() {
+		return LengthFactory.meter(scalar * Constants.METER_PER_FOOT);
 	}
 
 	@Override
-	public Pound valueOf(double scalar) {
-		return MassFactory.lb(scalar);
+	public Foot valueOf(double d) {
+		return LengthFactory.foot(d);
 	}
 
 	@Override
@@ -70,6 +70,6 @@ final class PoundImpl implements Pound {
 
 	@Override
 	public String toString() {
-		return "Pound [value=" + scalar + "]";
+		return "Foot [value=" + scalar + "]";
 	}
 }

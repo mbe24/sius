@@ -2,6 +2,8 @@ package example;
 
 import sius.operation.Operation;
 import sius.unit.UnitIdentifier;
+import sius.unit.length.Foot;
+import sius.unit.length.Inch;
 import sius.unit.length.LengthFactory;
 import sius.unit.length.Meter;
 import sius.unit.length.Mile;
@@ -23,10 +25,10 @@ public class Example {
 		System.out.println(String.format("Operator \t= %s", lengthSecond));
 
 		Meter sum1 = Operation.add(lengthFirst, lengthSecond);
-		System.out.println("SUM \t\t= " + sum1);
+		System.out.println("Sum \t\t= " + sum1);
 
 		Mile sum2 = Operation.add(lengthSecond, lengthFirst);
-		System.out.println("SUM \t\t= " + sum2);
+		System.out.println("Sum \t\t= " + sum2);
 
 		System.out.println("\nMass example");
 		KiloGram weightFirst = MassFactory.kg(100);
@@ -36,10 +38,10 @@ public class Example {
 		System.out.println(String.format("Operator \t= %s", weightSecond));
 
 		KiloGram sum3 = Operation.add(weightFirst, weightSecond);
-		System.out.println("SUM \t\t= " + sum3);
+		System.out.println("Sum \t\t= " + sum3);
 
 		Pound sum4 = Operation.add(weightSecond, weightFirst);
-		System.out.println("SUM \t\t= " + sum4);
+		System.out.println("Sum \t\t= " + sum4);
 
 		System.out.println("\nConversion example");
 		Pound convertedMass = Operation.convert(weightFirst, UnitIdentifier.POUND);
@@ -48,8 +50,12 @@ public class Example {
 		Meter convertedLength = Operation.convert(lengthSecond, UnitIdentifier.METER);
 		System.out.println(String.format("Converted %s to %s", lengthSecond, convertedLength));
 		
-		Celsius zero = TemperatureFactory.celsius(0);
-		Fahrenheit convertedTemperature = Operation.convert(zero, UnitIdentifier.FAHRENHEIT);
-		System.out.println(String.format("Converted %s to %s", zero, convertedTemperature));
+		Celsius celsius = TemperatureFactory.celsius(0);
+		Fahrenheit fahrenheit = Operation.convert(celsius, UnitIdentifier.FAHRENHEIT);
+		System.out.println(String.format("Converted %s to %s", celsius, fahrenheit));
+		
+		Foot foot = LengthFactory.foot(1);
+		Inch inch = Operation.convert(foot, UnitIdentifier.INCH);
+		System.out.println(String.format("Converted %s to %s", foot, inch));
 	}
 }

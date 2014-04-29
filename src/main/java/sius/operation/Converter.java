@@ -46,9 +46,12 @@ final class Converter {
 		instanceMapMutable.put(UnitIdentifier.METER, LengthFactory.meter(0));
 		instanceMapMutable.put(UnitIdentifier.MILE, LengthFactory.mile(0));
 		instanceMapMutable.put(UnitIdentifier.YARD, LengthFactory.yard(0));
+		instanceMapMutable.put(UnitIdentifier.FOOT, LengthFactory.foot(0));
+		instanceMapMutable.put(UnitIdentifier.INCH, LengthFactory.inch(0));
 		
 		/* time */
 		instanceMapMutable.put(UnitIdentifier.SECOND, TimeFactory.second(0));
+		instanceMapMutable.put(UnitIdentifier.MINUTE, TimeFactory.minute(0));
 	
 		/* temperature */
 		instanceMapMutable.put(UnitIdentifier.KELVIN, TemperatureFactory.kelvin(0));

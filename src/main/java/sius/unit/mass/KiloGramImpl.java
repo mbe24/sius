@@ -25,7 +25,7 @@ import sius.unit.UnitIdentifier;
 final class KiloGramImpl implements KiloGram {
 
 	private final double scalar;
-	private final UnitId<Mass, KiloGram, KiloGram> unitId = UnitIdentifier.KILOGRAM;
+	private static final UnitId<Mass, KiloGram, KiloGram> unitId = UnitIdentifier.KILOGRAM;
 	
 	public KiloGramImpl(double scalar) {
 		this.scalar = scalar;
@@ -45,21 +45,20 @@ final class KiloGramImpl implements KiloGram {
 	public <O extends Unit<Mass, KiloGram, O>> KiloGram convert(O other) {
 		KiloGram converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = new KiloGramImpl(other.getScalar());
+			converted = MassFactory.kg(other.getScalar());
 		else
 			converted = Operation.convert(other, unitId);
-
 		return converted;
 	}
 
 	@Override
 	public KiloGram toBaseUnit() {
-		return new KiloGramImpl(scalar);
+		return MassFactory.kg(scalar);
 	}
 	
 	@Override
 	public KiloGram valueOf(double scalar) {
-		return new KiloGramImpl(scalar);
+		return MassFactory.kg(scalar);
 	}
 
 	@Override

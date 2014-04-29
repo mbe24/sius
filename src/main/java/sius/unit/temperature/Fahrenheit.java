@@ -16,9 +16,7 @@
  */
 package sius.unit.temperature;
 
-import sius.dimension.Temperature;
-import sius.unit.Unit;
 
-public interface Fahrenheit extends Unit<Temperature, Kelvin, Fahrenheit> {
+public interface Fahrenheit extends TemperatureUnit<Fahrenheit> {
 
 }

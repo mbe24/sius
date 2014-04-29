@@ -14,9 +14,11 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.unit.mass;
 
+import sius.dimension.Mass;
+import sius.unit.Unit;
 
-public interface Yard extends LengthUnit<Yard> {
+interface MassUnit<U extends MassUnit<U>> extends Unit<Mass, KiloGram, U> {
 
 }

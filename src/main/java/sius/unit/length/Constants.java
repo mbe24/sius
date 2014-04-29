@@ -24,4 +24,8 @@ final class Constants {
 	public static final double METER_PER_MILE = 1609.344;
 	
 	public static final double METER_PER_YARD = 0.9144;
+	
+	public static final double METER_PER_FOOT = 0.3048;
+	
+	public static final double METER_PER_INCH = 0.0254;
 }

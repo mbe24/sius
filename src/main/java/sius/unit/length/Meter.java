@@ -16,9 +16,7 @@
  */
 package sius.unit.length;
 
-import sius.dimension.Length;
-import sius.unit.Unit;
 
-public interface Meter extends Unit<Length, Meter, Meter> {
+public interface Meter extends LengthUnit<Meter> {
 
 }

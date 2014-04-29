@@ -25,7 +25,7 @@ import sius.unit.UnitIdentifier;
 final class KelvinImpl implements Kelvin {
 
 	private final double scalar;
-	private final UnitId<Temperature, Kelvin, Kelvin> unitId = UnitIdentifier.KELVIN;
+	private static final UnitId<Temperature, Kelvin, Kelvin> unitId = UnitIdentifier.KELVIN;
 	
 	public KelvinImpl(double scalar) {
 		this.scalar = scalar;
@@ -45,7 +45,7 @@ final class KelvinImpl implements Kelvin {
 	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Kelvin convert(OTHER other) {
 		Kelvin converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = new KelvinImpl(other.getScalar());
+			converted = TemperatureFactory.kelvin(other.getScalar());
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
@@ -53,12 +53,12 @@ final class KelvinImpl implements Kelvin {
 
 	@Override
 	public Kelvin toBaseUnit() {
-		return new KelvinImpl(scalar);
+		return TemperatureFactory.kelvin(scalar);
 	}
 
 	@Override
 	public Kelvin valueOf(double d) {
-		return new KelvinImpl(d);
+		return TemperatureFactory.kelvin(d);
 	}
 
 	@Override

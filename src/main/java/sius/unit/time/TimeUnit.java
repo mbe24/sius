@@ -14,9 +14,11 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.unit.time;
 
+import sius.dimension.Time;
+import sius.unit.Unit;
 
-public interface Yard extends LengthUnit<Yard> {
+interface TimeUnit<U extends TimeUnit<U>> extends Unit<Time, Second, U> {
 
 }

@@ -25,7 +25,7 @@ import sius.unit.UnitIdentifier;
 final class FahrenheitImpl implements Fahrenheit {
 
 	private final double scalar;
-	private final UnitId<Temperature, Kelvin, Fahrenheit> unitId = UnitIdentifier.FAHRENHEIT;
+	private static final UnitId<Temperature, Kelvin, Fahrenheit> unitId = UnitIdentifier.FAHRENHEIT;
 	
 	public FahrenheitImpl(double scalar) {
 		this.scalar = scalar;
@@ -45,9 +45,11 @@ final class FahrenheitImpl implements Fahrenheit {
 	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Fahrenheit convert(OTHER other) {
 		Fahrenheit converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = new FahrenheitImpl(other.getScalar());
+			converted = TemperatureFactory.fahrenheit(other.getScalar());
 		else if (other.getIdentifier().equals(UnitIdentifier.KELVIN))
-			converted = new FahrenheitImpl((other.getScalar() * (Constants.FAHRENHEIT_KELVIN_SCALE_NINE / Constants.FAHRENHEIT_KELVIN_SCALE_FIVE)) - Constants.FAHRENHEIT_KELVIN_OFFSET);
+			converted = TemperatureFactory.fahrenheit((other.getScalar()
+					* (Constants.FAHRENHEIT_KELVIN_SCALE_NINE / Constants.FAHRENHEIT_KELVIN_SCALE_FIVE))
+					- Constants.FAHRENHEIT_KELVIN_OFFSET);
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
@@ -55,12 +57,13 @@ final class FahrenheitImpl implements Fahrenheit {
 
 	@Override
 	public Kelvin toBaseUnit() {
-		return TemperatureFactory.kelvin((scalar +  Constants.FAHRENHEIT_KELVIN_OFFSET) * (Constants.FAHRENHEIT_KELVIN_SCALE_FIVE / Constants.FAHRENHEIT_KELVIN_SCALE_NINE));
+		return TemperatureFactory.kelvin((scalar +  Constants.FAHRENHEIT_KELVIN_OFFSET)
+				* (Constants.FAHRENHEIT_KELVIN_SCALE_FIVE / Constants.FAHRENHEIT_KELVIN_SCALE_NINE));
 	}
 
 	@Override
 	public Fahrenheit valueOf(double d) {
-		return new FahrenheitImpl(d);
+		return TemperatureFactory.fahrenheit(d);
 	}
 
 	@Override

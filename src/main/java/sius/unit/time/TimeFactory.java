@@ -22,6 +22,10 @@ public final class TimeFactory {
 	}
 	
 	public static Second second(double value) {
-		return null;
+		return new SecondImpl(value);
+	}
+	
+	public static Minute minute(double value) {
+		return new MinuteImpl(value);
 	}
 }

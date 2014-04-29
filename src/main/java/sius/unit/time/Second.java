@@ -16,9 +16,7 @@
  */
 package sius.unit.time;
 
-import sius.dimension.Time;
-import sius.unit.Unit;
 
-public interface Second extends Unit<Time, Second, Second> {
+public interface Second extends TimeUnit<Second> {
 
 }
