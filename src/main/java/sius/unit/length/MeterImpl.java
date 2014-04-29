@@ -26,7 +26,7 @@ final class MeterImpl implements Meter {
 
 	private final double scalar;
 	private static final UnitId<Length, Meter, Meter> unitId = UnitIdentifier.METER;
-	
+
 	public MeterImpl(double scalar) {
 		this.scalar = scalar;
 	}
@@ -60,14 +60,36 @@ final class MeterImpl implements Meter {
 	public Meter toBaseUnit() {
 		return LengthFactory.meter(scalar);
 	}
-	
+
 	@Override
 	public Meter valueOf(double d) {
-		return LengthFactory.meter(d);
+		if ((d == Math.floor(d)) && !Double.isInfinite(d)) {
+		    int i = (int) d;
+		    if (i >= MeterCache.low && i <= MeterCache.high)
+		    	return MeterCache.cache[i + (-MeterCache.low)];
+		}
+		return new MeterImpl(d);
 	}
 
 	@Override
 	public String toString() {
 		return "Meter [value=" + scalar + "]";
+	}
+
+	/* static cache inspired by java.lang.Integer */
+	private static class MeterCache {
+		static final int low = -128;
+		static final int high = 127;
+		static final Meter[] cache;
+
+		static {
+			cache = new Meter[(high - low) + 1];
+			int j = low;
+			for (int k = 0; k < cache.length; k++)
+				cache[k] = new MeterImpl((double) j++);
+		}
+		private MeterCache() {
+			// private constructor to prevent instantiation
+		}
 	}
 }
