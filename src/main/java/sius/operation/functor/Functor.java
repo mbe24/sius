@@ -14,27 +14,35 @@
  * limitations under the License.
  * 
  */
-package sius.operation;
+package sius.operation.functor;
 
 import sius.dimension.Dimension;
 import sius.unit.Unit;
-import sius.unit.UnitFactory;
 import sius.unit.UnitId;
 
-final class Converter {
-	private Converter() {
-		// private constructor to prevent instantiation
-	}
+/**
+ * Functor that performs operation on arbitrary number of operands.
+ * 
+ * @author mbeyene
+ *
+ * @param <D> dimension
+ * @param <F> self reference
+ */
+public interface Functor<D extends Dimension<D>, F extends Functor<D, F>> {
 
 	/**
-	 * Converts a unit into another unit of the same dimension.
+	 * Adds operand.
 	 * 
-	 * @param op operand
-	 * @param cunitId conversion unit id
-	 * @return converted unit
+	 * @param op operand to be added
+	 * @return <code>this<code>
 	 */
-	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>, CU extends Unit<D, B, CU>, CuId extends UnitId<D, B, CU>> CU convert(OP op, CuId cunitId) {
-		CU conversionUnit = UnitFactory.valueOf(0, cunitId);
-		return conversionUnit.convert(op.toBaseUnit());
-	}
+	public <B extends Unit<D, B, B>> F op(Unit<D, B, ?> op);
+	
+	/**
+	 * Applies functor.
+	 * 
+	 * @param cunitId unit id of target unit
+	 * @return result
+	 */
+	public <B extends Unit<D, B, B>, CU extends Unit<D, B, CU>, CUID extends UnitId<D, B, CU>> CU apply(CUID cunitId);
 }

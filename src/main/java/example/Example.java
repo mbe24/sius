@@ -1,6 +1,8 @@
 package example;
 
+import sius.dimension.Length;
 import sius.operation.Operation;
+import sius.operation.functor.FunctorFactory;
 import sius.unit.UnitIdentifier;
 import sius.unit.length.Foot;
 import sius.unit.length.Inch;
@@ -57,5 +59,36 @@ public class Example {
 		Foot foot = LengthFactory.foot(1);
 		Inch inch = Operation.convert(foot, UnitIdentifier.INCH);
 		System.out.println(String.format("Converted %s to %s", foot, inch));
+		
+		Meter res = FunctorFactory.<Length>sum()
+		.op(lengthSecond)
+		.op(lengthSecond)
+		.op(lengthSecond)
+		.op(lengthSecond)
+		.op(lengthSecond)
+		.op(lengthSecond)
+		.op(lengthSecond)
+		.op(lengthSecond)
+		.op(lengthSecond)
+		.op(lengthSecond)
+		.op(foot)
+		.op(foot)
+		.apply(UnitIdentifier.METER);
+		System.out.println(res);
+		
+		Meter sameRes = Operation.add(UnitIdentifier.METER,
+				lengthSecond,
+				lengthSecond,
+				lengthSecond,
+				lengthSecond,
+				lengthSecond,
+				lengthSecond,
+				lengthSecond,
+				lengthSecond,
+				lengthSecond,
+				lengthSecond,
+				foot,
+				foot);
+		System.out.println(sameRes);
 	}
 }

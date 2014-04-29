@@ -14,27 +14,16 @@
  * limitations under the License.
  * 
  */
-package sius.operation;
+package sius.operation.functor;
 
 import sius.dimension.Dimension;
-import sius.unit.Unit;
-import sius.unit.UnitFactory;
-import sius.unit.UnitId;
 
-final class Converter {
-	private Converter() {
+public final class FunctorFactory {
+	private FunctorFactory() {
 		// private constructor to prevent instantiation
 	}
-
-	/**
-	 * Converts a unit into another unit of the same dimension.
-	 * 
-	 * @param op operand
-	 * @param cunitId conversion unit id
-	 * @return converted unit
-	 */
-	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>, CU extends Unit<D, B, CU>, CuId extends UnitId<D, B, CU>> CU convert(OP op, CuId cunitId) {
-		CU conversionUnit = UnitFactory.valueOf(0, cunitId);
-		return conversionUnit.convert(op.toBaseUnit());
+	
+	public static <D extends Dimension<D>> Adder<D> sum() {
+		return new AdderImpl<D>();
 	}
 }

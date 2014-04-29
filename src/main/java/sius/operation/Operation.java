@@ -17,6 +17,8 @@
 package sius.operation;
 
 import sius.dimension.Dimension;
+import sius.operation.functor.Adder;
+import sius.operation.functor.FunctorFactory;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 
@@ -43,7 +45,7 @@ public final class Operation {
 	}
 
 	/**
-	 * Adds two (different) units of the same dimension. Result is of same type as first operand.
+	 * Adds (different) units of the same dimension. Result is of same type as first operand.
 	 * 
 	 * @param op1 first operand. Determines type of result.
 	 * @param op2 second operand. Gets added to first operand.
@@ -53,7 +55,27 @@ public final class Operation {
 			OP1 op1, OP2 op2) {
 		return op1.valueOf(op1.getScalar() + op1.convert(op2).getScalar());
 	}
+	
+	/**
+	 * Adds (different) units of the same dimension. Result is of same type as first operand.
+	 * 
+	 * @param op1 first operand. Determines type of result.
+	 * @param op2 second operand. Gets added to first operand.
+	 * @return sum
+	 */
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP1 extends Unit<D, B, OP1>, OP2 extends Unit<D, B, OP2>, OP3 extends Unit<D, B, OP3>> OP1 add(
+			OP1 op1, OP2 op2, OP3 op3) {
+		return op1.valueOf(op1.getScalar() + op1.convert(op2).getScalar() + op1.convert(op3).getScalar());
+	}
 
+	@SafeVarargs
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>, CU extends Unit<D, B, CU>, CUID extends UnitId<D, B, CU>> CU add(CUID cunitId, OP op, Unit<D, B, ?>... ops) {
+		Adder<D> adder = FunctorFactory.<D>sum().op(op);
+		for (Unit<D, B, ?> o : ops)
+			adder.op(o);
+		return adder.apply(cunitId);
+	}
+	
 	/**
 	 * Subtracts two (different) units of the same dimension. Result is of same type as first operand.
 	 * 
