@@ -21,23 +21,24 @@ public final class LengthFactory {
 		// private constructor to prevent instantiation
 	}
 
-	public static Meter meter(double value) {
-		return new MeterImpl(value);
+	private static Meter meter = new MeterImpl(0);
+	public static Meter meter(double d) {
+		return meter.valueOf(d);
 	}
 
-	public static Mile mile(double value) {
-		return new MileImpl(value);
+	public static Mile mile(double d) {
+		return new MileImpl(d);
 	}
 	
-	public static Yard yard(double value) {
-		return new YardImpl(value);
+	public static Yard yard(double d) {
+		return new YardImpl(d);
 	}
 	
-	public static Inch inch(double value) {
-		return new InchImpl(value);
+	public static Inch inch(double d) {
+		return new InchImpl(d);
 	}
 	
-	public static Foot foot(double value) {
-		return new FootImpl(value);
+	public static Foot foot(double d) {
+		return new FootImpl(d);
 	}
 }
