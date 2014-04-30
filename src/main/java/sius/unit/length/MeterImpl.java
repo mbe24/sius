@@ -77,7 +77,7 @@ final class MeterImpl implements Meter {
 	}
 
 	/* static cache inspired by java.lang.Integer */
-	private static class MeterCache {
+	private static final class MeterCache {
 		static final int low = -128;
 		static final int high = 127;
 		static final Meter[] cache;
@@ -86,7 +86,7 @@ final class MeterImpl implements Meter {
 			cache = new Meter[(high - low) + 1];
 			int j = low;
 			for (int k = 0; k < cache.length; k++)
-				cache[k] = new MeterImpl((double) j++);
+				cache[k] = new MeterImpl(j++);
 		}
 		private MeterCache() {
 			// private constructor to prevent instantiation
