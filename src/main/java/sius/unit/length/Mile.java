@@ -16,7 +16,6 @@
  */
 package sius.unit.length;
 
-
 public interface Mile extends LengthUnit<Mile> {
 
 }

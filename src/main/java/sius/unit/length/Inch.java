@@ -16,7 +16,6 @@
  */
 package sius.unit.length;
 
-
 public interface Inch extends LengthUnit<Inch> {
 
 }
