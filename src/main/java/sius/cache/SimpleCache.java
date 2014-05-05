@@ -27,21 +27,20 @@ final class SimpleCache<D extends Dimension<D>, B extends Unit<D, B, B>, U exten
 		implements Cache<D, B, U> {
 
 	private final int capacity;
-	private final Map<Double, Unit<D, B, U>> map;
+	private final Map<Double, U> map;
 
 	SimpleCache(int capacity) {
 		this.capacity = capacity;
-		this.map = Collections
-				.synchronizedMap(new WeakHashMap<Double, Unit<D, B, U>>());
+		this.map = Collections.synchronizedMap(new WeakHashMap<Double, U>());
 	}
 
 	@Override
-	public Unit<D, B, U> lookUp(double d) {
+	public U lookUp(double d) {
 		return map.get(d);
 	}
 
 	@Override
-	public boolean put(Unit<D, B, U> unit) {
+	public boolean put(U unit) {
 		if (map.size() >= capacity && !map.containsKey(unit.getScalar())) {
 			return false;
 		} else {

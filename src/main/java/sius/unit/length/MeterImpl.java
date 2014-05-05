@@ -77,8 +77,7 @@ final class MeterImpl implements Meter {
 			if (i >= MeterCache.low && i <= MeterCache.high)
 				return MeterCache.cache[i + (-MeterCache.low)];
 		}
-
-		Meter cached = (Meter) cache.lookUp(d);
+		Meter cached = cache.lookUp(d);
 		if (cached != null)
 			return cached;
 		else

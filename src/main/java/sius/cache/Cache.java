@@ -21,6 +21,6 @@ import sius.unit.Unit;
 
 public interface Cache<D extends Dimension<D>, B extends Unit<D, B, B>, U extends Unit<D, B, U>> {
 
-	public Unit<D, B, U> lookUp(double d);
-	public boolean put(Unit<D, B, U> unit);
+	public U lookUp(double d);
+	public boolean put(U unit);
 }
