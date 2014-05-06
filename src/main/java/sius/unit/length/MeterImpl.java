@@ -30,7 +30,7 @@ final class MeterImpl implements Meter {
 	private final double scalar;
 	private static final UnitId<Length, Meter, Meter> unitId = UnitIdentifier.METER;
 
-	private final transient Cache<Length, Meter, Meter> cache = Caches.newInstance(unitId, 
+	private final transient Cache<Length, Meter, Meter> cache = Caches.newInstance(unitId,
 			Math.abs((Preferences.loadInt("meter.cache.dynamic.size", 128))));
 
 	public MeterImpl(double scalar) {
@@ -56,7 +56,7 @@ final class MeterImpl implements Meter {
 	public <O extends Unit<Length, Meter, O>> Meter convert(O other) {
 		Meter converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = LengthFactory.meter(other.getScalar());
+			converted = valueOf(other.getScalar());
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
@@ -84,6 +84,31 @@ final class MeterImpl implements Meter {
 			cached = new MeterImpl(d);
 		cache.put(cached);
 		return cached;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(scalar);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Meter))
+			return false;
+		Meter other = (Meter) obj;
+		if (Double.doubleToLongBits(scalar) != Double
+				.doubleToLongBits(other.getScalar()))
+			return false;
+		return true;
 	}
 
 	@Override
