@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import sius.dimension.Dimension;
+import sius.unit.composition.speed.SpeedFactory;
 import sius.unit.length.LengthFactory;
 import sius.unit.mass.MassFactory;
 import sius.unit.temperature.TemperatureFactory;
@@ -51,6 +52,10 @@ public final class UnitFactory {
 		instanceMapMutable.put(UnitIdentifier.KELVIN, TemperatureFactory.kelvin(0));
 		instanceMapMutable.put(UnitIdentifier.CELSIUS, TemperatureFactory.celsius(0));
 		instanceMapMutable.put(UnitIdentifier.FAHRENHEIT, TemperatureFactory.fahrenheit(0));
+		
+		/* speed */
+		instanceMapMutable.put(UnitIdentifier.METER_PER_SECOND, SpeedFactory.mps(0));
+		instanceMapMutable.put(UnitIdentifier.MILES_PER_HOUR, SpeedFactory.mph(0));
 	}
 	private static final Map<UnitId<?, ?, ?>, Unit<?, ?, ?>> instanceMap = Collections.unmodifiableMap(instanceMapMutable);
 
