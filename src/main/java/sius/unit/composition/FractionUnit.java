@@ -34,7 +34,6 @@ import sius.unit.Unit;
  * @param <UNIT_DENOMINATOR> unit of denominator dimension
  * @param <UNIT_FRACTION> self reference
  */
-//@formatter:off
 public interface FractionUnit<NUMERATOR extends Dimension<NUMERATOR>,
 DENOMINATOR extends Dimension<DENOMINATOR>,
 F extends Fraction<NUMERATOR, DENOMINATOR, F>,
@@ -46,6 +45,5 @@ UNIT_DENOMINATOR extends Unit<DENOMINATOR, BASE_DENOMINATOR, UNIT_DENOMINATOR>,
 UNIT_FRACTION extends FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION>>
 
 extends CompositeUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION> {
-// @formatter:on
 
 }

@@ -34,7 +34,6 @@ import sius.unit.Unit;
  * @param <UNIT_FACTOR2> unit of denominator dimension
  * @param <UNIT_PRODUCT> self reference
  */
-//@formatter:off
 public interface ProductUnit<FACTOR1 extends Dimension<FACTOR1>,
 FACTOR2 extends Dimension<FACTOR2>,
 P extends Product<FACTOR1, FACTOR2, P>,
@@ -46,6 +45,5 @@ UNIT_FACTOR2 extends Unit<FACTOR2, BASE_FACTOR2, UNIT_FACTOR2>,
 UNIT_PRODUCT extends ProductUnit<FACTOR1, FACTOR2, P, BASE_P, BASE_FACTOR1, BASE_FACTOR2, UNIT_FACTOR1, UNIT_FACTOR2, UNIT_PRODUCT>>
 
 extends CompositeUnit<FACTOR1, FACTOR2, P, BASE_P, BASE_FACTOR1, BASE_FACTOR2, UNIT_FACTOR1, UNIT_FACTOR2, UNIT_PRODUCT> {
-// @formatter:on
 
 }
