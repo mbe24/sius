@@ -17,10 +17,12 @@
 package sius.operation;
 
 import sius.dimension.Dimension;
+import sius.dimension.composition.util.Fraction;
 import sius.operation.functor.Adder;
 import sius.operation.functor.FunctorFactory;
 import sius.unit.Unit;
 import sius.unit.UnitId;
+import sius.unit.composition.FractionUnit;
 
 /**
  * 
@@ -139,5 +141,19 @@ public final class Operation {
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>> OP div(
 			OP op, double scalar) {
 		return op.valueOf(op.getScalar() / scalar);
+	}
+
+	public static <NUMERATOR extends Dimension<NUMERATOR>,
+	DENOMINATOR extends Dimension<DENOMINATOR>,
+	F extends Fraction<NUMERATOR, DENOMINATOR, F>,
+	BASE_F extends Unit<F, BASE_F, BASE_F>,
+	BASE_NUMERATOR extends Unit<NUMERATOR, BASE_NUMERATOR, BASE_NUMERATOR>,
+	BASE_DENOMINATOR extends Unit<DENOMINATOR, BASE_DENOMINATOR, BASE_DENOMINATOR>,
+	UNIT_NUMERATOR extends Unit<NUMERATOR, BASE_NUMERATOR, UNIT_NUMERATOR>,
+	UNIT_DENOMINATOR extends Unit<DENOMINATOR, BASE_DENOMINATOR, UNIT_DENOMINATOR>,
+	UNIT_FRACTION extends FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION>,
+	OP extends Unit<DENOMINATOR, BASE_DENOMINATOR, OP>> UNIT_NUMERATOR mul(
+			FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION> factor1, OP factor2) {
+		return null;
 	}
 }
