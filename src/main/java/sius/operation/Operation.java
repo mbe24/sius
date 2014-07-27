@@ -154,6 +154,7 @@ public final class Operation {
 	UNIT_FRACTION extends FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION>,
 	OP extends Unit<DENOMINATOR, BASE_DENOMINATOR, OP>> UNIT_NUMERATOR mul(
 			FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION> factor1, OP factor2) {
-		return null;
+		double scalarF2 = factor1.getComponentUnit2().convert(factor2).getScalar();
+		return factor1.getComponentUnit1().valueOf(factor1.getScalar() * scalarF2);
 	}
 }

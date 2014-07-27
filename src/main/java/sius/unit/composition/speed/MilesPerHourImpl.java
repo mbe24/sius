@@ -21,6 +21,8 @@ import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
+import sius.unit.length.Mile;
+import sius.unit.time.Hour;
 
 public class MilesPerHourImpl implements MilesPerHour {
 
@@ -29,6 +31,18 @@ public class MilesPerHourImpl implements MilesPerHour {
 
 	public MilesPerHourImpl(double scalar) {
 		this.scalar = scalar;
+	}
+
+	@Override
+	public Mile getComponentUnit1() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Hour getComponentUnit2() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
