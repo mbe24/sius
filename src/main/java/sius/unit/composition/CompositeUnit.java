@@ -45,5 +45,8 @@ UNIT_C2 extends Unit<C2, BASE_C2, UNIT_C2>,
 COMPOSITE_UNIT extends CompositeUnit<C1, C2, COMPOSITION, BASE_COMPOSITION, BASE_C1, BASE_C2, UNIT_C1, UNIT_C2, COMPOSITE_UNIT>>
 
 extends Unit<COMPOSITION, BASE_COMPOSITION, COMPOSITE_UNIT> {
+	
+	public UNIT_C1 getComponentUnit1();
 
+	public UNIT_C2 getComponentUnit2();
 }

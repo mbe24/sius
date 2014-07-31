@@ -21,6 +21,10 @@ import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
+import sius.unit.length.LengthFactory;
+import sius.unit.length.Meter;
+import sius.unit.time.Second;
+import sius.unit.time.TimeFactory;
 
 final class MeterPerSecondImpl implements MeterPerSecond {
 
@@ -29,6 +33,16 @@ final class MeterPerSecondImpl implements MeterPerSecond {
 
 	public MeterPerSecondImpl(double scalar) {
 		this.scalar = scalar;
+	}
+
+	@Override
+	public Meter getComponentUnit1() {
+		return LengthFactory.meter(0);
+	}
+
+	@Override
+	public Second getComponentUnit2() {
+		return TimeFactory.second(0);
 	}
 
 	@Override

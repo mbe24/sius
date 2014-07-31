@@ -67,4 +67,9 @@ final class MinuteImpl implements Minute {
 	public double getScalar() {
 		return scalar;
 	}
+	
+	@Override
+	public String toString() {
+		return "Minute [value=" + scalar + "]";
+	}
 }
