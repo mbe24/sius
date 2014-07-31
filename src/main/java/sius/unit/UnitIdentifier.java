@@ -21,6 +21,9 @@ import sius.dimension.Length;
 import sius.dimension.Mass;
 import sius.dimension.Temperature;
 import sius.dimension.Time;
+import sius.dimension.composition.Speed;
+import sius.unit.composition.speed.MeterPerSecond;
+import sius.unit.composition.speed.MilesPerHour;
 import sius.unit.length.Foot;
 import sius.unit.length.Inch;
 import sius.unit.length.Meter;
@@ -46,38 +49,102 @@ public final class UnitIdentifier {
 	}
 
 	/* length */
-	
+
 	public static final MeterId METER = new MeterId();
 
 	public static final MileId MILE = new MileId();
-	
+
 	public static final YardId YARD = new YardId();
 
 	public static final FootId FOOT = new FootId();
-	
+
 	public static final InchId INCH = new InchId();
-	
+
 	/* mass */
-	
+
 	public static final KiloGramId KILOGRAM = new KiloGramId();
-	
+
 	public static final PoundId POUND = new PoundId();
-	
+
 	/* time */
-	
+
 	public static final SecondId SECOND = new SecondId();
-	
+
 	public static final MinuteId MINUTE = new MinuteId();
-	
+
 	/* temperature */
-	
+
 	public static final KelvinId KELVIN = new KelvinId();
-	
+
 	public static final CelsiusId CELSIUS = new CelsiusId();
-	
+
 	public static final FahrenheitId FAHRENHEIT = new FahrenheitId();
-	
-	private static abstract class AbstractUnitId<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, U extends Unit<D, BASE, U>> implements UnitId<D, BASE, U> {
+
+	/* speed */
+
+	public static final MeterPerSecondId METER_PER_SECOND = new MeterPerSecondId();
+
+	public static final MilesPerHourId MILES_PER_HOUR = new MilesPerHourId();
+
+	/* length */
+
+	private static class MeterId extends AbstractUnitId<Length, Meter, Meter> {
+	}
+
+	private static class MileId extends AbstractUnitId<Length, Meter, Mile> {
+	}
+
+	private static class YardId extends AbstractUnitId<Length, Meter, Yard> {
+	}
+
+	private static class FootId extends AbstractUnitId<Length, Meter, Foot> {
+	}
+
+	private static class InchId extends AbstractUnitId<Length, Meter, Inch> {
+	}
+
+	/* mass */
+
+	private static class KiloGramId extends
+			AbstractUnitId<Mass, KiloGram, KiloGram> {
+	}
+
+	private static class PoundId extends AbstractUnitId<Mass, KiloGram, Pound> {
+	}
+
+	/* time */
+
+	private static class SecondId extends AbstractUnitId<Time, Second, Second> {
+	}
+
+	private static class MinuteId extends AbstractUnitId<Time, Second, Minute> {
+	}
+
+	/* temperature */
+
+	private static class KelvinId extends
+			AbstractUnitId<Temperature, Kelvin, Kelvin> {
+	}
+
+	private static class CelsiusId extends
+			AbstractUnitId<Temperature, Kelvin, Celsius> {
+	}
+
+	private static class FahrenheitId extends
+			AbstractUnitId<Temperature, Kelvin, Fahrenheit> {
+	}
+
+	/* speed */
+	private static class MeterPerSecondId extends
+			AbstractUnitId<Speed, MeterPerSecond, MeterPerSecond> {
+	}
+
+	private static class MilesPerHourId extends
+			AbstractUnitId<Speed, MeterPerSecond, MilesPerHour> {
+	}
+
+	private static abstract class AbstractUnitId<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, U extends Unit<D, BASE, U>>
+			implements UnitId<D, BASE, U> {
 		private final String id = this.getClass().getName();
 
 		@Override
@@ -109,49 +176,5 @@ public final class UnitIdentifier {
 		public String toString() {
 			return "UnitId [id=" + this.getClass().getSimpleName() + "]";
 		}
-	}
-	
-	/* length */
-	
-	private static class MeterId extends AbstractUnitId<Length, Meter, Meter> {
-	}
-	
-	private static class MileId extends AbstractUnitId<Length, Meter, Mile> {
-	}
-	
-	private static class YardId extends AbstractUnitId<Length, Meter, Yard> {
-	}
-	
-	private static class FootId extends AbstractUnitId<Length, Meter, Foot> {
-	}
-	
-	private static class InchId extends AbstractUnitId<Length, Meter, Inch> {
-	}
-	
-	/* mass */
-	
-	private static class KiloGramId extends AbstractUnitId<Mass, KiloGram, KiloGram> {
-	}
-	
-	private static class PoundId extends AbstractUnitId<Mass, KiloGram, Pound> {
-	}
-	
-	/* time */
-	
-	private static class SecondId extends AbstractUnitId<Time, Second, Second> {
-	}
-	
-	private static class MinuteId extends AbstractUnitId<Time, Second, Minute> {
-	}
-	
-	/* temperature */
-	
-	private static class KelvinId extends AbstractUnitId<Temperature, Kelvin, Kelvin> {
-	}
-	
-	private static class CelsiusId extends AbstractUnitId<Temperature, Kelvin, Celsius> {
-	}
-	
-	private static class FahrenheitId extends AbstractUnitId<Temperature, Kelvin, Fahrenheit> {
 	}
 }

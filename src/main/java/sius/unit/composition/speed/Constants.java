@@ -14,8 +14,12 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.unit.composition.speed;
 
-public interface Meter extends LengthUnit<Meter> {
-
+final class Constants {
+	private Constants() {
+		// private constructor to prevent instantiation
+	}
+	
+	public static final double MPS_PER_MPH = 0.44704;
 }

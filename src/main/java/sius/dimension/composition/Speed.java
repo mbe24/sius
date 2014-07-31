@@ -14,8 +14,22 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.dimension.composition;
 
-public interface Meter extends LengthUnit<Meter> {
+import sius.dimension.Length;
+import sius.dimension.Time;
+import sius.dimension.composition.util.Fraction;
 
+public enum Speed implements Fraction<Length, Time, Speed> {
+	INSTANCE;
+
+	@Override
+	public Length getNumerator() {
+		return Length.INSTANCE;
+	}
+
+	@Override
+	public Time getDenominator() {
+		return Time.INSTANCE;
+	}
 }

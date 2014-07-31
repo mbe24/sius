@@ -14,8 +14,11 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.unit.composition.speed;
 
-public interface Meter extends LengthUnit<Meter> {
+import sius.unit.length.Meter;
+import sius.unit.time.Second;
+
+public interface MeterPerSecond extends SpeedUnit<Meter, Second, MeterPerSecond> {
 
 }

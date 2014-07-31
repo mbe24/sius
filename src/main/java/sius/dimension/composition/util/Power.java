@@ -14,8 +14,8 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.dimension.composition.util;
 
-public interface Meter extends LengthUnit<Meter> {
+public interface Power {
 
 }

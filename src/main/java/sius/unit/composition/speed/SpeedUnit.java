@@ -14,8 +14,28 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.unit.composition.speed;
 
-public interface Meter extends LengthUnit<Meter> {
+import sius.dimension.Length;
+import sius.dimension.Time;
+import sius.dimension.composition.Speed;
+import sius.unit.Unit;
+import sius.unit.composition.FractionUnit;
+import sius.unit.length.Meter;
+import sius.unit.time.Second;
 
+public interface SpeedUnit<
+NUMERATOR extends Unit<Length, Meter, NUMERATOR>, 
+DENOMINATOR extends Unit<Time, Second, DENOMINATOR>, 
+T extends SpeedUnit<NUMERATOR, DENOMINATOR, T>> extends FractionUnit<
+Length, 
+Time, 
+Speed, 
+MeterPerSecond, 
+Meter, 
+Second, 
+NUMERATOR, 
+DENOMINATOR,
+T> {
+	
 }

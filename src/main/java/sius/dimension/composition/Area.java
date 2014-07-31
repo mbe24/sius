@@ -14,8 +14,22 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.dimension.composition;
 
-public interface Meter extends LengthUnit<Meter> {
+import sius.dimension.Length;
+import sius.dimension.composition.util.Product;
+
+public enum Area implements Product<Length, Length, Area> {
+	INSTANCE;
+
+	@Override
+	public Length getFactor1() {
+		return Length.INSTANCE;
+	}
+
+	@Override
+	public Length getFactor2() {
+		return Length.INSTANCE;
+	}
 
 }

@@ -14,8 +14,21 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.unit.composition.speed;
 
-public interface Meter extends LengthUnit<Meter> {
+public final class SpeedFactory {
 
+	private SpeedFactory() {
+		// private constructor to prevent instantiation
+	}
+
+	private static MeterPerSecond mps = new MeterPerSecondImpl(0);
+	public static MeterPerSecond mps(double d) {
+		return mps.valueOf(d);
+	}
+
+	public static MilesPerHour mph = new MilesPerHourImpl(0);
+	public static MilesPerHour mph(double d) {
+		return mph.valueOf(d);
+	}
 }

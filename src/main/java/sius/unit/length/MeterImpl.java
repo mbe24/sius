@@ -16,16 +16,22 @@
  */
 package sius.unit.length;
 
+import sius.cache.Cache;
+import sius.cache.Caches;
 import sius.dimension.Length;
 import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
+import sius.util.Preferences;
 
 final class MeterImpl implements Meter {
 
 	private final double scalar;
 	private static final UnitId<Length, Meter, Meter> unitId = UnitIdentifier.METER;
+
+	private final transient Cache<Length, Meter, Meter> cache = Caches.newInstance(unitId,
+			Math.abs((Preferences.loadInt("meter.cache.dynamic.size", 128))));
 
 	public MeterImpl(double scalar) {
 		this.scalar = scalar;
@@ -50,7 +56,7 @@ final class MeterImpl implements Meter {
 	public <O extends Unit<Length, Meter, O>> Meter convert(O other) {
 		Meter converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = LengthFactory.meter(other.getScalar());
+			converted = valueOf(other.getScalar());
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
@@ -58,17 +64,51 @@ final class MeterImpl implements Meter {
 
 	@Override
 	public Meter toBaseUnit() {
-		return LengthFactory.meter(scalar);
+		return this;
 	}
 
 	@Override
 	public Meter valueOf(double d) {
+		if (scalar == d)
+			return this;
+
 		if ((d == Math.floor(d)) && !Double.isInfinite(d)) {
-		    int i = (int) d;
-		    if (i >= MeterCache.low && i <= MeterCache.high)
-		    	return MeterCache.cache[i + (-MeterCache.low)];
+			int i = (int) d;
+			if (i >= MeterCache.low && i <= MeterCache.high)
+				return MeterCache.cache[i + (-MeterCache.low)];
 		}
-		return new MeterImpl(d);
+		Meter cached = cache.lookUp(d);
+		if (cached != null)
+			return cached;
+		else
+			cached = new MeterImpl(d);
+		cache.put(cached);
+		return cached;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(scalar);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Meter))
+			return false;
+		Meter other = (Meter) obj;
+		if (Double.doubleToLongBits(scalar) != Double
+				.doubleToLongBits(other.getScalar()))
+			return false;
+		return true;
 	}
 
 	@Override
@@ -78,16 +118,20 @@ final class MeterImpl implements Meter {
 
 	/* static cache inspired by java.lang.Integer */
 	private static final class MeterCache {
-		static final int low = -128;
-		static final int high = 127;
+		static final int low;
+		static final int high;
 		static final Meter[] cache;
 
 		static {
+			low = Preferences.loadInt("meter.cache.static.low", 0);
+			high = low + Math.abs((Preferences.loadInt("meter.cache.static.size", 128) - 1));
+
 			cache = new Meter[(high - low) + 1];
 			int j = low;
 			for (int k = 0; k < cache.length; k++)
 				cache[k] = new MeterImpl(j++);
 		}
+
 		private MeterCache() {
 			// private constructor to prevent instantiation
 		}

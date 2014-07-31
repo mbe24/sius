@@ -14,8 +14,17 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.dimension.composition.util;
 
-public interface Meter extends LengthUnit<Meter> {
+import sius.dimension.Dimension;
 
+//public interface Fraction<NUMERATOR extends Dimension<NUMERATOR>, DENOMINATOR extends Dimension<DENOMINATOR>, FRACTION extends Fraction<NUMERATOR, DENOMINATOR, FRACTION>>
+//		extends Dimension<FRACTION> {
+
+public interface Fraction<NUMERATOR extends Dimension<NUMERATOR>, DENOMINATOR extends Dimension<DENOMINATOR>, F extends Fraction<NUMERATOR, DENOMINATOR, F>>
+		extends Composition<NUMERATOR, DENOMINATOR, F> {
+
+	public NUMERATOR getNumerator();
+
+	public DENOMINATOR getDenominator();
 }

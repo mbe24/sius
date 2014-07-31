@@ -14,62 +14,75 @@
  * limitations under the License.
  * 
  */
-package sius.unit.time;
+package sius.unit.composition.speed;
 
-import sius.dimension.Time;
+import sius.dimension.composition.Speed;
 import sius.operation.Operation;
 import sius.unit.Unit;
 import sius.unit.UnitId;
 import sius.unit.UnitIdentifier;
+import sius.unit.length.LengthFactory;
+import sius.unit.length.Meter;
+import sius.unit.time.Second;
+import sius.unit.time.TimeFactory;
 
-final class MinuteImpl implements Minute {
+final class MeterPerSecondImpl implements MeterPerSecond {
 
 	private final double scalar;
-	private static final UnitId<Time, Second, Minute> unitId = UnitIdentifier.MINUTE;
-	
-	public MinuteImpl(double scalar) {
+	private final UnitId<Speed, MeterPerSecond, MeterPerSecond> unitId = UnitIdentifier.METER_PER_SECOND;
+
+	public MeterPerSecondImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Time getDimension() {
-		return Time.INSTANCE;
+	public Meter getComponentUnit1() {
+		return LengthFactory.meter(0);
 	}
 
 	@Override
-	public UnitId<Time, Second, Minute> getIdentifier() {
+	public Second getComponentUnit2() {
+		return TimeFactory.second(0);
+	}
+
+	@Override
+	public Speed getDimension() {
+		return Speed.INSTANCE;
+	}
+
+	@Override
+	public UnitId<Speed, MeterPerSecond, MeterPerSecond> getIdentifier() {
 		return unitId;
 	}
 
 	@Override
-	public <OTHER extends Unit<Time, Second, OTHER>> Minute convert(OTHER other) {
-		Minute converted;
+	public <OTHER extends Unit<Speed, MeterPerSecond, OTHER>> MeterPerSecond convert(
+			OTHER other) {
+		MeterPerSecond converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = TimeFactory.minute(other.getScalar());
-		else if (other.getIdentifier().equals(UnitIdentifier.SECOND))
-			converted = TimeFactory.minute(other.getScalar() / Constants.SECONDS_PER_MINUTE);
+			converted = valueOf(other.getScalar());
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
 	@Override
-	public Second toBaseUnit() {
-		return TimeFactory.second(scalar * Constants.SECONDS_PER_MINUTE);
+	public MeterPerSecond toBaseUnit() {
+		return this;
 	}
 
 	@Override
-	public Minute valueOf(double d) {
-		return TimeFactory.minute(d);
+	public MeterPerSecond valueOf(double d) {
+		return new MeterPerSecondImpl(d);
 	}
 
 	@Override
 	public double getScalar() {
 		return scalar;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Minute [value=" + scalar + "]";
+		return "MeterPerSecond [value=" + scalar + "]";
 	}
 }

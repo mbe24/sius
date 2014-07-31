@@ -14,8 +14,15 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.dimension.composition.util;
 
-public interface Meter extends LengthUnit<Meter> {
+import sius.dimension.Dimension;
+
+public interface Product<FACTOR1 extends Dimension<FACTOR1>, FACTOR2 extends Dimension<FACTOR2>, PRODUCT extends Product<FACTOR1, FACTOR2, PRODUCT>>
+		extends Composition<FACTOR1, FACTOR2, PRODUCT> {
+
+	public FACTOR1 getFactor1();
+
+	public FACTOR2 getFactor2();
 
 }

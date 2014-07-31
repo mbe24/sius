@@ -14,8 +14,14 @@
  * limitations under the License.
  * 
  */
-package sius.unit.length;
+package sius.cache;
 
-public interface Meter extends LengthUnit<Meter> {
+import sius.dimension.Dimension;
+import sius.unit.Unit;
+import sius.unit.UnitId;
+
+interface Provider {
+	
+	public <D extends Dimension<D>, B extends Unit<D, B, B>, U extends Unit<D, B, U>> Cache<D, B, U> newInstance(UnitId<D, B, U> id, int capacity);
 
 }
