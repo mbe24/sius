@@ -69,18 +69,8 @@ final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Mete
 	}
 
 	@Override
-	protected Meter[] _static_cache() {
-		return staticCache.cache;
-	}
-
-	@Override
-	protected int _static_cache_low() {
-		return staticCache.low;
-	}
-
-	@Override
-	protected int _static_cache_high() {
-		return staticCache.high;
+	protected StaticCache<Length, Meter, Meter> _static_cache() {
+		return staticCache;
 	}
 
 	@Override

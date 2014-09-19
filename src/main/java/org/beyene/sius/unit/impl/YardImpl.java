@@ -71,18 +71,8 @@ final class YardImpl extends AbstractUnit<Length, Meter, Yard> implements Yard {
 	}
 
 	@Override
-	protected Yard[] _static_cache() {
-		return staticCache.cache;
-	}
-
-	@Override
-	protected int _static_cache_low() {
-		return staticCache.low;
-	}
-
-	@Override
-	protected int _static_cache_high() {
-		return staticCache.high;
+	protected StaticCache<Length, Meter, Yard> _static_cache() {
+		return staticCache;
 	}
 
 	@Override

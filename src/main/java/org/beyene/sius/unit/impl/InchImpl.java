@@ -71,20 +71,10 @@ final class InchImpl extends AbstractUnit<Length, Meter, Inch> implements Inch {
 	}
 
 	@Override
-	protected Inch[] _static_cache() {
-		return staticCache.cache;
+	protected StaticCache<Length, Meter, Inch> _static_cache() {
+		return staticCache;
 	}
-
-	@Override
-	protected int _static_cache_low() {
-		return staticCache.low;
-	}
-
-	@Override
-	protected int _static_cache_high() {
-		return staticCache.high;
-	}
-
+	
 	@Override
 	protected Cache<Length, Meter, Inch> _dynamic_cache() {
 		return dynamicCache;

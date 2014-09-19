@@ -19,6 +19,7 @@ package org.beyene.sius.unit;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.dimension.Dimension;
 import org.beyene.sius.operation.Operation;
+import org.beyene.sius.unit.impl.StaticCache;
 
 public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, SELF extends Unit<D, BASE, SELF>>
 		implements Unit<D, BASE, SELF> {
@@ -74,9 +75,10 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 			return _this();
 
 		if (_has_static_cache() && (d == Math.floor(d)) && !Double.isInfinite(d)) {
+			StaticCache<D, BASE, SELF> cache = _static_cache();
 			int i = (int) d;
-			if (i >= _static_cache_low() && i <= _static_cache_high())
-				return _static_cache()[i + (-_static_cache_low())];
+			if (i >= cache.low && i <= cache.high)
+				return cache.cache[i + (-cache.low)];
 		}
 
 		if (_has_dynamic_cache()) {
@@ -131,19 +133,15 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 
 	protected abstract SELF _new_instance(double value);
 
-	protected abstract SELF[] _static_cache();
+	protected abstract StaticCache<D, BASE, SELF> _static_cache();
 
-	protected abstract int _static_cache_low();
-
-	protected abstract int _static_cache_high();
-
-	protected boolean _has_static_cache() {
+	private boolean _has_static_cache() {
 		return _static_cache() != null;
 	}
 
 	protected abstract Cache<D, BASE, SELF> _dynamic_cache();
 
-	protected boolean _has_dynamic_cache() {
+	private boolean _has_dynamic_cache() {
 		return _dynamic_cache() != null;
 	}
 }
