@@ -14,13 +14,16 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.composition.speed;
+package org.beyene.sius.unit.impl;
 
 import org.beyene.sius.dimension.composition.Speed;
 import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
+import org.beyene.sius.unit.composition.speed.Constants;
+import org.beyene.sius.unit.composition.speed.MeterPerSecond;
+import org.beyene.sius.unit.composition.speed.MilesPerHour;
 import org.beyene.sius.unit.length.Mile;
 import org.beyene.sius.unit.time.Hour;
 
@@ -60,9 +63,9 @@ public class MilesPerHourImpl implements MilesPerHour {
 			OTHER other) {
 		MilesPerHour converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = valueOf(other.getScalar());
+			converted = valueOf(other.getValue());
 		else if (other.getIdentifier().equals(UnitIdentifier.METER_PER_SECOND))
-			converted = valueOf(other.getScalar() * Constants.MPS_PER_MPH);
+			converted = valueOf(other.getValue() * Constants.MPS_PER_MPH);
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
@@ -70,7 +73,7 @@ public class MilesPerHourImpl implements MilesPerHour {
 
 	@Override
 	public MeterPerSecond toBaseUnit() {
-		return SpeedFactory.mps(scalar / Constants.MPS_PER_MPH);
+		return FactorySpeed.mps(scalar / Constants.MPS_PER_MPH);
 	}
 
 	@Override
@@ -79,7 +82,7 @@ public class MilesPerHourImpl implements MilesPerHour {
 	}
 
 	@Override
-	public double getScalar() {
+	public double getValue() {
 		return scalar;
 	}
 

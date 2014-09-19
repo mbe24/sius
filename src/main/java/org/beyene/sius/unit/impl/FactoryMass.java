@@ -14,31 +14,21 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.length;
+package org.beyene.sius.unit.impl;
 
-public final class LengthFactory {
-	private LengthFactory() {
+import org.beyene.sius.unit.mass.KiloGram;
+import org.beyene.sius.unit.mass.Pound;
+
+public final class FactoryMass {
+	private FactoryMass() {
 		// private constructor to prevent instantiation
 	}
 
-	private static Meter meter = new MeterImpl(0);
-	public static Meter meter(double d) {
-		return meter.valueOf(d);
+	public static KiloGram kg(double value) {
+		return new KiloGramImpl(value);
 	}
 
-	public static Mile mile(double d) {
-		return new MileImpl(d);
-	}
-	
-	public static Yard yard(double d) {
-		return new YardImpl(d);
-	}
-	
-	public static Inch inch(double d) {
-		return new InchImpl(d);
-	}
-	
-	public static Foot foot(double d) {
-		return new FootImpl(d);
+	public static Pound lb(double value) {
+		return new PoundImpl(value);
 	}
 }

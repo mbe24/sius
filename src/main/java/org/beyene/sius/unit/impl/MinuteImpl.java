@@ -14,75 +14,65 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.composition.speed;
+package org.beyene.sius.unit.impl;
 
-import org.beyene.sius.dimension.composition.Speed;
+import org.beyene.sius.dimension.Time;
 import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
-import org.beyene.sius.unit.length.LengthFactory;
-import org.beyene.sius.unit.length.Meter;
+import org.beyene.sius.unit.time.Constants;
+import org.beyene.sius.unit.time.Minute;
 import org.beyene.sius.unit.time.Second;
-import org.beyene.sius.unit.time.TimeFactory;
 
-final class MeterPerSecondImpl implements MeterPerSecond {
+final class MinuteImpl implements Minute {
 
 	private final double scalar;
-	private final UnitId<Speed, MeterPerSecond, MeterPerSecond> unitId = UnitIdentifier.METER_PER_SECOND;
-
-	public MeterPerSecondImpl(double scalar) {
+	private static final UnitId<Time, Second, Minute> unitId = UnitIdentifier.MINUTE;
+	
+	public MinuteImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Meter getComponentUnit1() {
-		return LengthFactory.meter(0);
+	public Time getDimension() {
+		return Time.INSTANCE;
 	}
 
 	@Override
-	public Second getComponentUnit2() {
-		return TimeFactory.second(0);
-	}
-
-	@Override
-	public Speed getDimension() {
-		return Speed.INSTANCE;
-	}
-
-	@Override
-	public UnitId<Speed, MeterPerSecond, MeterPerSecond> getIdentifier() {
+	public UnitId<Time, Second, Minute> getIdentifier() {
 		return unitId;
 	}
 
 	@Override
-	public <OTHER extends Unit<Speed, MeterPerSecond, OTHER>> MeterPerSecond convert(
-			OTHER other) {
-		MeterPerSecond converted;
+	public <OTHER extends Unit<Time, Second, OTHER>> Minute convert(OTHER other) {
+		Minute converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = valueOf(other.getScalar());
+			converted = FactoryTime.minute(other.getValue());
+		else if (other.getIdentifier().equals(UnitIdentifier.SECOND))
+			converted = FactoryTime.minute(other.getValue() / Constants.SECONDS_PER_MINUTE);
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
 	@Override
-	public MeterPerSecond toBaseUnit() {
-		return this;
+	public Second toBaseUnit() {
+		return FactoryTime.second(scalar * Constants.SECONDS_PER_MINUTE);
 	}
 
 	@Override
-	public MeterPerSecond valueOf(double d) {
-		return new MeterPerSecondImpl(d);
+	public Minute valueOf(double d) {
+		return FactoryTime.minute(d);
 	}
 
 	@Override
-	public double getScalar() {
+	public double getValue() {
 		return scalar;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "MeterPerSecond [value=" + scalar + "]";
+		return "Minute [value=" + scalar + "]";
 	}
 }

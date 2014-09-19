@@ -14,13 +14,16 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.mass;
+package org.beyene.sius.unit.impl;
 
 import org.beyene.sius.dimension.Mass;
 import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
+import org.beyene.sius.unit.mass.Constants;
+import org.beyene.sius.unit.mass.KiloGram;
+import org.beyene.sius.unit.mass.Pound;
 
 final class PoundImpl implements Pound {
 
@@ -45,9 +48,9 @@ final class PoundImpl implements Pound {
 	public <O extends Unit<Mass, KiloGram, O>> Pound convert(O other) {
 		Pound converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = MassFactory.lb(other.getScalar());
+			converted = FactoryMass.lb(other.getValue());
 		else if (other.getIdentifier().equals(UnitIdentifier.KILOGRAM))
-			converted = MassFactory.lb(other.getScalar() / Constants.KILOGRAM_PER_POUND);
+			converted = FactoryMass.lb(other.getValue() / Constants.KILOGRAM_PER_POUND);
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
@@ -55,16 +58,16 @@ final class PoundImpl implements Pound {
 
 	@Override
 	public KiloGram toBaseUnit() {
-		return MassFactory.kg(scalar * Constants.KILOGRAM_PER_POUND);
+		return FactoryMass.kg(scalar * Constants.KILOGRAM_PER_POUND);
 	}
 
 	@Override
 	public Pound valueOf(double scalar) {
-		return MassFactory.lb(scalar);
+		return FactoryMass.lb(scalar);
 	}
 
 	@Override
-	public double getScalar() {
+	public double getValue() {
 		return scalar;
 	}
 

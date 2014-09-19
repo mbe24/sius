@@ -14,20 +14,23 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.temperature;
+package org.beyene.sius.unit.impl;
 
 import org.beyene.sius.dimension.Temperature;
 import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
+import org.beyene.sius.unit.temperature.Celsius;
+import org.beyene.sius.unit.temperature.Constants;
+import org.beyene.sius.unit.temperature.Kelvin;
 
-final class KelvinImpl implements Kelvin {
+final class CelsiusImpl implements Celsius {
 
 	private final double scalar;
-	private static final UnitId<Temperature, Kelvin, Kelvin> unitId = UnitIdentifier.KELVIN;
+	private static final UnitId<Temperature, Kelvin, Celsius> unitId = UnitIdentifier.CELSIUS;
 	
-	public KelvinImpl(double scalar) {
+	public CelsiusImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
@@ -37,37 +40,40 @@ final class KelvinImpl implements Kelvin {
 	}
 
 	@Override
-	public UnitId<Temperature, Kelvin, Kelvin> getIdentifier() {
+	public UnitId<Temperature, Kelvin, Celsius> getIdentifier() {
 		return unitId;
 	}
 
 	@Override
-	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Kelvin convert(OTHER other) {
-		Kelvin converted;
+	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Celsius convert(OTHER other) {
+		Celsius converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = TemperatureFactory.kelvin(other.getScalar());
+			converted = FactoryTemperature.celsius(other.getValue());
+		else if (other.getIdentifier().equals(UnitIdentifier.KELVIN))
+			converted = FactoryTemperature.celsius(other.getValue() - Constants.CELSIUS_KELVIN_OFFSET);
 		else
 			converted = Operation.convert(other, unitId);
+		
 		return converted;
 	}
 
 	@Override
 	public Kelvin toBaseUnit() {
-		return TemperatureFactory.kelvin(scalar);
+		return FactoryTemperature.kelvin(scalar + Constants.CELSIUS_KELVIN_OFFSET);
 	}
 
 	@Override
-	public Kelvin valueOf(double d) {
-		return TemperatureFactory.kelvin(d);
+	public Celsius valueOf(double d) {
+		return FactoryTemperature.celsius(d);
 	}
 
 	@Override
-	public double getScalar() {
+	public double getValue() {
 		return scalar;
 	}
 
 	@Override
 	public String toString() {
-		return "Kelvin [value=" + scalar + "]";
+		return "Celsius [value=" + scalar + "]";
 	}
 }

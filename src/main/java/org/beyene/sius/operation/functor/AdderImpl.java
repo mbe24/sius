@@ -40,7 +40,7 @@ final class AdderImpl<D extends Dimension<D>, B extends Unit<D, B, B>, CU extend
 		
 		double res = 0d;
 		for (Unit<D, B, ?> op : operands)
-			res += op.toBaseUnit().getScalar();
+			res += op.toBaseUnit().getValue();
 
 		B base = UnitFactory.valueOf(res, operands.get(0).toBaseUnit().getIdentifier());
 		

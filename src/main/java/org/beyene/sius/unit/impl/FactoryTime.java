@@ -14,18 +14,21 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.mass;
+package org.beyene.sius.unit.impl;
 
-public final class MassFactory {
-	private MassFactory() {
+import org.beyene.sius.unit.time.Minute;
+import org.beyene.sius.unit.time.Second;
+
+public final class FactoryTime {
+	private FactoryTime() {
 		// private constructor to prevent instantiation
 	}
-
-	public static KiloGram kg(double value) {
-		return new KiloGramImpl(value);
+	
+	public static Second second(double value) {
+		return new SecondImpl(value);
 	}
-
-	public static Pound lb(double value) {
-		return new PoundImpl(value);
+	
+	public static Minute minute(double value) {
+		return new MinuteImpl(value);
 	}
 }

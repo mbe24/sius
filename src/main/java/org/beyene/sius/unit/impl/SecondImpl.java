@@ -14,62 +14,61 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.length;
+package org.beyene.sius.unit.impl;
 
-import org.beyene.sius.dimension.Length;
+import org.beyene.sius.dimension.Time;
 import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
+import org.beyene.sius.unit.time.Second;
 
-final class MileImpl implements Mile {
+final class SecondImpl implements Second {
 
 	private final double scalar;
-	private static final UnitId<Length, Meter, Mile> unitId = UnitIdentifier.MILE;
+	private static final UnitId<Time, Second, Second> unitId = UnitIdentifier.SECOND;
 	
-	public MileImpl(double scalar) {
+	public SecondImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Length getDimension() {
-		return Length.INSTANCE;
+	public Time getDimension() {
+		return Time.INSTANCE;
 	}
 
 	@Override
-	public UnitId<Length, Meter, Mile> getIdentifier() {
-		return UnitIdentifier.MILE;
+	public UnitId<Time, Second, Second> getIdentifier() {
+		return unitId;
 	}
 
 	@Override
-	public <O extends Unit<Length, Meter, O>> Mile convert(O other) {
-		Mile converted;
+	public <OTHER extends Unit<Time, Second, OTHER>> Second convert(OTHER other) {
+		Second converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = LengthFactory.mile(other.getScalar());
-		else if (other.getIdentifier().equals(UnitIdentifier.METER))
-			converted = LengthFactory.mile(other.getScalar() / Constants.METER_PER_MILE);
+			converted = FactoryTime.second(other.getValue());
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
 	@Override
-	public Meter toBaseUnit() {
-		return LengthFactory.meter(scalar * Constants.METER_PER_MILE);
-	}
-	
-	@Override
-	public Mile valueOf(double d) {
-		return LengthFactory.mile(d);
+	public Second toBaseUnit() {
+		return FactoryTime.second(scalar);
 	}
 
 	@Override
-	public double getScalar() {
+	public Second valueOf(double d) {
+		return FactoryTime.second(d);
+	}
+
+	@Override
+	public double getValue() {
 		return scalar;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Mile [value=" + scalar + "]";
+		return "Second [value=" + scalar + "]";
 	}
 }

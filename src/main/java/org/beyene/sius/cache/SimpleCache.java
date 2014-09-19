@@ -41,10 +41,10 @@ final class SimpleCache<D extends Dimension<D>, B extends Unit<D, B, B>, U exten
 
 	@Override
 	public boolean put(U unit) {
-		if (map.size() >= capacity && !map.containsKey(unit.getScalar())) {
+		if (map.size() >= capacity && !map.containsKey(unit.getValue())) {
 			return false;
 		} else {
-			map.put(unit.getScalar(), unit);
+			map.put(unit.getValue(), unit);
 			return true;
 		}
 	}

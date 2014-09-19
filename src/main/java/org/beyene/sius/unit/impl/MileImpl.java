@@ -14,62 +14,65 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.time;
+package org.beyene.sius.unit.impl;
 
-import org.beyene.sius.dimension.Time;
+import org.beyene.sius.dimension.Length;
 import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
+import org.beyene.sius.unit.length.Constants;
+import org.beyene.sius.unit.length.Meter;
+import org.beyene.sius.unit.length.Mile;
 
-final class MinuteImpl implements Minute {
+final class MileImpl implements Mile {
 
 	private final double scalar;
-	private static final UnitId<Time, Second, Minute> unitId = UnitIdentifier.MINUTE;
+	private static final UnitId<Length, Meter, Mile> unitId = UnitIdentifier.MILE;
 	
-	public MinuteImpl(double scalar) {
+	public MileImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Time getDimension() {
-		return Time.INSTANCE;
+	public Length getDimension() {
+		return Length.INSTANCE;
 	}
 
 	@Override
-	public UnitId<Time, Second, Minute> getIdentifier() {
-		return unitId;
+	public UnitId<Length, Meter, Mile> getIdentifier() {
+		return UnitIdentifier.MILE;
 	}
 
 	@Override
-	public <OTHER extends Unit<Time, Second, OTHER>> Minute convert(OTHER other) {
-		Minute converted;
+	public <O extends Unit<Length, Meter, O>> Mile convert(O other) {
+		Mile converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = TimeFactory.minute(other.getScalar());
-		else if (other.getIdentifier().equals(UnitIdentifier.SECOND))
-			converted = TimeFactory.minute(other.getScalar() / Constants.SECONDS_PER_MINUTE);
+			converted = FactoryLength.mile(other.getValue());
+		else if (other.getIdentifier().equals(UnitIdentifier.METER))
+			converted = FactoryLength.mile(other.getValue() / Constants.METER_PER_MILE);
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
 	@Override
-	public Second toBaseUnit() {
-		return TimeFactory.second(scalar * Constants.SECONDS_PER_MINUTE);
+	public Meter toBaseUnit() {
+		return FactoryLength.meter(scalar * Constants.METER_PER_MILE);
+	}
+	
+	@Override
+	public Mile valueOf(double d) {
+		return FactoryLength.mile(d);
 	}
 
 	@Override
-	public Minute valueOf(double d) {
-		return TimeFactory.minute(d);
-	}
-
-	@Override
-	public double getScalar() {
+	public double getValue() {
 		return scalar;
 	}
 	
 	@Override
 	public String toString() {
-		return "Minute [value=" + scalar + "]";
+		return "Mile [value=" + scalar + "]";
 	}
 }

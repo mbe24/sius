@@ -40,7 +40,7 @@ public interface Unit<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, 
 	public SELF valueOf(double d);
 
 	/* scalar values only..., vectors not yet supported */
-	public double getScalar();
+	public double getValue();
 
 	@Override
 	public int hashCode();

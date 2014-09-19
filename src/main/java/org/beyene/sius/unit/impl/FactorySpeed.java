@@ -14,11 +14,14 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.composition.speed;
+package org.beyene.sius.unit.impl;
 
-public final class SpeedFactory {
+import org.beyene.sius.unit.composition.speed.MeterPerSecond;
+import org.beyene.sius.unit.composition.speed.MilesPerHour;
 
-	private SpeedFactory() {
+public final class FactorySpeed {
+
+	private FactorySpeed() {
 		// private constructor to prevent instantiation
 	}
 

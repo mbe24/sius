@@ -14,62 +14,61 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.length;
+package org.beyene.sius.unit.impl;
 
-import org.beyene.sius.dimension.Length;
+import org.beyene.sius.dimension.Mass;
 import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
+import org.beyene.sius.unit.mass.KiloGram;
 
-final class FootImpl implements Foot {
+final class KiloGramImpl implements KiloGram {
 
 	private final double scalar;
-	private static final UnitId<Length, Meter, Foot> unitId = UnitIdentifier.FOOT;
+	private static final UnitId<Mass, KiloGram, KiloGram> unitId = UnitIdentifier.KILOGRAM;
 	
-	public FootImpl(double scalar) {
+	public KiloGramImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Length getDimension() {
-		return Length.INSTANCE;
+	public Mass getDimension() {
+		return Mass.INSTANCE;
 	}
 
 	@Override
-	public UnitId<Length, Meter, Foot> getIdentifier() {
+	public UnitId<Mass, KiloGram, KiloGram> getIdentifier() {
 		return unitId;
 	}
 
 	@Override
-	public <OTHER extends Unit<Length, Meter, OTHER>> Foot convert(OTHER other) {
-		Foot converted;
+	public <O extends Unit<Mass, KiloGram, O>> KiloGram convert(O other) {
+		KiloGram converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = LengthFactory.foot(other.getScalar());
-		else if (other.getIdentifier().equals(UnitIdentifier.METER))
-			converted = LengthFactory.foot(other.getScalar() / Constants.METER_PER_FOOT);
+			converted = FactoryMass.kg(other.getValue());
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
 	@Override
-	public Meter toBaseUnit() {
-		return LengthFactory.meter(scalar * Constants.METER_PER_FOOT);
+	public KiloGram toBaseUnit() {
+		return FactoryMass.kg(scalar);
+	}
+	
+	@Override
+	public KiloGram valueOf(double scalar) {
+		return FactoryMass.kg(scalar);
 	}
 
 	@Override
-	public Foot valueOf(double d) {
-		return LengthFactory.foot(d);
-	}
-
-	@Override
-	public double getScalar() {
+	public double getValue() {
 		return scalar;
 	}
 
 	@Override
 	public String toString() {
-		return "Foot [value=" + scalar + "]";
+		return "KiloGram [value=" + scalar + "]";
 	}
 }

@@ -7,24 +7,24 @@ import org.beyene.sius.operation.functor.Adder;
 import org.beyene.sius.operation.functor.ArithmeticMean;
 import org.beyene.sius.operation.functor.FunctorFactory;
 import org.beyene.sius.unit.UnitIdentifier;
+import org.beyene.sius.unit.impl.FactoryLength;
+import org.beyene.sius.unit.impl.FactoryMass;
+import org.beyene.sius.unit.impl.FactoryTemperature;
 import org.beyene.sius.unit.length.Foot;
 import org.beyene.sius.unit.length.Inch;
-import org.beyene.sius.unit.length.LengthFactory;
 import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.unit.length.Mile;
 import org.beyene.sius.unit.mass.KiloGram;
-import org.beyene.sius.unit.mass.MassFactory;
 import org.beyene.sius.unit.mass.Pound;
 import org.beyene.sius.unit.temperature.Celsius;
 import org.beyene.sius.unit.temperature.Fahrenheit;
-import org.beyene.sius.unit.temperature.TemperatureFactory;
 
 public class Example {
 
 	public static void main(String[] args) {
 		System.out.println("Length example");
-		Meter lengthFirst = LengthFactory.meter(1000);
-		Mile lengthSecond = LengthFactory.mile(1);
+		Meter lengthFirst = FactoryLength.meter(1000);
+		Mile lengthSecond = FactoryLength.mile(1);
 
 		System.out.println(String.format("Operator \t= %s", lengthFirst));
 		System.out.println(String.format("Operator \t= %s", lengthSecond));
@@ -36,8 +36,8 @@ public class Example {
 		System.out.println("Sum \t\t= " + sum2);
 
 		System.out.println("\nMass example");
-		KiloGram weightFirst = MassFactory.kg(100);
-		Pound weightSecond = MassFactory.lb(200);
+		KiloGram weightFirst = FactoryMass.kg(100);
+		Pound weightSecond = FactoryMass.lb(200);
 
 		System.out.println(String.format("Operator \t= %s", weightFirst));
 		System.out.println(String.format("Operator \t= %s", weightSecond));
@@ -55,11 +55,11 @@ public class Example {
 		Meter convertedLength = Operation.convert(lengthSecond, UnitIdentifier.METER);
 		System.out.println(String.format("Converted %s to %s", lengthSecond, convertedLength));
 		
-		Celsius celsius = TemperatureFactory.celsius(0);
+		Celsius celsius = FactoryTemperature.celsius(0);
 		Fahrenheit fahrenheit = Operation.convert(celsius, UnitIdentifier.FAHRENHEIT);
 		System.out.println(String.format("Converted %s to %s", celsius, fahrenheit));
 		
-		Foot foot = LengthFactory.foot(1);
+		Foot foot = FactoryLength.foot(1);
 		Inch inch = Operation.convert(foot, UnitIdentifier.INCH);
 		System.out.println(String.format("Converted %s to %s", foot, inch));
 		
@@ -95,10 +95,10 @@ public class Example {
 		System.out.println(sameRes);
 		
 		ArithmeticMean<Mass, KiloGram, KiloGram> mean = FunctorFactory.mean(UnitIdentifier.KILOGRAM)
-				.op(MassFactory.kg(10))
-				.op(MassFactory.kg(100))
-				.op(MassFactory.lb(100))
-				.op(MassFactory.lb(100));
+				.op(FactoryMass.kg(10))
+				.op(FactoryMass.kg(100))
+				.op(FactoryMass.lb(100))
+				.op(FactoryMass.lb(100));
 		System.out.println(mean);
 		System.out.println(mean.apply());
 	}

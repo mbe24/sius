@@ -14,10 +14,14 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.temperature;
+package org.beyene.sius.unit.impl;
 
-public final class TemperatureFactory {
-	private TemperatureFactory() {
+import org.beyene.sius.unit.temperature.Celsius;
+import org.beyene.sius.unit.temperature.Fahrenheit;
+import org.beyene.sius.unit.temperature.Kelvin;
+
+public final class FactoryTemperature {
+	private FactoryTemperature() {
 		// private constructor to prevent instantiation
 	}
 	

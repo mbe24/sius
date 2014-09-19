@@ -61,7 +61,7 @@ public final class Operation {
 	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP1 extends Unit<D, B, OP1>, OP2 extends Unit<D, B, OP2>> OP1 add(
 			OP1 op1, OP2 op2) {
-		return op1.valueOf(op1.getScalar() + op1.convert(op2).getScalar());
+		return op1.valueOf(op1.getValue() + op1.convert(op2).getValue());
 	}
 
 	/**
@@ -76,8 +76,8 @@ public final class Operation {
 	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP1 extends Unit<D, B, OP1>, OP2 extends Unit<D, B, OP2>, OP3 extends Unit<D, B, OP3>> OP1 add(
 			OP1 op1, OP2 op2, OP3 op3) {
-		return op1.valueOf(op1.getScalar() + op1.convert(op2).getScalar()
-				+ op1.convert(op3).getScalar());
+		return op1.valueOf(op1.getValue() + op1.convert(op2).getValue()
+				+ op1.convert(op3).getValue());
 	}
 
 	/**
@@ -112,7 +112,7 @@ public final class Operation {
 	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP1 extends Unit<D, B, OP1>, OP2 extends Unit<D, B, OP2>> OP1 sub(
 			OP1 op1, OP2 op2) {
-		return op1.valueOf(op1.getScalar() - op1.convert(op2).getScalar());
+		return op1.valueOf(op1.getValue() - op1.convert(op2).getValue());
 	}
 
 	/**
@@ -120,13 +120,13 @@ public final class Operation {
 	 * 
 	 * @param op
 	 *            operand and first factor
-	 * @param scalar
+	 * @param value
 	 *            scalar and second factor
 	 * @return product
 	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>> OP mul(
-			OP op, double scalar) {
-		return op.valueOf(op.getScalar() * scalar);
+			OP op, double value) {
+		return op.valueOf(op.getValue() * value);
 	}
 
 	/**
@@ -134,13 +134,13 @@ public final class Operation {
 	 * 
 	 * @param op
 	 *            dividend
-	 * @param scalar
+	 * @param value
 	 *            divisor
 	 * @return quotient
 	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>> OP div(
-			OP op, double scalar) {
-		return op.valueOf(op.getScalar() / scalar);
+			OP op, double value) {
+		return op.valueOf(op.getValue() / value);
 	}
 
 	/**
@@ -165,7 +165,7 @@ public final class Operation {
 	UNIT_FRACTION extends FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION>,
 	OP extends Unit<DENOMINATOR, BASE_DENOMINATOR, OP>> UNIT_NUMERATOR mul(
 			FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION> factor1, OP factor2) {
-		double scalarF2 = factor1.getComponentUnit2().convert(factor2).getScalar();
-		return factor1.getComponentUnit1().valueOf(factor1.getScalar() * scalarF2);
+		double valueF2 = factor1.getComponentUnit2().convert(factor2).getValue();
+		return factor1.getComponentUnit1().valueOf(factor1.getValue() * valueF2);
 	}
 }

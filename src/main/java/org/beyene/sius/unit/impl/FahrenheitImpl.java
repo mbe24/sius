@@ -14,20 +14,23 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.temperature;
+package org.beyene.sius.unit.impl;
 
 import org.beyene.sius.dimension.Temperature;
 import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
+import org.beyene.sius.unit.temperature.Constants;
+import org.beyene.sius.unit.temperature.Fahrenheit;
+import org.beyene.sius.unit.temperature.Kelvin;
 
-final class CelsiusImpl implements Celsius {
+final class FahrenheitImpl implements Fahrenheit {
 
 	private final double scalar;
-	private static final UnitId<Temperature, Kelvin, Celsius> unitId = UnitIdentifier.CELSIUS;
+	private static final UnitId<Temperature, Kelvin, Fahrenheit> unitId = UnitIdentifier.FAHRENHEIT;
 	
-	public CelsiusImpl(double scalar) {
+	public FahrenheitImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
@@ -37,40 +40,42 @@ final class CelsiusImpl implements Celsius {
 	}
 
 	@Override
-	public UnitId<Temperature, Kelvin, Celsius> getIdentifier() {
-		return unitId;
+	public UnitId<Temperature, Kelvin, Fahrenheit> getIdentifier() {
+		return unitId ;
 	}
 
 	@Override
-	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Celsius convert(OTHER other) {
-		Celsius converted;
+	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Fahrenheit convert(OTHER other) {
+		Fahrenheit converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = TemperatureFactory.celsius(other.getScalar());
+			converted = FactoryTemperature.fahrenheit(other.getValue());
 		else if (other.getIdentifier().equals(UnitIdentifier.KELVIN))
-			converted = TemperatureFactory.celsius(other.getScalar() - Constants.CELSIUS_KELVIN_OFFSET);
+			converted = FactoryTemperature.fahrenheit((other.getValue()
+					* (Constants.FAHRENHEIT_KELVIN_SCALE_NINE / Constants.FAHRENHEIT_KELVIN_SCALE_FIVE))
+					- Constants.FAHRENHEIT_KELVIN_OFFSET);
 		else
 			converted = Operation.convert(other, unitId);
-		
 		return converted;
 	}
 
 	@Override
 	public Kelvin toBaseUnit() {
-		return TemperatureFactory.kelvin(scalar + Constants.CELSIUS_KELVIN_OFFSET);
+		return FactoryTemperature.kelvin((scalar +  Constants.FAHRENHEIT_KELVIN_OFFSET)
+				* (Constants.FAHRENHEIT_KELVIN_SCALE_FIVE / Constants.FAHRENHEIT_KELVIN_SCALE_NINE));
 	}
 
 	@Override
-	public Celsius valueOf(double d) {
-		return TemperatureFactory.celsius(d);
+	public Fahrenheit valueOf(double d) {
+		return FactoryTemperature.fahrenheit(d);
 	}
 
 	@Override
-	public double getScalar() {
+	public double getValue() {
 		return scalar;
 	}
 
 	@Override
 	public String toString() {
-		return "Celsius [value=" + scalar + "]";
+		return "Fahrenheit [value=" + scalar + "]";
 	}
 }

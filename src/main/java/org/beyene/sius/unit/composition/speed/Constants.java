@@ -16,7 +16,7 @@
  */
 package org.beyene.sius.unit.composition.speed;
 
-final class Constants {
+public final class Constants {
 	private Constants() {
 		// private constructor to prevent instantiation
 	}

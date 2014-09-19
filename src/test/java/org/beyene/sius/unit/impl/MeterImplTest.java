@@ -1,12 +1,12 @@
-package org.beyene.sius.unit.length;
+package org.beyene.sius.unit.impl;
 
 import junit.framework.Assert;
 
+import org.beyene.sius.unit.impl.FactoryLength;
+import org.beyene.sius.unit.impl.MeterImpl;
 import org.beyene.sius.unit.length.Constants;
 import org.beyene.sius.unit.length.Inch;
-import org.beyene.sius.unit.length.LengthFactory;
 import org.beyene.sius.unit.length.Meter;
-import org.beyene.sius.unit.length.MeterImpl;
 import org.beyene.sius.util.Preferences;
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ public class MeterImplTest {
 
 	@Test
 	public void testToBaseUnit() throws Exception {
-		Meter first = LengthFactory.meter(1);
+		Meter first = FactoryLength.meter(1);
 		Meter second = first.toBaseUnit();
 
 		Assert.assertEquals(first, second);
@@ -27,7 +27,7 @@ public class MeterImplTest {
 		int high = low + Math.abs((Preferences.loadInt("meter.cache.static.size", 128) - 1));
 		
 		int i = (low + high) / 2;
-		Meter reference = LengthFactory.meter(0);
+		Meter reference = FactoryLength.meter(0);
 		
 		Meter m1 = reference.valueOf(i);
 		Meter m2 = reference.valueOf(i);
@@ -54,17 +54,17 @@ public class MeterImplTest {
 		int high = low + Math.abs((Preferences.loadInt("meter.cache.static.size", 128) - 1));
 		int i = (low + high) / 2;
 		
-		Meter reference = LengthFactory.meter(0);
+		Meter reference = FactoryLength.meter(0);
 		
-		Inch in = LengthFactory.inch(100);
-		Meter other = LengthFactory.meter(i);
+		Inch in = FactoryLength.inch(100);
+		Meter other = FactoryLength.meter(i);
 		
 		Meter convertedMeter = reference.convert(other);
 		Assert.assertEquals(convertedMeter, other);
 		Assert.assertTrue(convertedMeter == other);
 		
 		Meter convertedInch = reference.convert(in);
-		Meter coresponding = LengthFactory.meter(100 * Constants.METER_PER_INCH);
+		Meter coresponding = FactoryLength.meter(100 * Constants.METER_PER_INCH);
 		Assert.assertEquals(convertedInch, coresponding);
 		Assert.assertTrue(convertedInch == coresponding);
 	}

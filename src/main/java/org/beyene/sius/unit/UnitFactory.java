@@ -21,11 +21,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.beyene.sius.dimension.Dimension;
-import org.beyene.sius.unit.composition.speed.SpeedFactory;
-import org.beyene.sius.unit.length.LengthFactory;
-import org.beyene.sius.unit.mass.MassFactory;
-import org.beyene.sius.unit.temperature.TemperatureFactory;
-import org.beyene.sius.unit.time.TimeFactory;
+import org.beyene.sius.unit.impl.FactoryLength;
+import org.beyene.sius.unit.impl.FactoryMass;
+import org.beyene.sius.unit.impl.FactorySpeed;
+import org.beyene.sius.unit.impl.FactoryTemperature;
+import org.beyene.sius.unit.impl.FactoryTime;
 
 public final class UnitFactory {
 
@@ -34,28 +34,28 @@ public final class UnitFactory {
 	/* initialize map */
 	static {
 		/* mass */
-		instanceMapMutable.put(UnitIdentifier.KILOGRAM, MassFactory.kg(0));
-		instanceMapMutable.put(UnitIdentifier.POUND, MassFactory.lb(0));
+		instanceMapMutable.put(UnitIdentifier.KILOGRAM, FactoryMass.kg(0));
+		instanceMapMutable.put(UnitIdentifier.POUND, FactoryMass.lb(0));
 
 		/* length */
-		instanceMapMutable.put(UnitIdentifier.METER, LengthFactory.meter(0));
-		instanceMapMutable.put(UnitIdentifier.MILE, LengthFactory.mile(0));
-		instanceMapMutable.put(UnitIdentifier.YARD, LengthFactory.yard(0));
-		instanceMapMutable.put(UnitIdentifier.FOOT, LengthFactory.foot(0));
-		instanceMapMutable.put(UnitIdentifier.INCH, LengthFactory.inch(0));
+		instanceMapMutable.put(UnitIdentifier.METER, FactoryLength.meter(0));
+		instanceMapMutable.put(UnitIdentifier.MILE, FactoryLength.mile(0));
+		instanceMapMutable.put(UnitIdentifier.YARD, FactoryLength.yard(0));
+		instanceMapMutable.put(UnitIdentifier.FOOT, FactoryLength.foot(0));
+		instanceMapMutable.put(UnitIdentifier.INCH, FactoryLength.inch(0));
 
 		/* time */
-		instanceMapMutable.put(UnitIdentifier.SECOND, TimeFactory.second(0));
-		instanceMapMutable.put(UnitIdentifier.MINUTE, TimeFactory.minute(0));
+		instanceMapMutable.put(UnitIdentifier.SECOND, FactoryTime.second(0));
+		instanceMapMutable.put(UnitIdentifier.MINUTE, FactoryTime.minute(0));
 
 		/* temperature */
-		instanceMapMutable.put(UnitIdentifier.KELVIN, TemperatureFactory.kelvin(0));
-		instanceMapMutable.put(UnitIdentifier.CELSIUS, TemperatureFactory.celsius(0));
-		instanceMapMutable.put(UnitIdentifier.FAHRENHEIT, TemperatureFactory.fahrenheit(0));
+		instanceMapMutable.put(UnitIdentifier.KELVIN, FactoryTemperature.kelvin(0));
+		instanceMapMutable.put(UnitIdentifier.CELSIUS, FactoryTemperature.celsius(0));
+		instanceMapMutable.put(UnitIdentifier.FAHRENHEIT, FactoryTemperature.fahrenheit(0));
 		
 		/* speed */
-		instanceMapMutable.put(UnitIdentifier.METER_PER_SECOND, SpeedFactory.mps(0));
-		instanceMapMutable.put(UnitIdentifier.MILES_PER_HOUR, SpeedFactory.mph(0));
+		instanceMapMutable.put(UnitIdentifier.METER_PER_SECOND, FactorySpeed.mps(0));
+		instanceMapMutable.put(UnitIdentifier.MILES_PER_HOUR, FactorySpeed.mph(0));
 	}
 	private static final Map<UnitId<?, ?, ?>, Unit<?, ?, ?>> instanceMap = Collections.unmodifiableMap(instanceMapMutable);
 

@@ -14,62 +14,61 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit.length;
+package org.beyene.sius.unit.impl;
 
-import org.beyene.sius.dimension.Length;
+import org.beyene.sius.dimension.Temperature;
 import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
+import org.beyene.sius.unit.temperature.Kelvin;
 
-final class InchImpl implements Inch {
+final class KelvinImpl implements Kelvin {
 
 	private final double scalar;
-	private static final UnitId<Length, Meter, Inch> unitId = UnitIdentifier.INCH;
+	private static final UnitId<Temperature, Kelvin, Kelvin> unitId = UnitIdentifier.KELVIN;
 	
-	public InchImpl(double scalar) {
+	public KelvinImpl(double scalar) {
 		this.scalar = scalar;
 	}
 
 	@Override
-	public Length getDimension() {
-		return Length.INSTANCE;
+	public Temperature getDimension() {
+		return Temperature.INSTANCE;
 	}
 
 	@Override
-	public UnitId<Length, Meter, Inch> getIdentifier() {
+	public UnitId<Temperature, Kelvin, Kelvin> getIdentifier() {
 		return unitId;
 	}
 
 	@Override
-	public <OTHER extends Unit<Length, Meter, OTHER>> Inch convert(OTHER other) {
-		Inch converted;
+	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Kelvin convert(OTHER other) {
+		Kelvin converted;
 		if (other.getIdentifier().equals(unitId))
-			converted = LengthFactory.inch(other.getScalar());
-		else if (other.getIdentifier().equals(UnitIdentifier.METER))
-			converted = LengthFactory.inch(other.getScalar() / Constants.METER_PER_INCH);
+			converted = FactoryTemperature.kelvin(other.getValue());
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
 	@Override
-	public Meter toBaseUnit() {
-		return LengthFactory.meter(scalar * Constants.METER_PER_INCH);
+	public Kelvin toBaseUnit() {
+		return FactoryTemperature.kelvin(scalar);
 	}
 
 	@Override
-	public Inch valueOf(double d) {
-		return LengthFactory.inch(d);
+	public Kelvin valueOf(double d) {
+		return FactoryTemperature.kelvin(d);
 	}
 
 	@Override
-	public double getScalar() {
+	public double getValue() {
 		return scalar;
 	}
 
 	@Override
 	public String toString() {
-		return "Inch [value=" + scalar + "]";
+		return "Kelvin [value=" + scalar + "]";
 	}
 }

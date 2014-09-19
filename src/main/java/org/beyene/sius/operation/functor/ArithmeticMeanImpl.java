@@ -40,7 +40,7 @@ final class ArithmeticMeanImpl<D extends Dimension<D>, B extends Unit<D, B, B>, 
 		
 		double res = 0d;
 		for (Unit<D, ?, ?> op : operands)
-			res += op.toBaseUnit().getScalar();
+			res += op.toBaseUnit().getValue();
 
 		double mean = res / operands.size();
 		B base = UnitFactory.valueOf(mean, operands.get(0).toBaseUnit().getIdentifier());
