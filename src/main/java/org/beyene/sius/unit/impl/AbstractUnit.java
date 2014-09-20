@@ -14,12 +14,13 @@
  * limitations under the License.
  * 
  */
-package org.beyene.sius.unit;
+package org.beyene.sius.unit.impl;
 
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.dimension.Dimension;
 import org.beyene.sius.operation.Operation;
-import org.beyene.sius.unit.impl.StaticCache;
+import org.beyene.sius.unit.Unit;
+import org.beyene.sius.unit.UnitId;
 
 public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, SELF extends Unit<D, BASE, SELF>>
 		implements Unit<D, BASE, SELF> {
@@ -27,19 +28,33 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 	protected final double value;
 
 	private final D dimension;
-	private final UnitId<D, BASE, BASE> baseId;
 	private final UnitId<D, BASE, SELF> unitId;
 
 	private final Class<? extends Unit<D, BASE, SELF>> interfaceClass;
-
-	public AbstractUnit(D dimension, UnitId<D, BASE, BASE> baseId,
+	private final Class<? extends Unit<D, BASE, BASE>> baseInterfaceClass;
+	
+	private transient final Cache<D, BASE, SELF> dynamicCache;
+	private transient final StaticCache<D, BASE, SELF> staticCache;
+	
+	public AbstractUnit(
+			double value,
+			D dimension,
 			UnitId<D, BASE, SELF> unitId,
-			Class<? extends Unit<D, BASE, SELF>> interfaceClass, double value) {
-		this.dimension = dimension;
-		this.baseId = baseId;
-		this.unitId = unitId;
-		this.interfaceClass = interfaceClass;
+			Class<? extends Unit<D, BASE, BASE>> baseInterfaceClass, 
+			Class<? extends Unit<D, BASE, SELF>> interfaceClass,
+			Cache<D, BASE, SELF> dynamicCache,
+			StaticCache<D, BASE, SELF> staticCache
+			) {
 		this.value = value;
+		
+		this.dimension = dimension;
+		this.unitId = unitId;
+		
+		this.baseInterfaceClass = baseInterfaceClass;
+		this.interfaceClass = interfaceClass;
+		
+		this.dynamicCache = dynamicCache;
+		this.staticCache = staticCache;
 	}
 
 	@Override
@@ -55,16 +70,16 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 	@Override
 	public <OTHER extends Unit<D, BASE, OTHER>> SELF convert(OTHER other) {
 		SELF converted;
-		if (other.getIdentifier().equals(unitId))
+		if (interfaceClass.isAssignableFrom(other.getClass()))
 			converted = valueOf(other.getValue());
-		else if (other.getIdentifier().equals(baseId))
-			converted = fromBase(other);
+		else if (baseInterfaceClass.isAssignableFrom(other.getClass()))
+			converted = fromBase(baseInterfaceClass.cast(other));
 		else
 			converted = Operation.convert(other, unitId);
 		return converted;
 	}
 
-	protected abstract SELF fromBase(Unit<D, BASE, ?> base);
+	protected abstract SELF fromBase(Unit<D, BASE, BASE> base);
 
 	@Override
 	public abstract BASE toBaseUnit();
@@ -75,19 +90,18 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 			return _this();
 
 		if (_has_static_cache() && (d == Math.floor(d)) && !Double.isInfinite(d)) {
-			StaticCache<D, BASE, SELF> cache = _static_cache();
 			int i = (int) d;
-			if (i >= cache.low && i <= cache.high)
-				return cache.cache[i + (-cache.low)];
+			if (i >= staticCache.low && i <= staticCache.high)
+				return staticCache.cache[i + (-staticCache.low)];
 		}
 
 		if (_has_dynamic_cache()) {
-			SELF cached = _dynamic_cache().lookUp(d);
+			SELF cached = dynamicCache.lookUp(d);
 			if (cached != null)
 				return cached;
 			else
 				cached = _new_instance(d);
-			_dynamic_cache().put(cached);
+			dynamicCache.put(cached);
 			return cached;
 		}
 
@@ -133,15 +147,11 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 
 	protected abstract SELF _new_instance(double value);
 
-	protected abstract StaticCache<D, BASE, SELF> _static_cache();
-
 	private boolean _has_static_cache() {
-		return _static_cache() != null;
+		return staticCache != null;
 	}
 
-	protected abstract Cache<D, BASE, SELF> _dynamic_cache();
-
 	private boolean _has_dynamic_cache() {
-		return _dynamic_cache() != null;
+		return dynamicCache != null;
 	}
 }

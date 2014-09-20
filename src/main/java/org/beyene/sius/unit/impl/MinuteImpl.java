@@ -16,63 +16,56 @@
  */
 package org.beyene.sius.unit.impl;
 
+import org.beyene.sius.cache.Cache;
+import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Time;
-import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
-import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.time.Constants;
 import org.beyene.sius.unit.time.Minute;
 import org.beyene.sius.unit.time.Second;
+import org.beyene.sius.util.Preferences;
 
-final class MinuteImpl implements Minute {
+final class MinuteImpl extends AbstractUnit<Time, Second, Minute> implements Minute {
 
-	private final double scalar;
-	private static final UnitId<Time, Second, Minute> unitId = UnitIdentifier.MINUTE;
+	private static final transient Cache<Time, Second, Minute>  dynamicCache;
+	private static final transient StaticCache<Time, Second, Minute>  staticCache;
 	
-	public MinuteImpl(double scalar) {
-		this.scalar = scalar;
-	}
-
-	@Override
-	public Time getDimension() {
-		return Time.INSTANCE;
-	}
-
-	@Override
-	public UnitId<Time, Second, Minute> getIdentifier() {
-		return unitId;
-	}
-
-	@Override
-	public <OTHER extends Unit<Time, Second, OTHER>> Minute convert(OTHER other) {
-		Minute converted;
-		if (other.getIdentifier().equals(unitId))
-			converted = FactoryTime.minute(other.getValue());
-		else if (other.getIdentifier().equals(UnitIdentifier.SECOND))
-			converted = FactoryTime.minute(other.getValue() / Constants.SECONDS_PER_MINUTE);
+	static {
+		int sizeDyn = Preferences.loadInt("minute.cache.dynamic.size", 0);
+		if (sizeDyn > 0)
+			dynamicCache = Caches.newInstance(UnitIdentifier.MINUTE, Math.abs((sizeDyn)));
 		else
-			converted = Operation.convert(other, unitId);
-		return converted;
+			dynamicCache = null;
+
+		int sizeStatic = Preferences.loadInt("minute.cache.static.size", 0);
+		if (sizeStatic > 0)
+			staticCache = new StaticCache<>(Preferences.loadInt("minute.cache.static.low", 0), sizeStatic, MinuteImpl.class);
+		else
+			staticCache = null;
+	}
+	
+	public MinuteImpl(double value) {
+		super(value, Time.INSTANCE, UnitIdentifier.MINUTE, Second.class, Minute.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	protected Minute fromBase(Unit<Time, Second, Second> base) {
+		return valueOf(base.getValue() / Constants.SECONDS_PER_MINUTE);
 	}
 
 	@Override
 	public Second toBaseUnit() {
-		return FactoryTime.second(scalar * Constants.SECONDS_PER_MINUTE);
+		return FactoryTime.second(value * Constants.SECONDS_PER_MINUTE);
 	}
 
 	@Override
-	public Minute valueOf(double d) {
-		return FactoryTime.minute(d);
+	protected Minute _this() {
+		return this;
 	}
 
 	@Override
-	public double getValue() {
-		return scalar;
-	}
-	
-	@Override
-	public String toString() {
-		return "Minute [value=" + scalar + "]";
+	protected Minute _new_instance(double value) {
+		return new MinuteImpl(value);
 	}
 }

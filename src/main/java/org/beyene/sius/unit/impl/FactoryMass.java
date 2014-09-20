@@ -24,11 +24,13 @@ public final class FactoryMass {
 		// private constructor to prevent instantiation
 	}
 
+	private static final KiloGram kg = new KiloGramImpl(0);
 	public static KiloGram kg(double value) {
-		return new KiloGramImpl(value);
+		return kg.valueOf(value);
 	}
 
+	private static final Pound pound = new PoundImpl(0);
 	public static Pound lb(double value) {
-		return new PoundImpl(value);
+		return pound.valueOf(value);
 	}
 }

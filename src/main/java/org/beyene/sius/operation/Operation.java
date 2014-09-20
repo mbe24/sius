@@ -21,6 +21,7 @@ import org.beyene.sius.dimension.composition.util.Fraction;
 import org.beyene.sius.operation.functor.Adder;
 import org.beyene.sius.operation.functor.FunctorFactory;
 import org.beyene.sius.unit.Unit;
+import org.beyene.sius.unit.UnitFactory;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.composition.FractionUnit;
 
@@ -165,7 +166,7 @@ public final class Operation {
 	UNIT_FRACTION extends FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION>,
 	OP extends Unit<DENOMINATOR, BASE_DENOMINATOR, OP>> UNIT_NUMERATOR mul(
 			FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION> factor1, OP factor2) {
-		double valueF2 = factor1.getComponentUnit2().convert(factor2).getValue();
-		return factor1.getComponentUnit1().valueOf(factor1.getValue() * valueF2);
+		double valueF2 = Operation.convert(factor2, factor1.getComponentUnit2Id()).getValue();
+		return UnitFactory.valueOf(factor1.getValue() * valueF2, factor1.getComponentUnit1Id());
 	}
 }

@@ -19,6 +19,7 @@ package org.beyene.sius.unit.composition;
 import org.beyene.sius.dimension.Dimension;
 import org.beyene.sius.dimension.composition.util.Composition;
 import org.beyene.sius.unit.Unit;
+import org.beyene.sius.unit.UnitId;
 
 /**
  * 
@@ -46,7 +47,7 @@ COMPOSITE_UNIT extends CompositeUnit<C1, C2, COMPOSITION, BASE_COMPOSITION, BASE
 
 extends Unit<COMPOSITION, BASE_COMPOSITION, COMPOSITE_UNIT> {
 	
-	public UNIT_C1 getComponentUnit1();
+	public UnitId<C1, BASE_C1, UNIT_C1> getComponentUnit1Id();
 
-	public UNIT_C2 getComponentUnit2();
+	public UnitId<C2, BASE_C2, UNIT_C2> getComponentUnit2Id();
 }

@@ -34,6 +34,7 @@ import org.beyene.sius.unit.mass.Pound;
 import org.beyene.sius.unit.temperature.Celsius;
 import org.beyene.sius.unit.temperature.Fahrenheit;
 import org.beyene.sius.unit.temperature.Kelvin;
+import org.beyene.sius.unit.time.Hour;
 import org.beyene.sius.unit.time.Minute;
 import org.beyene.sius.unit.time.Second;
 
@@ -71,6 +72,8 @@ public final class UnitIdentifier {
 	public static final SecondId SECOND = new SecondId();
 
 	public static final MinuteId MINUTE = new MinuteId();
+	
+	public static final HourId HOUR = new HourId();
 
 	/* temperature */
 
@@ -118,6 +121,9 @@ public final class UnitIdentifier {
 	}
 
 	private static class MinuteId extends AbstractUnitId<Time, Second, Minute> {
+	}
+	
+	private static class HourId extends AbstractUnitId<Time, Second, Hour> {
 	}
 
 	/* temperature */

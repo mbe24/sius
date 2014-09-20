@@ -16,53 +16,55 @@
  */
 package org.beyene.sius.unit.impl;
 
+import org.beyene.sius.cache.Cache;
+import org.beyene.sius.cache.Caches;
+import org.beyene.sius.dimension.Length;
+import org.beyene.sius.dimension.Time;
 import org.beyene.sius.dimension.composition.Speed;
-import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.composition.speed.MeterPerSecond;
 import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.unit.time.Second;
+import org.beyene.sius.util.Preferences;
 
-final class MeterPerSecondImpl implements MeterPerSecond {
+final class MeterPerSecondImpl extends AbstractUnit<Speed, MeterPerSecond, MeterPerSecond> implements MeterPerSecond {
 
-	private final double scalar;
-	private final UnitId<Speed, MeterPerSecond, MeterPerSecond> unitId = UnitIdentifier.METER_PER_SECOND;
-
-	public MeterPerSecondImpl(double scalar) {
-		this.scalar = scalar;
-	}
-
-	@Override
-	public Meter getComponentUnit1() {
-		return FactoryLength.meter(0);
-	}
-
-	@Override
-	public Second getComponentUnit2() {
-		return FactoryTime.second(0);
-	}
-
-	@Override
-	public Speed getDimension() {
-		return Speed.INSTANCE;
-	}
-
-	@Override
-	public UnitId<Speed, MeterPerSecond, MeterPerSecond> getIdentifier() {
-		return unitId;
-	}
-
-	@Override
-	public <OTHER extends Unit<Speed, MeterPerSecond, OTHER>> MeterPerSecond convert(
-			OTHER other) {
-		MeterPerSecond converted;
-		if (other.getIdentifier().equals(unitId))
-			converted = valueOf(other.getValue());
+	private static final transient Cache<Speed, MeterPerSecond, MeterPerSecond> dynamicCache;
+	private static final transient StaticCache<Speed, MeterPerSecond, MeterPerSecond> staticCache;
+	
+	static {
+		int sizeDyn = Preferences.loadInt("mps.cache.dynamic.size", 0);
+		if (sizeDyn > 0)
+			dynamicCache = Caches.newInstance(UnitIdentifier.METER_PER_SECOND, Math.abs((sizeDyn)));
 		else
-			converted = Operation.convert(other, unitId);
-		return converted;
+			dynamicCache = null;
+
+		int sizeStatic = Preferences.loadInt("mps.cache.static.size", 0);
+		if (sizeStatic > 0)
+			staticCache = new StaticCache<>(Preferences.loadInt("mps.cache.static.low", 0), sizeStatic, MeterPerSecondImpl.class);
+		else
+			staticCache = null;
+	}
+	
+	public MeterPerSecondImpl(double value) {
+		super(value, Speed.INSTANCE, UnitIdentifier.METER_PER_SECOND, MeterPerSecond.class, MeterPerSecond.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	public UnitId<Length, Meter, Meter> getComponentUnit1Id() {
+		return UnitIdentifier.METER;
+	}
+
+	@Override
+	public UnitId<Time, Second, Second> getComponentUnit2Id() {
+		return UnitIdentifier.SECOND;
+	}
+
+	@Override
+	protected MeterPerSecond fromBase(Unit<Speed, MeterPerSecond, MeterPerSecond> base) {
+		return valueOf(base.getValue());
 	}
 
 	@Override
@@ -71,17 +73,12 @@ final class MeterPerSecondImpl implements MeterPerSecond {
 	}
 
 	@Override
-	public MeterPerSecond valueOf(double d) {
-		return new MeterPerSecondImpl(d);
+	protected MeterPerSecond _this() {
+		return this;
 	}
 
 	@Override
-	public double getValue() {
-		return scalar;
-	}
-
-	@Override
-	public String toString() {
-		return "MeterPerSecond [value=" + scalar + "]";
+	protected MeterPerSecond _new_instance(double value) {
+		return new MeterPerSecondImpl(value);
 	}
 }

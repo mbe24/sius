@@ -25,15 +25,18 @@ public final class FactoryTemperature {
 		// private constructor to prevent instantiation
 	}
 	
+	private static final Kelvin kelvin = new KelvinImpl(0);
 	public static Kelvin kelvin(double value) {
-		return new KelvinImpl(value);
+		return kelvin.valueOf(value);
 	}
 	
+	private static final Celsius celsius = new CelsiusImpl(0);
 	public static Celsius celsius(double value) {
-		return new CelsiusImpl(value);
+		return celsius.valueOf(value);
 	}
 	
+	private static final Fahrenheit fahrenheit = new FahrenheitImpl(0);
 	public static Fahrenheit fahrenheit(double value) {
-		return new FahrenheitImpl(value);
+		return fahrenheit.valueOf(value);
 	}
 }

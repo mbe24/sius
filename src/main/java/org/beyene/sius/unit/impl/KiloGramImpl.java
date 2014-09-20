@@ -16,59 +16,54 @@
  */
 package org.beyene.sius.unit.impl;
 
+import org.beyene.sius.cache.Cache;
+import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Mass;
-import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
-import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.mass.KiloGram;
+import org.beyene.sius.util.Preferences;
 
-final class KiloGramImpl implements KiloGram {
+final class KiloGramImpl extends AbstractUnit<Mass, KiloGram, KiloGram> implements KiloGram {
 
-	private final double scalar;
-	private static final UnitId<Mass, KiloGram, KiloGram> unitId = UnitIdentifier.KILOGRAM;
+	private static final transient Cache<Mass, KiloGram, KiloGram> dynamicCache;
+	private static final transient StaticCache<Mass, KiloGram, KiloGram> staticCache;
 	
-	public KiloGramImpl(double scalar) {
-		this.scalar = scalar;
-	}
-
-	@Override
-	public Mass getDimension() {
-		return Mass.INSTANCE;
-	}
-
-	@Override
-	public UnitId<Mass, KiloGram, KiloGram> getIdentifier() {
-		return unitId;
-	}
-
-	@Override
-	public <O extends Unit<Mass, KiloGram, O>> KiloGram convert(O other) {
-		KiloGram converted;
-		if (other.getIdentifier().equals(unitId))
-			converted = FactoryMass.kg(other.getValue());
+	static {
+		int sizeDyn = Preferences.loadInt("kg.cache.dynamic.size", 0);
+		if (sizeDyn > 0)
+			dynamicCache = Caches.newInstance(UnitIdentifier.KILOGRAM, Math.abs((sizeDyn)));
 		else
-			converted = Operation.convert(other, unitId);
-		return converted;
+			dynamicCache = null;
+
+		int sizeStatic = Preferences.loadInt("kg.cache.static.size", 0);
+		if (sizeStatic > 0)
+			staticCache = new StaticCache<>(Preferences.loadInt("kg.cache.static.low", 0), sizeStatic, KiloGramImpl.class);
+		else
+			staticCache = null;
+	}
+	
+	public KiloGramImpl(double value) {
+		super(value, Mass.INSTANCE, UnitIdentifier.KILOGRAM, KiloGram.class, KiloGram.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	protected KiloGram fromBase(Unit<Mass, KiloGram, KiloGram> base) {
+		return valueOf(base.getValue());
 	}
 
 	@Override
 	public KiloGram toBaseUnit() {
-		return FactoryMass.kg(scalar);
-	}
-	
-	@Override
-	public KiloGram valueOf(double scalar) {
-		return FactoryMass.kg(scalar);
+		return this;
 	}
 
 	@Override
-	public double getValue() {
-		return scalar;
+	protected KiloGram _this() {
+		return this;
 	}
 
 	@Override
-	public String toString() {
-		return "KiloGram [value=" + scalar + "]";
+	protected KiloGram _new_instance(double value) {
+		return new KiloGramImpl(value);
 	}
 }

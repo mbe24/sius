@@ -16,63 +16,56 @@
  */
 package org.beyene.sius.unit.impl;
 
+import org.beyene.sius.cache.Cache;
+import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Length;
-import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
-import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.length.Constants;
 import org.beyene.sius.unit.length.Foot;
 import org.beyene.sius.unit.length.Meter;
+import org.beyene.sius.util.Preferences;
 
-final class FootImpl implements Foot {
+final class FootImpl extends AbstractUnit<Length, Meter, Foot> implements Foot {
 
-	private final double scalar;
-	private static final UnitId<Length, Meter, Foot> unitId = UnitIdentifier.FOOT;
+	private static final transient Cache<Length, Meter, Foot> dynamicCache;
+	private static final transient StaticCache<Length, Meter, Foot> staticCache;
 	
-	public FootImpl(double scalar) {
-		this.scalar = scalar;
-	}
-
-	@Override
-	public Length getDimension() {
-		return Length.INSTANCE;
-	}
-
-	@Override
-	public UnitId<Length, Meter, Foot> getIdentifier() {
-		return unitId;
-	}
-
-	@Override
-	public <OTHER extends Unit<Length, Meter, OTHER>> Foot convert(OTHER other) {
-		Foot converted;
-		if (other.getIdentifier().equals(unitId))
-			converted = FactoryLength.foot(other.getValue());
-		else if (other.getIdentifier().equals(UnitIdentifier.METER))
-			converted = FactoryLength.foot(other.getValue() / Constants.METER_PER_FOOT);
+	static {
+		int sizeDyn = Preferences.loadInt("foot.cache.dynamic.size", 0);
+		if (sizeDyn > 0)
+			dynamicCache = Caches.newInstance(UnitIdentifier.FOOT, Math.abs((sizeDyn)));
 		else
-			converted = Operation.convert(other, unitId);
-		return converted;
+			dynamicCache = null;
+
+		int sizeStatic = Preferences.loadInt("foot.cache.static.size", 0);
+		if (sizeStatic > 0)
+			staticCache = new StaticCache<>(Preferences.loadInt("foot.cache.static.low", 0), sizeStatic, FootImpl.class);
+		else
+			staticCache = null;
+	}
+	
+	public FootImpl(double value) {
+		super(value, Length.INSTANCE, UnitIdentifier.FOOT, Meter.class, Foot.class, dynamicCache, staticCache);
+	}
+	
+	@Override
+	protected Foot fromBase(Unit<Length, Meter, Meter> base) {
+		return valueOf(base.getValue() / Constants.METER_PER_FOOT);
 	}
 
 	@Override
 	public Meter toBaseUnit() {
-		return FactoryLength.meter(scalar * Constants.METER_PER_FOOT);
+		return FactoryLength.meter(value * Constants.METER_PER_FOOT);
 	}
 
 	@Override
-	public Foot valueOf(double d) {
-		return FactoryLength.foot(d);
+	protected Foot _this() {
+		return this;
 	}
 
 	@Override
-	public double getValue() {
-		return scalar;
-	}
-
-	@Override
-	public String toString() {
-		return "Foot [value=" + scalar + "]";
+	protected Foot _new_instance(double value) {
+		return new FootImpl(value);
 	}
 }

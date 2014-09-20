@@ -16,63 +16,56 @@
  */
 package org.beyene.sius.unit.impl;
 
+import org.beyene.sius.cache.Cache;
+import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Mass;
-import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
-import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.mass.Constants;
 import org.beyene.sius.unit.mass.KiloGram;
 import org.beyene.sius.unit.mass.Pound;
+import org.beyene.sius.util.Preferences;
 
-final class PoundImpl implements Pound {
+final class PoundImpl extends AbstractUnit<Mass, KiloGram, Pound> implements Pound {
 
-	private final double scalar;
-	private static final UnitId<Mass, KiloGram, Pound> unitId = UnitIdentifier.POUND;
+	private static final transient Cache<Mass, KiloGram, Pound>  dynamicCache;
+	private static final transient StaticCache<Mass, KiloGram, Pound>  staticCache;
 	
-	public PoundImpl(double scalar) {
-		this.scalar = scalar;
-	}
-
-	@Override
-	public Mass getDimension() {
-		return Mass.INSTANCE;
-	}
-
-	@Override
-	public UnitId<Mass, KiloGram, Pound> getIdentifier() {
-		return unitId;
-	}
-
-	@Override
-	public <O extends Unit<Mass, KiloGram, O>> Pound convert(O other) {
-		Pound converted;
-		if (other.getIdentifier().equals(unitId))
-			converted = FactoryMass.lb(other.getValue());
-		else if (other.getIdentifier().equals(UnitIdentifier.KILOGRAM))
-			converted = FactoryMass.lb(other.getValue() / Constants.KILOGRAM_PER_POUND);
+	static {
+		int sizeDyn = Preferences.loadInt("pound.cache.dynamic.size", 0);
+		if (sizeDyn > 0)
+			dynamicCache = Caches.newInstance(UnitIdentifier.POUND, Math.abs((sizeDyn)));
 		else
-			converted = Operation.convert(other, unitId);
-		return converted;
+			dynamicCache = null;
+
+		int sizeStatic = Preferences.loadInt("pound.cache.static.size", 0);
+		if (sizeStatic > 0)
+			staticCache = new StaticCache<>(Preferences.loadInt("pound.cache.static.low", 0), sizeStatic, PoundImpl.class);
+		else
+			staticCache = null;
+	}
+	
+	public PoundImpl(double value) {
+		super(value, Mass.INSTANCE, UnitIdentifier.POUND, KiloGram.class, Pound.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	protected Pound fromBase(Unit<Mass, KiloGram, KiloGram> base) {
+		return valueOf(base.getValue() / Constants.KILOGRAM_PER_POUND);
 	}
 
 	@Override
 	public KiloGram toBaseUnit() {
-		return FactoryMass.kg(scalar * Constants.KILOGRAM_PER_POUND);
+		return FactoryMass.kg(value * Constants.KILOGRAM_PER_POUND);
 	}
 
 	@Override
-	public Pound valueOf(double scalar) {
-		return FactoryMass.lb(scalar);
+	protected Pound _this() {
+		return this;
 	}
 
 	@Override
-	public double getValue() {
-		return scalar;
-	}
-
-	@Override
-	public String toString() {
-		return "Pound [value=" + scalar + "]";
+	protected Pound _new_instance(double value) {
+		return new PoundImpl(value);
 	}
 }

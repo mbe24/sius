@@ -26,12 +26,12 @@ public final class FactorySpeed {
 	}
 
 	private static MeterPerSecond mps = new MeterPerSecondImpl(0);
-	public static MeterPerSecond mps(double d) {
-		return mps.valueOf(d);
+	public static MeterPerSecond mps(double value) {
+		return mps.valueOf(value);
 	}
 
 	public static MilesPerHour mph = new MilesPerHourImpl(0);
-	public static MilesPerHour mph(double d) {
-		return mph.valueOf(d);
+	public static MilesPerHour mph(double value) {
+		return mph.valueOf(value);
 	}
 }

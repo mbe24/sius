@@ -19,7 +19,6 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Length;
-import org.beyene.sius.unit.AbstractUnit;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.length.Meter;
@@ -45,7 +44,7 @@ final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Mete
 	}
 
 	public MeterImpl(double value) {
-		super(Length.INSTANCE, UnitIdentifier.METER, UnitIdentifier.METER, Meter.class, value);
+		super(value, Length.INSTANCE, UnitIdentifier.METER, Meter.class, Meter.class, dynamicCache, staticCache);
 	}
 
 	@Override
@@ -54,7 +53,7 @@ final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Mete
 	}
 
 	@Override
-	protected Meter fromBase(Unit<Length, Meter, ?> base) {
+	protected Meter fromBase(Unit<Length, Meter, Meter> base) {
 		return valueOf(base.getValue());
 	}
 
@@ -66,15 +65,5 @@ final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Mete
 	@Override
 	protected Meter _new_instance(double value) {
 		return new MeterImpl(value);
-	}
-
-	@Override
-	protected StaticCache<Length, Meter, Meter> _static_cache() {
-		return staticCache;
-	}
-
-	@Override
-	protected Cache<Length, Meter, Meter> _dynamic_cache() {
-		return dynamicCache;
 	}
 }

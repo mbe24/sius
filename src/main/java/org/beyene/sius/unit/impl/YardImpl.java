@@ -19,7 +19,6 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Length;
-import org.beyene.sius.unit.AbstractUnit;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.length.Constants;
@@ -47,17 +46,17 @@ final class YardImpl extends AbstractUnit<Length, Meter, Yard> implements Yard {
 	}
 
 	public YardImpl(double value) {
-		super(Length.INSTANCE, UnitIdentifier.METER, UnitIdentifier.YARD, YardImpl.class, value);
+		super(value, Length.INSTANCE, UnitIdentifier.YARD, Meter.class, YardImpl.class, dynamicCache, staticCache);
 	}
 
+	@Override
+	protected Yard fromBase(Unit<Length, Meter, Meter> base) {
+		return valueOf((base.getValue() / Constants.METER_PER_YARD));
+	}
+	
 	@Override
 	public Meter toBaseUnit() {
 		return FactoryLength.meter(value * Constants.METER_PER_YARD);
-	}
-
-	@Override
-	protected Yard fromBase(Unit<Length, Meter, ?> base) {
-		return valueOf((base.getValue() / Constants.METER_PER_YARD));
 	}
 
 	@Override
@@ -68,15 +67,5 @@ final class YardImpl extends AbstractUnit<Length, Meter, Yard> implements Yard {
 	@Override
 	protected Yard _new_instance(double value) {
 		return new YardImpl(value);
-	}
-
-	@Override
-	protected StaticCache<Length, Meter, Yard> _static_cache() {
-		return staticCache;
-	}
-
-	@Override
-	protected Cache<Length, Meter, Yard> _dynamic_cache() {
-		return dynamicCache;
 	}
 }

@@ -16,6 +16,7 @@
  */
 package org.beyene.sius.unit.impl;
 
+import org.beyene.sius.unit.time.Hour;
 import org.beyene.sius.unit.time.Minute;
 import org.beyene.sius.unit.time.Second;
 
@@ -24,11 +25,18 @@ public final class FactoryTime {
 		// private constructor to prevent instantiation
 	}
 	
+	private static final Second second = new SecondImpl(0);
 	public static Second second(double value) {
-		return new SecondImpl(value);
+		return second.valueOf(value);
 	}
 	
+	private static final Minute minute = new MinuteImpl(0);
 	public static Minute minute(double value) {
-		return new MinuteImpl(value);
+		return minute.valueOf(value);
+	}
+	
+	private static final Hour hour = new HourImpl(0);
+	public static Hour hour(double value) {
+		return hour.valueOf(value);
 	}
 }

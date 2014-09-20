@@ -16,66 +16,60 @@
  */
 package org.beyene.sius.unit.impl;
 
+import org.beyene.sius.cache.Cache;
+import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Temperature;
-import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
-import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.temperature.Constants;
 import org.beyene.sius.unit.temperature.Fahrenheit;
 import org.beyene.sius.unit.temperature.Kelvin;
+import org.beyene.sius.util.Preferences;
 
-final class FahrenheitImpl implements Fahrenheit {
+final class FahrenheitImpl extends AbstractUnit<Temperature, Kelvin, Fahrenheit> implements Fahrenheit {
 
-	private final double scalar;
-	private static final UnitId<Temperature, Kelvin, Fahrenheit> unitId = UnitIdentifier.FAHRENHEIT;
+	private static final transient Cache<Temperature, Kelvin, Fahrenheit> dynamicCache;
+	private static final transient StaticCache<Temperature, Kelvin, Fahrenheit> staticCache;
 	
-	public FahrenheitImpl(double scalar) {
-		this.scalar = scalar;
-	}
-
-	@Override
-	public Temperature getDimension() {
-		return Temperature.INSTANCE;
-	}
-
-	@Override
-	public UnitId<Temperature, Kelvin, Fahrenheit> getIdentifier() {
-		return unitId ;
-	}
-
-	@Override
-	public <OTHER extends Unit<Temperature, Kelvin, OTHER>> Fahrenheit convert(OTHER other) {
-		Fahrenheit converted;
-		if (other.getIdentifier().equals(unitId))
-			converted = FactoryTemperature.fahrenheit(other.getValue());
-		else if (other.getIdentifier().equals(UnitIdentifier.KELVIN))
-			converted = FactoryTemperature.fahrenheit((other.getValue()
-					* (Constants.FAHRENHEIT_KELVIN_SCALE_NINE / Constants.FAHRENHEIT_KELVIN_SCALE_FIVE))
-					- Constants.FAHRENHEIT_KELVIN_OFFSET);
+	static {
+		int sizeDyn = Preferences.loadInt("fahrenheit.cache.dynamic.size", 0);
+		if (sizeDyn > 0)
+			dynamicCache = Caches.newInstance(UnitIdentifier.FAHRENHEIT, Math.abs((sizeDyn)));
 		else
-			converted = Operation.convert(other, unitId);
-		return converted;
+			dynamicCache = null;
+
+		int sizeStatic = Preferences.loadInt("fahrenheit.cache.static.size", 0);
+		if (sizeStatic > 0)
+			staticCache = new StaticCache<>(Preferences.loadInt("fahrenheit.cache.static.low", 0), sizeStatic, FahrenheitImpl.class);
+		else
+			staticCache = null;
+	}
+	
+	public FahrenheitImpl(double value) {
+		super(value, Temperature.INSTANCE, UnitIdentifier.FAHRENHEIT, Kelvin.class, Fahrenheit.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	protected Fahrenheit fromBase(Unit<Temperature, Kelvin, Kelvin> base) {
+		 return valueOf((base.getValue()
+		 * (Constants.FAHRENHEIT_KELVIN_SCALE_NINE /
+		 Constants.FAHRENHEIT_KELVIN_SCALE_FIVE))
+		 - Constants.FAHRENHEIT_KELVIN_OFFSET);
 	}
 
 	@Override
 	public Kelvin toBaseUnit() {
-		return FactoryTemperature.kelvin((scalar +  Constants.FAHRENHEIT_KELVIN_OFFSET)
-				* (Constants.FAHRENHEIT_KELVIN_SCALE_FIVE / Constants.FAHRENHEIT_KELVIN_SCALE_NINE));
+		return FactoryTemperature.kelvin((value + Constants.FAHRENHEIT_KELVIN_OFFSET)
+						* (Constants.FAHRENHEIT_KELVIN_SCALE_FIVE / Constants.FAHRENHEIT_KELVIN_SCALE_NINE));
 	}
 
 	@Override
-	public Fahrenheit valueOf(double d) {
-		return FactoryTemperature.fahrenheit(d);
+	protected Fahrenheit _this() {
+		return this;
 	}
 
 	@Override
-	public double getValue() {
-		return scalar;
-	}
-
-	@Override
-	public String toString() {
-		return "Fahrenheit [value=" + scalar + "]";
+	protected Fahrenheit _new_instance(double value) {
+		return new FahrenheitImpl(value);
 	}
 }

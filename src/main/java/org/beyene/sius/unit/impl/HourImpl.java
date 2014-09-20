@@ -21,49 +21,51 @@ import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Time;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
+import org.beyene.sius.unit.time.Constants;
+import org.beyene.sius.unit.time.Hour;
 import org.beyene.sius.unit.time.Second;
 import org.beyene.sius.util.Preferences;
 
-final class SecondImpl extends AbstractUnit<Time, Second, Second> implements Second {
+final class HourImpl extends AbstractUnit<Time, Second, Hour> implements Hour {
 
-	private static final transient Cache<Time, Second, Second> dynamicCache;
-	private static final transient StaticCache<Time, Second, Second> staticCache;
+	private static final transient Cache<Time, Second, Hour> dynamicCache;
+	private static final transient StaticCache<Time, Second, Hour> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("second.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.loadInt("hour.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
-			dynamicCache = Caches.newInstance(UnitIdentifier.SECOND, Math.abs((sizeDyn)));
+			dynamicCache = Caches.newInstance(UnitIdentifier.HOUR, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("second.cache.static.size", 0);
+		int sizeStatic = Preferences.loadInt("hour.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("second.cache.static.low", 0), sizeStatic, SecondImpl.class);
+			staticCache = new StaticCache<>(Preferences.loadInt("hour.cache.static.low", 0), sizeStatic, HourImpl.class);
 		else
 			staticCache = null;
 	}
-
-	public SecondImpl(double value) {
-		super(value, Time.INSTANCE, UnitIdentifier.SECOND, Second.class, Second.class, dynamicCache, staticCache);
+	
+	public HourImpl(double value) {
+		super(value, Time.INSTANCE, UnitIdentifier.HOUR, Second.class, HourImpl.class, dynamicCache, staticCache);
 	}
 
 	@Override
-	protected Second fromBase(Unit<Time, Second, Second> base) {
-		return valueOf(base.getValue());
+	protected Hour fromBase(Unit<Time, Second, Second> base) {
+		return valueOf(base.getValue() / Constants.SECONDS_PER_HOUR);
 	}
-	
+
 	@Override
 	public Second toBaseUnit() {
+		return FactoryTime.second(value * Constants.SECONDS_PER_HOUR);
+	}
+
+	@Override
+	protected Hour _this() {
 		return this;
 	}
 
 	@Override
-	protected Second _this() {
-		return this;
-	}
-
-	@Override
-	protected Second _new_instance(double value) {
-		return new SecondImpl(value);
+	protected Hour _new_instance(double value) {
+		return new HourImpl(value);
 	}
 }

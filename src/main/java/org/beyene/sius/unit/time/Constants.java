@@ -22,4 +22,6 @@ public final class Constants {
 	}
 	
 	public static final double SECONDS_PER_MINUTE = 60;
+	
+	public static final double SECONDS_PER_HOUR = 3600;
 }

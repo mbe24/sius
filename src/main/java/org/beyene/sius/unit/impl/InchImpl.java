@@ -19,7 +19,6 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Length;
-import org.beyene.sius.unit.AbstractUnit;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.length.Constants;
@@ -47,11 +46,11 @@ final class InchImpl extends AbstractUnit<Length, Meter, Inch> implements Inch {
 	}
 	
 	public InchImpl(double value) {
-		super(Length.INSTANCE, UnitIdentifier.METER, UnitIdentifier.INCH, Inch.class, value);
+		super(value, Length.INSTANCE, UnitIdentifier.INCH, Meter.class, Inch.class, dynamicCache, staticCache);
 	}
 
 	@Override
-	protected Inch fromBase(Unit<Length, Meter, ?> base) {
+	protected Inch fromBase(Unit<Length, Meter, Meter> base) {
 		return valueOf(base.getValue() / Constants.METER_PER_INCH);
 	}
 
@@ -68,15 +67,5 @@ final class InchImpl extends AbstractUnit<Length, Meter, Inch> implements Inch {
 	@Override
 	protected Inch _new_instance(double value) {
 		return new InchImpl(value);
-	}
-
-	@Override
-	protected StaticCache<Length, Meter, Inch> _static_cache() {
-		return staticCache;
-	}
-	
-	@Override
-	protected Cache<Length, Meter, Inch> _dynamic_cache() {
-		return dynamicCache;
 	}
 }

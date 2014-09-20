@@ -16,78 +16,73 @@
  */
 package org.beyene.sius.unit.impl;
 
+import org.beyene.sius.cache.Cache;
+import org.beyene.sius.cache.Caches;
+import org.beyene.sius.dimension.Length;
+import org.beyene.sius.dimension.Time;
 import org.beyene.sius.dimension.composition.Speed;
-import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.composition.speed.Constants;
 import org.beyene.sius.unit.composition.speed.MeterPerSecond;
 import org.beyene.sius.unit.composition.speed.MilesPerHour;
+import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.unit.length.Mile;
 import org.beyene.sius.unit.time.Hour;
+import org.beyene.sius.unit.time.Second;
+import org.beyene.sius.util.Preferences;
 
-public class MilesPerHourImpl implements MilesPerHour {
+final class MilesPerHourImpl extends AbstractUnit<Speed, MeterPerSecond, MilesPerHour> implements MilesPerHour {
 
-	private final double scalar;
-	private final UnitId<Speed, MeterPerSecond, MilesPerHour> unitId = UnitIdentifier.MILES_PER_HOUR;
-
-	public MilesPerHourImpl(double scalar) {
-		this.scalar = scalar;
-	}
-
-	@Override
-	public Mile getComponentUnit1() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Hour getComponentUnit2() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Speed getDimension() {
-		return Speed.INSTANCE;
-	}
-
-	@Override
-	public UnitId<Speed, MeterPerSecond, MilesPerHour> getIdentifier() {
-		return unitId;
-	}
-
-	@Override
-	public <OTHER extends Unit<Speed, MeterPerSecond, OTHER>> MilesPerHour convert(
-			OTHER other) {
-		MilesPerHour converted;
-		if (other.getIdentifier().equals(unitId))
-			converted = valueOf(other.getValue());
-		else if (other.getIdentifier().equals(UnitIdentifier.METER_PER_SECOND))
-			converted = valueOf(other.getValue() * Constants.MPS_PER_MPH);
+	private static final transient Cache<Speed, MeterPerSecond, MilesPerHour> dynamicCache;
+	private static final transient StaticCache<Speed, MeterPerSecond, MilesPerHour> staticCache;
+	
+	static {
+		int sizeDyn = Preferences.loadInt("mph.cache.dynamic.size", 0);
+		if (sizeDyn > 0)
+			dynamicCache = Caches.newInstance(UnitIdentifier.MILES_PER_HOUR, Math.abs((sizeDyn)));
 		else
-			converted = Operation.convert(other, unitId);
-		return converted;
+			dynamicCache = null;
+
+		int sizeStatic = Preferences.loadInt("mph.cache.static.size", 0);
+		if (sizeStatic > 0)
+			staticCache = new StaticCache<>(Preferences.loadInt("mph.cache.static.low", 0), sizeStatic, MilesPerHourImpl.class);
+		else
+			staticCache = null;
+	}
+	
+	public MilesPerHourImpl(double value) {
+		super(value, Speed.INSTANCE, UnitIdentifier.MILES_PER_HOUR, MeterPerSecond.class, MilesPerHour.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	public UnitId<Length, Meter, Mile> getComponentUnit1Id() {
+		return UnitIdentifier.MILE;
+	}
+
+	@Override
+	public UnitId<Time, Second, Hour> getComponentUnit2Id() {
+		return UnitIdentifier.HOUR;
+	}
+
+	@Override
+	protected MilesPerHour fromBase(Unit<Speed, MeterPerSecond, MeterPerSecond> base) {
+		return valueOf(base.getValue() / Constants.MPS_PER_MPH);
 	}
 
 	@Override
 	public MeterPerSecond toBaseUnit() {
-		return FactorySpeed.mps(scalar / Constants.MPS_PER_MPH);
+		return FactorySpeed.mps(value * Constants.MPS_PER_MPH);
 	}
 
 	@Override
-	public MilesPerHour valueOf(double d) {
-		return new MilesPerHourImpl(d);
+	protected MilesPerHour _this() {
+		return this;
 	}
 
 	@Override
-	public double getValue() {
-		return scalar;
-	}
-
-	@Override
-	public String toString() {
-		return "MilesPerHour [value=" + scalar + "]";
+	protected MilesPerHour _new_instance(double value) {
+		return new MilesPerHourImpl(value);
 	}
 }

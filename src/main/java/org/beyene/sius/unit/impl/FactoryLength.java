@@ -27,24 +27,28 @@ public final class FactoryLength {
 		// private constructor to prevent instantiation
 	}
 
-	private static Meter meter = new MeterImpl(0);
-	public static Meter meter(double d) {
-		return meter.valueOf(d);
+	private static final Meter meter = new MeterImpl(0);
+	public static Meter meter(double value) {
+		return meter.valueOf(value);
 	}
 
-	public static Mile mile(double d) {
-		return new MileImpl(d);
+	private static final Mile mile = new MileImpl(0);
+	public static Mile mile(double value) {
+		return mile.valueOf(value);
 	}
 	
-	public static Yard yard(double d) {
-		return new YardImpl(d);
+	private static final Yard yard = new YardImpl(0);
+	public static Yard yard(double value) {
+		return yard.valueOf(value);
 	}
 	
-	public static Inch inch(double d) {
-		return new InchImpl(d);
+	private static final Inch inch = new InchImpl(0);
+	public static Inch inch(double value) {
+		return inch.valueOf(value);
 	}
 	
-	public static Foot foot(double d) {
-		return new FootImpl(d);
+	private static final Foot foot = new FootImpl(0);
+	public static Foot foot(double value) {
+		return foot.valueOf(value);
 	}
 }

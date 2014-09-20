@@ -16,63 +16,56 @@
  */
 package org.beyene.sius.unit.impl;
 
+import org.beyene.sius.cache.Cache;
+import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Length;
-import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
-import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.length.Constants;
 import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.unit.length.Mile;
+import org.beyene.sius.util.Preferences;
 
-final class MileImpl implements Mile {
+final class MileImpl extends AbstractUnit<Length, Meter, Mile> implements Mile {
 
-	private final double scalar;
-	private static final UnitId<Length, Meter, Mile> unitId = UnitIdentifier.MILE;
+	private static final transient Cache<Length, Meter, Mile> dynamicCache;
+	private static final transient StaticCache<Length, Meter, Mile> staticCache;
 	
-	public MileImpl(double scalar) {
-		this.scalar = scalar;
-	}
-
-	@Override
-	public Length getDimension() {
-		return Length.INSTANCE;
-	}
-
-	@Override
-	public UnitId<Length, Meter, Mile> getIdentifier() {
-		return UnitIdentifier.MILE;
-	}
-
-	@Override
-	public <O extends Unit<Length, Meter, O>> Mile convert(O other) {
-		Mile converted;
-		if (other.getIdentifier().equals(unitId))
-			converted = FactoryLength.mile(other.getValue());
-		else if (other.getIdentifier().equals(UnitIdentifier.METER))
-			converted = FactoryLength.mile(other.getValue() / Constants.METER_PER_MILE);
+	static {
+		int sizeDyn = Preferences.loadInt("mile.cache.dynamic.size", 0);
+		if (sizeDyn > 0)
+			dynamicCache = Caches.newInstance(UnitIdentifier.MILE, Math.abs((sizeDyn)));
 		else
-			converted = Operation.convert(other, unitId);
-		return converted;
+			dynamicCache = null;
+
+		int sizeStatic = Preferences.loadInt("mile.cache.static.size", 0);
+		if (sizeStatic > 0)
+			staticCache = new StaticCache<>(Preferences.loadInt("mile.cache.static.low", 0), sizeStatic, MileImpl.class);
+		else
+			staticCache = null;
+	}
+	
+	public MileImpl(double value) {
+		super(value, Length.INSTANCE, UnitIdentifier.MILE, Meter.class, Mile.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	protected Mile fromBase(Unit<Length, Meter, Meter> base) {
+		return valueOf(base.getValue() / Constants.METER_PER_MILE);
 	}
 
 	@Override
 	public Meter toBaseUnit() {
-		return FactoryLength.meter(scalar * Constants.METER_PER_MILE);
-	}
-	
-	@Override
-	public Mile valueOf(double d) {
-		return FactoryLength.mile(d);
+		return FactoryLength.meter(value * Constants.METER_PER_MILE);
 	}
 
 	@Override
-	public double getValue() {
-		return scalar;
+	protected Mile _this() {
+		return this;
 	}
-	
+
 	@Override
-	public String toString() {
-		return "Mile [value=" + scalar + "]";
+	protected Mile _new_instance(double value) {
+		return new MileImpl(value);
 	}
 }
