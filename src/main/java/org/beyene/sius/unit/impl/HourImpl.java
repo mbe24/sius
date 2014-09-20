@@ -46,7 +46,7 @@ final class HourImpl extends AbstractUnit<Time, Second, Hour> implements Hour {
 	}
 	
 	public HourImpl(double value) {
-		super(value, Time.INSTANCE, UnitIdentifier.HOUR, Second.class, HourImpl.class, dynamicCache, staticCache);
+		super(value, Time.INSTANCE, UnitIdentifier.HOUR, HourImpl.class, dynamicCache, staticCache);
 	}
 
 	@Override

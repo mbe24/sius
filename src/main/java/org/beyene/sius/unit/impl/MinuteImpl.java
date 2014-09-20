@@ -46,7 +46,7 @@ final class MinuteImpl extends AbstractUnit<Time, Second, Minute> implements Min
 	}
 	
 	public MinuteImpl(double value) {
-		super(value, Time.INSTANCE, UnitIdentifier.MINUTE, Second.class, Minute.class, dynamicCache, staticCache);
+		super(value, Time.INSTANCE, UnitIdentifier.MINUTE, Minute.class, dynamicCache, staticCache);
 	}
 
 	@Override

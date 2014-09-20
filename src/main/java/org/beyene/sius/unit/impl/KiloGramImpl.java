@@ -44,7 +44,7 @@ final class KiloGramImpl extends AbstractUnit<Mass, KiloGram, KiloGram> implemen
 	}
 	
 	public KiloGramImpl(double value) {
-		super(value, Mass.INSTANCE, UnitIdentifier.KILOGRAM, KiloGram.class, KiloGram.class, dynamicCache, staticCache);
+		super(value, Mass.INSTANCE, UnitIdentifier.KILOGRAM, KiloGram.class, dynamicCache, staticCache);
 	}
 
 	@Override

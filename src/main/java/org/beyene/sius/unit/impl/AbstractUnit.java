@@ -18,7 +18,6 @@ package org.beyene.sius.unit.impl;
 
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.dimension.Dimension;
-import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 
@@ -31,7 +30,6 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 	private final UnitId<D, BASE, SELF> unitId;
 
 	private final Class<? extends Unit<D, BASE, SELF>> interfaceClass;
-	private final Class<? extends Unit<D, BASE, BASE>> baseInterfaceClass;
 	
 	private transient final Cache<D, BASE, SELF> dynamicCache;
 	private transient final StaticCache<D, BASE, SELF> staticCache;
@@ -40,7 +38,6 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 			double value,
 			D dimension,
 			UnitId<D, BASE, SELF> unitId,
-			Class<? extends Unit<D, BASE, BASE>> baseInterfaceClass, 
 			Class<? extends Unit<D, BASE, SELF>> interfaceClass,
 			Cache<D, BASE, SELF> dynamicCache,
 			StaticCache<D, BASE, SELF> staticCache
@@ -50,7 +47,6 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 		this.dimension = dimension;
 		this.unitId = unitId;
 		
-		this.baseInterfaceClass = baseInterfaceClass;
 		this.interfaceClass = interfaceClass;
 		
 		this.dynamicCache = dynamicCache;
@@ -72,10 +68,8 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 		SELF converted;
 		if (interfaceClass.isAssignableFrom(other.getClass()))
 			converted = valueOf(other.getValue());
-		else if (baseInterfaceClass.isAssignableFrom(other.getClass()))
-			converted = fromBase(baseInterfaceClass.cast(other));
 		else
-			converted = Operation.convert(other, unitId);
+			converted = fromBase(other.toBaseUnit());
 		return converted;
 	}
 

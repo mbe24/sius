@@ -53,7 +53,7 @@ final class MilesPerHourImpl extends AbstractUnit<Speed, MeterPerSecond, MilesPe
 	}
 	
 	public MilesPerHourImpl(double value) {
-		super(value, Speed.INSTANCE, UnitIdentifier.MILES_PER_HOUR, MeterPerSecond.class, MilesPerHour.class, dynamicCache, staticCache);
+		super(value, Speed.INSTANCE, UnitIdentifier.MILES_PER_HOUR, MilesPerHour.class, dynamicCache, staticCache);
 	}
 
 	@Override

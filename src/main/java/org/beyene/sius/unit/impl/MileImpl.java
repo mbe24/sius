@@ -46,7 +46,7 @@ final class MileImpl extends AbstractUnit<Length, Meter, Mile> implements Mile {
 	}
 	
 	public MileImpl(double value) {
-		super(value, Length.INSTANCE, UnitIdentifier.MILE, Meter.class, Mile.class, dynamicCache, staticCache);
+		super(value, Length.INSTANCE, UnitIdentifier.MILE, Mile.class, dynamicCache, staticCache);
 	}
 
 	@Override

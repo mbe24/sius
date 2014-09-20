@@ -46,7 +46,7 @@ final class FahrenheitImpl extends AbstractUnit<Temperature, Kelvin, Fahrenheit>
 	}
 	
 	public FahrenheitImpl(double value) {
-		super(value, Temperature.INSTANCE, UnitIdentifier.FAHRENHEIT, Kelvin.class, Fahrenheit.class, dynamicCache, staticCache);
+		super(value, Temperature.INSTANCE, UnitIdentifier.FAHRENHEIT, Fahrenheit.class, dynamicCache, staticCache);
 	}
 
 	@Override

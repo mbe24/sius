@@ -46,7 +46,7 @@ final class YardImpl extends AbstractUnit<Length, Meter, Yard> implements Yard {
 	}
 
 	public YardImpl(double value) {
-		super(value, Length.INSTANCE, UnitIdentifier.YARD, Meter.class, YardImpl.class, dynamicCache, staticCache);
+		super(value, Length.INSTANCE, UnitIdentifier.YARD, YardImpl.class, dynamicCache, staticCache);
 	}
 
 	@Override

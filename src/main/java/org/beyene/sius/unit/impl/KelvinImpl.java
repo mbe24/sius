@@ -44,7 +44,7 @@ final class KelvinImpl extends AbstractUnit<Temperature, Kelvin, Kelvin> impleme
 	}
 	
 	public KelvinImpl(double value) {
-		super(value, Temperature.INSTANCE, UnitIdentifier.KELVIN, Kelvin.class, Kelvin.class, dynamicCache, staticCache);
+		super(value, Temperature.INSTANCE, UnitIdentifier.KELVIN, Kelvin.class, dynamicCache, staticCache);
 	}
 
 	@Override

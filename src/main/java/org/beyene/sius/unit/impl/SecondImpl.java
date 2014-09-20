@@ -44,7 +44,7 @@ final class SecondImpl extends AbstractUnit<Time, Second, Second> implements Sec
 	}
 
 	public SecondImpl(double value) {
-		super(value, Time.INSTANCE, UnitIdentifier.SECOND, Second.class, Second.class, dynamicCache, staticCache);
+		super(value, Time.INSTANCE, UnitIdentifier.SECOND, Second.class, dynamicCache, staticCache);
 	}
 
 	@Override

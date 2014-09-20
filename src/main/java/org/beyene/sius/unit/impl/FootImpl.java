@@ -46,7 +46,7 @@ final class FootImpl extends AbstractUnit<Length, Meter, Foot> implements Foot {
 	}
 	
 	public FootImpl(double value) {
-		super(value, Length.INSTANCE, UnitIdentifier.FOOT, Meter.class, Foot.class, dynamicCache, staticCache);
+		super(value, Length.INSTANCE, UnitIdentifier.FOOT, Foot.class, dynamicCache, staticCache);
 	}
 	
 	@Override

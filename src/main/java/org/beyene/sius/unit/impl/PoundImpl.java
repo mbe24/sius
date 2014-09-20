@@ -46,7 +46,7 @@ final class PoundImpl extends AbstractUnit<Mass, KiloGram, Pound> implements Pou
 	}
 	
 	public PoundImpl(double value) {
-		super(value, Mass.INSTANCE, UnitIdentifier.POUND, KiloGram.class, Pound.class, dynamicCache, staticCache);
+		super(value, Mass.INSTANCE, UnitIdentifier.POUND, Pound.class, dynamicCache, staticCache);
 	}
 
 	@Override

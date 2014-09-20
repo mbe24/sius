@@ -46,7 +46,7 @@ final class CelsiusImpl extends AbstractUnit<Temperature, Kelvin, Celsius> imple
 	}
 	
 	public CelsiusImpl(double value) {
-		super(value, Temperature.INSTANCE, UnitIdentifier.CELSIUS, Kelvin.class, Celsius.class, dynamicCache, staticCache);
+		super(value, Temperature.INSTANCE, UnitIdentifier.CELSIUS, Celsius.class, dynamicCache, staticCache);
 	}
 
 	@Override

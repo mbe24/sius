@@ -46,7 +46,7 @@ final class InchImpl extends AbstractUnit<Length, Meter, Inch> implements Inch {
 	}
 	
 	public InchImpl(double value) {
-		super(value, Length.INSTANCE, UnitIdentifier.INCH, Meter.class, Inch.class, dynamicCache, staticCache);
+		super(value, Length.INSTANCE, UnitIdentifier.INCH, Inch.class, dynamicCache, staticCache);
 	}
 
 	@Override

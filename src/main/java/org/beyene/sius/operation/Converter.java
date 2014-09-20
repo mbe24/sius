@@ -35,6 +35,6 @@ final class Converter {
 	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>, CU extends Unit<D, B, CU>, CuId extends UnitId<D, B, CU>> CU convert(OP op, CuId cunitId) {
 		CU conversionUnit = UnitFactory.valueOf(0, cunitId);
-		return conversionUnit.convert(op.toBaseUnit());
+		return conversionUnit.convert(op);
 	}
 }
