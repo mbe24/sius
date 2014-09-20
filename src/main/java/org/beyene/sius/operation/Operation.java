@@ -18,12 +18,14 @@ package org.beyene.sius.operation;
 
 import org.beyene.sius.dimension.Dimension;
 import org.beyene.sius.dimension.composition.util.Fraction;
+import org.beyene.sius.dimension.composition.util.Product;
 import org.beyene.sius.operation.functor.Adder;
 import org.beyene.sius.operation.functor.FunctorFactory;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitFactory;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.composition.FractionUnit;
+import org.beyene.sius.unit.composition.ProductUnit;
 
 /**
  * 
@@ -164,9 +166,50 @@ public final class Operation {
 	UNIT_NUMERATOR extends Unit<NUMERATOR, BASE_NUMERATOR, UNIT_NUMERATOR>,
 	UNIT_DENOMINATOR extends Unit<DENOMINATOR, BASE_DENOMINATOR, UNIT_DENOMINATOR>,
 	UNIT_FRACTION extends FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION>,
-	OP extends Unit<DENOMINATOR, BASE_DENOMINATOR, OP>> UNIT_NUMERATOR mul(
-			FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION> factor1, OP factor2) {
+	OP extends Unit<DENOMINATOR, BASE_DENOMINATOR, OP>> UNIT_NUMERATOR mul(UNIT_FRACTION factor1, OP factor2) {
 		double valueF2 = Operation.convert(factor2, factor1.getComponentUnit2Id()).getValue();
 		return UnitFactory.valueOf(factor1.getValue() * valueF2, factor1.getComponentUnit1Id());
+	}
+	
+	/**
+	 * Division of a product unit (a * b) by a unit (a).
+	 * 
+	 * @param product (a * b)
+	 * @param divisor (a)
+	 * @return the quotient of type (b)
+	 */
+	public static <FACTOR1 extends Dimension<FACTOR1>,
+	FACTOR2 extends Dimension<FACTOR2>,
+	P extends Product<FACTOR1, FACTOR2, P>,
+	BASE_P extends Unit<P, BASE_P, BASE_P>,
+	BASE_FACTOR1 extends Unit<FACTOR1, BASE_FACTOR1, BASE_FACTOR1>,
+	BASE_FACTOR2 extends Unit<FACTOR2, BASE_FACTOR2, BASE_FACTOR2>,
+	UNIT_FACTOR1 extends Unit<FACTOR1, BASE_FACTOR1, UNIT_FACTOR1>,
+	UNIT_FACTOR2 extends Unit<FACTOR2, BASE_FACTOR2, UNIT_FACTOR2>,
+	UNIT_PRODUCT extends ProductUnit<FACTOR1, FACTOR2, P, BASE_P, BASE_FACTOR1, BASE_FACTOR2, UNIT_FACTOR1, UNIT_FACTOR2, UNIT_PRODUCT>,
+	DIVISOR extends Unit<FACTOR1, BASE_FACTOR1, DIVISOR>> UNIT_FACTOR2 div1(UNIT_PRODUCT product, DIVISOR divisor) {
+		double dividend = product.getValue();
+		return UnitFactory.valueOf(dividend / divisor.getValue(), product.getComponentUnit2Id());
+	}
+	
+	/**
+	 * Division of a product unit (a * b) by a unit (b).
+	 * 
+	 * @param product (a * b)
+	 * @param divisor (b)
+	 * @return the quotient of type (a)
+	 */
+	public static <FACTOR1 extends Dimension<FACTOR1>,
+	FACTOR2 extends Dimension<FACTOR2>,
+	P extends Product<FACTOR1, FACTOR2, P>,
+	BASE_P extends Unit<P, BASE_P, BASE_P>,
+	BASE_FACTOR1 extends Unit<FACTOR1, BASE_FACTOR1, BASE_FACTOR1>,
+	BASE_FACTOR2 extends Unit<FACTOR2, BASE_FACTOR2, BASE_FACTOR2>,
+	UNIT_FACTOR1 extends Unit<FACTOR1, BASE_FACTOR1, UNIT_FACTOR1>,
+	UNIT_FACTOR2 extends Unit<FACTOR2, BASE_FACTOR2, UNIT_FACTOR2>,
+	UNIT_PRODUCT extends ProductUnit<FACTOR1, FACTOR2, P, BASE_P, BASE_FACTOR1, BASE_FACTOR2, UNIT_FACTOR1, UNIT_FACTOR2, UNIT_PRODUCT>,
+	DIVISOR extends Unit<FACTOR2, BASE_FACTOR2, DIVISOR>> UNIT_FACTOR1 div2(UNIT_PRODUCT product, DIVISOR divisor) {
+		double dividend = product.getValue();
+		return UnitFactory.valueOf(dividend / divisor.getValue(), product.getComponentUnit1Id());
 	}
 }
