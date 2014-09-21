@@ -47,6 +47,7 @@ public final class UnitFactory {
 		/* time */
 		instanceMapMutable.put(UnitIdentifier.SECOND, FactoryTime.second(0));
 		instanceMapMutable.put(UnitIdentifier.MINUTE, FactoryTime.minute(0));
+		instanceMapMutable.put(UnitIdentifier.HOUR, FactoryTime.hour(0));
 
 		/* temperature */
 		instanceMapMutable.put(UnitIdentifier.KELVIN, FactoryTemperature.kelvin(0));
