@@ -79,8 +79,7 @@ public final class Operation {
 	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP1 extends Unit<D, B, OP1>, OP2 extends Unit<D, B, OP2>, OP3 extends Unit<D, B, OP3>> OP1 add(
 			OP1 op1, OP2 op2, OP3 op3) {
-		return op1.valueOf(op1.getValue() + op1.convert(op2).getValue()
-				+ op1.convert(op3).getValue());
+		return op1.valueOf(op1.getValue() + op1.convert(op2).getValue() + op1.convert(op3).getValue());
 	}
 
 	/**
@@ -199,17 +198,61 @@ public final class Operation {
 	 * @param divisor (b)
 	 * @return the quotient of type (a)
 	 */
-	public static <FACTOR1 extends Dimension<FACTOR1>,
-	FACTOR2 extends Dimension<FACTOR2>,
-	P extends Product<FACTOR1, FACTOR2, P>,
-	BASE_P extends Unit<P, BASE_P, BASE_P>,
-	BASE_FACTOR1 extends Unit<FACTOR1, BASE_FACTOR1, BASE_FACTOR1>,
-	BASE_FACTOR2 extends Unit<FACTOR2, BASE_FACTOR2, BASE_FACTOR2>,
-	UNIT_FACTOR1 extends Unit<FACTOR1, BASE_FACTOR1, UNIT_FACTOR1>,
-	UNIT_FACTOR2 extends Unit<FACTOR2, BASE_FACTOR2, UNIT_FACTOR2>,
-	UNIT_PRODUCT extends ProductUnit<FACTOR1, FACTOR2, P, BASE_P, BASE_FACTOR1, BASE_FACTOR2, UNIT_FACTOR1, UNIT_FACTOR2, UNIT_PRODUCT>,
-	DIVISOR extends Unit<FACTOR2, BASE_FACTOR2, DIVISOR>> UNIT_FACTOR1 div2(UNIT_PRODUCT product, DIVISOR divisor) {
+	public static <DIM_FACTOR1 extends Dimension<DIM_FACTOR1>,
+	DIM_FACTOR2 extends Dimension<DIM_FACTOR2>,
+	DIM_PRODUCT extends Product<DIM_FACTOR1, DIM_FACTOR2, DIM_PRODUCT>,
+	BASE_PRODUCT extends Unit<DIM_PRODUCT, BASE_PRODUCT, BASE_PRODUCT>,
+	BASE_FACTOR1 extends Unit<DIM_FACTOR1, BASE_FACTOR1, BASE_FACTOR1>,
+	BASE_FACTOR2 extends Unit<DIM_FACTOR2, BASE_FACTOR2, BASE_FACTOR2>,
+	UNIT_FACTOR1 extends Unit<DIM_FACTOR1, BASE_FACTOR1, UNIT_FACTOR1>,
+	UNIT_FACTOR2 extends Unit<DIM_FACTOR2, BASE_FACTOR2, UNIT_FACTOR2>,
+	UNIT_PRODUCT extends ProductUnit<DIM_FACTOR1, DIM_FACTOR2, DIM_PRODUCT, BASE_PRODUCT, BASE_FACTOR1, BASE_FACTOR2, UNIT_FACTOR1, UNIT_FACTOR2, UNIT_PRODUCT>,
+	DIVISOR extends Unit<DIM_FACTOR2, BASE_FACTOR2, DIVISOR>> UNIT_FACTOR1 div2(UNIT_PRODUCT product, DIVISOR divisor) {
 		double dividend = product.getValue();
 		return UnitFactory.valueOf(dividend / divisor.getValue(), product.getComponentUnit1Id());
+	}
+	
+	/**
+	 * Division of arbitrary units. Divide a by b and get a/b.
+	 * 
+	 * @param dividend dividend of division
+	 * @param divisor divisor of divison
+	 * @param id unit id of fraction unit that consists exactly of dividend and divisor unit
+	 * @return result as denoted by id
+	 */
+	public static <DIM_DIVIDEND extends Dimension<DIM_DIVIDEND>,
+	BASE_DIVIDEND extends Unit<DIM_DIVIDEND, BASE_DIVIDEND, BASE_DIVIDEND>,
+	DIVIDEND extends Unit<DIM_DIVIDEND, BASE_DIVIDEND, DIVIDEND>,
+	DIM_DIVISOR extends Dimension<DIM_DIVISOR>,
+	BASE_DIVISOR extends Unit<DIM_DIVISOR, BASE_DIVISOR, BASE_DIVISOR>,
+	DIVISOR extends Unit<DIM_DIVISOR, BASE_DIVISOR, DIVISOR>,
+	DIM_FRACTION extends Fraction<DIM_DIVIDEND, DIM_DIVISOR, DIM_FRACTION>,
+	BASE_FRACTION extends Unit<DIM_FRACTION, BASE_FRACTION, BASE_FRACTION>,
+	UNIT_FRACTION extends FractionUnit<DIM_DIVIDEND, DIM_DIVISOR, DIM_FRACTION, BASE_FRACTION, BASE_DIVIDEND, BASE_DIVISOR, DIVIDEND, DIVISOR, UNIT_FRACTION>,
+	TARGET_UNIT extends Unit<DIM_FRACTION, BASE_FRACTION, TARGET_UNIT>,
+	TARGET_UNIT_ID extends UnitId<DIM_FRACTION, BASE_FRACTION, TARGET_UNIT>> TARGET_UNIT div(DIVIDEND dividend, DIVISOR divisor, TARGET_UNIT_ID id) {
+		return UnitFactory.valueOf(dividend.getValue() / divisor.getValue(), id);
+	}
+	
+	/**
+	 * Multiplication of arbitrary units. Multiply a with b and get a*b
+	 * 
+	 * @param factor1 first factor of multiplication
+	 * @param factor2 second factor of multiplication
+	 * @param id unit id of product unit that consists exactly of factor1 and factor2 unit
+	 * @return result as denoted by id
+	 */
+	public static <DIM_FACTOR1 extends Dimension<DIM_FACTOR1>,
+	BASE_FACTOR1 extends Unit<DIM_FACTOR1, BASE_FACTOR1, BASE_FACTOR1>,
+	FACTOR1 extends Unit<DIM_FACTOR1, BASE_FACTOR1, FACTOR1>,
+	DIM_FACTOR2 extends Dimension<DIM_FACTOR2>,
+	BASE_FACTOR2 extends Unit<DIM_FACTOR2, BASE_FACTOR2, BASE_FACTOR2>,
+	FACTOR2 extends Unit<DIM_FACTOR2, BASE_FACTOR2, FACTOR2>,
+	DIM_PRODUCT extends Product<DIM_FACTOR1, DIM_FACTOR2, DIM_PRODUCT>,
+	BASE_PRODUCT extends Unit<DIM_PRODUCT, BASE_PRODUCT, BASE_PRODUCT>,
+	UNIT_PRODUCT extends ProductUnit<DIM_FACTOR1, DIM_FACTOR2, DIM_PRODUCT, BASE_PRODUCT, BASE_FACTOR1, BASE_FACTOR2, FACTOR1, FACTOR2, UNIT_PRODUCT>,
+	TARGET_UNIT extends Unit<DIM_PRODUCT, BASE_PRODUCT, TARGET_UNIT>,
+	TARGET_UNIT_ID extends UnitId<DIM_PRODUCT, BASE_PRODUCT, TARGET_UNIT>> TARGET_UNIT mul(FACTOR1 factor1, FACTOR2 factor2, TARGET_UNIT_ID id) {
+		return UnitFactory.valueOf(factor1.getValue() * factor2.getValue(), id);
 	}
 }

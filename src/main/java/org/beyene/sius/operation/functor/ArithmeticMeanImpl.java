@@ -39,7 +39,7 @@ final class ArithmeticMeanImpl<D extends Dimension<D>, B extends Unit<D, B, B>, 
 			return cachedResult;
 		
 		double res = 0d;
-		for (Unit<D, ?, ?> op : operands)
+		for (Unit<D, B, ?> op : operands)
 			res += op.toBaseUnit().getValue();
 
 		double mean = res / operands.size();
