@@ -24,9 +24,9 @@ import org.beyene.sius.unit.Unit;
  * 
  * @author mbeyene
  *
- * @param <FACTOR1> factor 1 composite dimension
- * @param <FACTOR2> factor 2 of composite dimension
- * @param <P> composite product dimension of unit
+ * @param <DIM_FACTOR1> factor 1 composite dimension
+ * @param <DIM_FACTOR2> factor 2 of composite dimension
+ * @param <DIM_PRODUCT> composite product dimension of unit
  * @param <BASE_P> base unit of unit's dimension
  * @param <BASE_FACTOR1> base unit of numerator dimension
  * @param <BASE_FACTOR2> base unit of denominator dimension
@@ -34,16 +34,16 @@ import org.beyene.sius.unit.Unit;
  * @param <UNIT_FACTOR2> unit of denominator dimension
  * @param <UNIT_PRODUCT> self reference
  */
-public interface ProductUnit<FACTOR1 extends Dimension<FACTOR1>,
-FACTOR2 extends Dimension<FACTOR2>,
-P extends Product<FACTOR1, FACTOR2, P>,
-BASE_P extends Unit<P, BASE_P, BASE_P>,
-BASE_FACTOR1 extends Unit<FACTOR1, BASE_FACTOR1, BASE_FACTOR1>,
-BASE_FACTOR2 extends Unit<FACTOR2, BASE_FACTOR2, BASE_FACTOR2>,
-UNIT_FACTOR1 extends Unit<FACTOR1, BASE_FACTOR1, UNIT_FACTOR1>,
-UNIT_FACTOR2 extends Unit<FACTOR2, BASE_FACTOR2, UNIT_FACTOR2>,
-UNIT_PRODUCT extends ProductUnit<FACTOR1, FACTOR2, P, BASE_P, BASE_FACTOR1, BASE_FACTOR2, UNIT_FACTOR1, UNIT_FACTOR2, UNIT_PRODUCT>>
+public interface ProductUnit<DIM_FACTOR1 extends Dimension<DIM_FACTOR1>,
+BASE_FACTOR1 extends Unit<DIM_FACTOR1, BASE_FACTOR1, BASE_FACTOR1>,
+UNIT_FACTOR1 extends Unit<DIM_FACTOR1, BASE_FACTOR1, UNIT_FACTOR1>,
+DIM_FACTOR2 extends Dimension<DIM_FACTOR2>,
+BASE_FACTOR2 extends Unit<DIM_FACTOR2, BASE_FACTOR2, BASE_FACTOR2>,
+UNIT_FACTOR2 extends Unit<DIM_FACTOR2, BASE_FACTOR2, UNIT_FACTOR2>,
+DIM_PRODUCT extends Product<DIM_FACTOR1, DIM_FACTOR2, DIM_PRODUCT>,
+BASE_P extends Unit<DIM_PRODUCT, BASE_P, BASE_P>,
+UNIT_PRODUCT extends ProductUnit<DIM_FACTOR1, BASE_FACTOR1, UNIT_FACTOR1, DIM_FACTOR2, BASE_FACTOR2, UNIT_FACTOR2, DIM_PRODUCT, BASE_P, UNIT_PRODUCT>>
 
-extends CompositeUnit<FACTOR1, FACTOR2, P, BASE_P, BASE_FACTOR1, BASE_FACTOR2, UNIT_FACTOR1, UNIT_FACTOR2, UNIT_PRODUCT> {
+extends CompositeUnit<DIM_FACTOR1, BASE_FACTOR1, UNIT_FACTOR1, DIM_FACTOR2, BASE_FACTOR2, UNIT_FACTOR2, DIM_PRODUCT, BASE_P, UNIT_PRODUCT> {
 
 }

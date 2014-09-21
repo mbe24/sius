@@ -28,20 +28,28 @@ public final class FunctorFactory {
 	/**
 	 * Creates adder.
 	 * 
-	 * @param cuid conversion unit id
+	 * @param targetId target unit id
 	 * @return functor that performs addition
+	 * 
+	 * @param <D> dimension
+	 * @param <B> base unit of dimension
+	 * @param <TARGET_UNIT> target unit
 	 */
-	public static <D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>> Adder<D, B, CU> sum(UnitId<D, B, CU> cuid) {
-		return new AdderImpl<D, B, CU>(cuid);
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UNIT extends Unit<D, B, TARGET_UNIT>> Adder<D, B, TARGET_UNIT> sum(UnitId<D, B, TARGET_UNIT> targetId) {
+		return new AdderImpl<D, B, TARGET_UNIT>(targetId);
 	}
 	
 	/**
 	 * Creates mean.
 	 * 
-	 * @param cuid conversion unit id
+	 * @param targetId conversion unit id
 	 * @return functor that computes mean
+	 * 
+	 * @param <D> dimension
+	 * @param <B> base unit of dimension
+	 * @param <TARGET_UNIT> target unit
 	 */
-	public static <D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>> ArithmeticMean<D, B, CU> mean(UnitId<D, B, CU> cuid) {
-		return new ArithmeticMeanImpl<D, B, CU>(cuid);
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UNIT extends Unit<D, B, TARGET_UNIT>> ArithmeticMean<D, B, TARGET_UNIT> mean(UnitId<D, B, TARGET_UNIT> targetId) {
+		return new ArithmeticMeanImpl<D, B, TARGET_UNIT>(targetId);
 	}
 }

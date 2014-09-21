@@ -35,7 +35,7 @@ public interface Functor<D extends Dimension<D>, B extends Unit<D, B, B>,  CU ex
 	 * Adds operand.
 	 * 
 	 * @param op operand to be added
-	 * @return <code>this<code>
+	 * @return <code>this</code>
 	 */
 	public F op(Unit<D, B, ?> op);
 	

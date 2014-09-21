@@ -1,6 +1,5 @@
 package org.beyene.sius.unit.impl;
 
-import junit.framework.Assert;
 
 import org.beyene.sius.unit.impl.FactoryLength;
 import org.beyene.sius.unit.impl.MeterImpl;
@@ -8,6 +7,7 @@ import org.beyene.sius.unit.length.Constants;
 import org.beyene.sius.unit.length.Inch;
 import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.util.Preferences;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MeterImplTest {

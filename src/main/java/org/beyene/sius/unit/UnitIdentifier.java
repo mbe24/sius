@@ -22,6 +22,7 @@ import org.beyene.sius.dimension.Mass;
 import org.beyene.sius.dimension.Temperature;
 import org.beyene.sius.dimension.Time;
 import org.beyene.sius.dimension.composition.Speed;
+import org.beyene.sius.unit.composition.CompositeUnitId;
 import org.beyene.sius.unit.composition.speed.MeterPerSecond;
 import org.beyene.sius.unit.composition.speed.MilesPerHour;
 import org.beyene.sius.unit.length.Foot;
@@ -142,7 +143,17 @@ public final class UnitIdentifier {
 
 	/* speed */
 	private static class MeterPerSecondId extends
-			AbstractUnitId<Speed, MeterPerSecond, MeterPerSecond> {
+			AbstractUnitId<Speed, MeterPerSecond, MeterPerSecond> implements CompositeUnitId<Length, Meter, Meter, Time, Second, Second, Speed, MeterPerSecond, MeterPerSecond> {
+
+		@Override
+		public UnitId<Length, Meter, Meter> getComponentUnit1Id() {
+			return UnitIdentifier.METER;
+		}
+
+		@Override
+		public UnitId<Time, Second, Second> getComponentUnit2Id() {
+			return UnitIdentifier.SECOND;
+		}
 	}
 
 	private static class MilesPerHourId extends

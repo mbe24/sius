@@ -30,11 +30,12 @@ final class Converter {
 	 * Converts a unit into another unit of the same dimension.
 	 * 
 	 * @param op operand
-	 * @param cunitId conversion unit id
+	 * @param targetId conversion unit id
 	 * @return converted unit
 	 */
-	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>, CU extends Unit<D, B, CU>, CuId extends UnitId<D, B, CU>> CU convert(OP op, CuId cunitId) {
-		CU conversionUnit = UnitFactory.valueOf(0, cunitId);
+	public static <D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UNIT extends Unit<D, B, TARGET_UNIT>>
+	TARGET_UNIT convert(Unit<D, B, ?> op, UnitId<D, B, TARGET_UNIT> targetId) {
+		TARGET_UNIT conversionUnit = UnitFactory.valueOf(0, targetId);
 		return conversionUnit.convert(op);
 	}
 }

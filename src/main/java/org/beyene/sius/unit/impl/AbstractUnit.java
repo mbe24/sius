@@ -64,7 +64,7 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 	}
 
 	@Override
-	public <OTHER extends Unit<D, BASE, OTHER>> SELF convert(OTHER other) {
+	public SELF convert(Unit<D, BASE, ?> other) {
 		SELF converted;
 		if (interfaceClass.isAssignableFrom(other.getClass()))
 			converted = valueOf(other.getValue());

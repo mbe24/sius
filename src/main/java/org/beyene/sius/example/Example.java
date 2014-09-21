@@ -1,11 +1,14 @@
 package org.beyene.sius.example;
 
+import java.util.Arrays;
+
 import org.beyene.sius.dimension.Length;
 import org.beyene.sius.dimension.Mass;
 import org.beyene.sius.operation.Operation;
 import org.beyene.sius.operation.functor.Adder;
 import org.beyene.sius.operation.functor.ArithmeticMean;
 import org.beyene.sius.operation.functor.FunctorFactory;
+import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.impl.FactoryLength;
 import org.beyene.sius.unit.impl.FactoryMass;
@@ -62,6 +65,9 @@ public class Example {
 		Foot foot = FactoryLength.foot(1);
 		Inch inch = Operation.convert(foot, UnitIdentifier.INCH);
 		System.out.println(String.format("Converted %s to %s", foot, inch));
+		
+		System.out.println(String.format("Summands \t= %s", Arrays.<Unit<Length, Meter, ?>>asList(FactoryLength.meter(1000), FactoryLength.mile(1), FactoryLength.meter(1000)).toString()));
+		System.out.println("Sum \t\t= " + Operation.add(FactoryLength.meter(1000), FactoryLength.mile(1), FactoryLength.meter(1000)));
 		
 		Adder<Length, Meter, Meter> adder = FunctorFactory.sum(UnitIdentifier.METER)
 		.op(lengthSecond)

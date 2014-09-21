@@ -29,13 +29,13 @@ NUMERATOR extends Unit<Length, Meter, NUMERATOR>,
 DENOMINATOR extends Unit<Time, Second, DENOMINATOR>, 
 T extends SpeedUnit<NUMERATOR, DENOMINATOR, T>> extends FractionUnit<
 Length, 
+Meter, 
+NUMERATOR, 
 Time, 
+Second, 
+DENOMINATOR,
 Speed, 
 MeterPerSecond, 
-Meter, 
-Second, 
-NUMERATOR, 
-DENOMINATOR,
 T> {
 	
 }

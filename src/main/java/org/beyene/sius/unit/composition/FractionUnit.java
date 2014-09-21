@@ -24,9 +24,9 @@ import org.beyene.sius.unit.Unit;
  * 
  * @author mbeyene
  *
- * @param <NUMERATOR> numerator of composite dimension
- * @param <DENOMINATOR> denominator of composite dimension
- * @param <F> composite dimension of unit
+ * @param <DIM_NUMERATOR> numerator of composite dimension
+ * @param <DIM_DENOMINATOR> denominator of composite dimension
+ * @param <DIM_FRACTION> composite dimension of unit
  * @param <BASE_F> base unit of unit's dimension
  * @param <BASE_NUMERATOR> base unit of numerator dimension
  * @param <BASE_DENOMINATOR> base unit of denominator dimension
@@ -34,16 +34,16 @@ import org.beyene.sius.unit.Unit;
  * @param <UNIT_DENOMINATOR> unit of denominator dimension
  * @param <UNIT_FRACTION> self reference
  */
-public interface FractionUnit<NUMERATOR extends Dimension<NUMERATOR>,
-DENOMINATOR extends Dimension<DENOMINATOR>,
-F extends Fraction<NUMERATOR, DENOMINATOR, F>,
-BASE_F extends Unit<F, BASE_F, BASE_F>,
-BASE_NUMERATOR extends Unit<NUMERATOR, BASE_NUMERATOR, BASE_NUMERATOR>,
-BASE_DENOMINATOR extends Unit<DENOMINATOR, BASE_DENOMINATOR, BASE_DENOMINATOR>,
-UNIT_NUMERATOR extends Unit<NUMERATOR, BASE_NUMERATOR, UNIT_NUMERATOR>,
-UNIT_DENOMINATOR extends Unit<DENOMINATOR, BASE_DENOMINATOR, UNIT_DENOMINATOR>,
-UNIT_FRACTION extends FractionUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION>>
+public interface FractionUnit<DIM_NUMERATOR extends Dimension<DIM_NUMERATOR>,
+BASE_NUMERATOR extends Unit<DIM_NUMERATOR, BASE_NUMERATOR, BASE_NUMERATOR>,
+UNIT_NUMERATOR extends Unit<DIM_NUMERATOR, BASE_NUMERATOR, UNIT_NUMERATOR>,
+DIM_DENOMINATOR extends Dimension<DIM_DENOMINATOR>,
+BASE_DENOMINATOR extends Unit<DIM_DENOMINATOR, BASE_DENOMINATOR, BASE_DENOMINATOR>,
+UNIT_DENOMINATOR extends Unit<DIM_DENOMINATOR, BASE_DENOMINATOR, UNIT_DENOMINATOR>,
+DIM_FRACTION extends Fraction<DIM_NUMERATOR, DIM_DENOMINATOR, DIM_FRACTION>,
+BASE_F extends Unit<DIM_FRACTION, BASE_F, BASE_F>,
+UNIT_FRACTION extends FractionUnit<DIM_NUMERATOR, BASE_NUMERATOR, UNIT_NUMERATOR, DIM_DENOMINATOR, BASE_DENOMINATOR, UNIT_DENOMINATOR, DIM_FRACTION, BASE_F, UNIT_FRACTION>>
 
-extends CompositeUnit<NUMERATOR, DENOMINATOR, F, BASE_F, BASE_NUMERATOR, BASE_DENOMINATOR, UNIT_NUMERATOR, UNIT_DENOMINATOR, UNIT_FRACTION> {
+extends CompositeUnit<DIM_NUMERATOR, BASE_NUMERATOR, UNIT_NUMERATOR, DIM_DENOMINATOR, BASE_DENOMINATOR, UNIT_DENOMINATOR, DIM_FRACTION, BASE_F, UNIT_FRACTION> {
 
 }

@@ -33,7 +33,7 @@ public interface Unit<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, 
 
 	public UnitId<D, BASE, SELF> getIdentifier();
 
-	public <OTHER extends Unit<D, BASE, OTHER>> SELF convert(OTHER other);
+	public SELF convert(Unit<D, BASE, ?> other);
 	
 	public BASE toBaseUnit();
 	

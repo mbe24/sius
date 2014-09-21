@@ -36,14 +36,14 @@ import org.beyene.sius.unit.UnitId;
  * @param <COMPOSITE_UNIT> self reference
  */
 public interface CompositeUnit<C1 extends Dimension<C1>,
+BASE_C1 extends Unit<C1, BASE_C1, BASE_C1>,
+UNIT_C1 extends Unit<C1, BASE_C1, UNIT_C1>,
 C2 extends Dimension<C2>,
+BASE_C2 extends Unit<C2, BASE_C2, BASE_C2>,
+UNIT_C2 extends Unit<C2, BASE_C2, UNIT_C2>,
 COMPOSITION extends Composition<C1, C2, COMPOSITION>,
 BASE_COMPOSITION extends Unit<COMPOSITION, BASE_COMPOSITION, BASE_COMPOSITION>,
-BASE_C1 extends Unit<C1, BASE_C1, BASE_C1>,
-BASE_C2 extends Unit<C2, BASE_C2, BASE_C2>,
-UNIT_C1 extends Unit<C1, BASE_C1, UNIT_C1>,
-UNIT_C2 extends Unit<C2, BASE_C2, UNIT_C2>,
-COMPOSITE_UNIT extends CompositeUnit<C1, C2, COMPOSITION, BASE_COMPOSITION, BASE_C1, BASE_C2, UNIT_C1, UNIT_C2, COMPOSITE_UNIT>>
+COMPOSITE_UNIT extends CompositeUnit<C1, BASE_C1, UNIT_C1, C2, BASE_C2, UNIT_C2, COMPOSITION, BASE_COMPOSITION, COMPOSITE_UNIT>>
 
 extends Unit<COMPOSITION, BASE_COMPOSITION, COMPOSITE_UNIT> {
 	
