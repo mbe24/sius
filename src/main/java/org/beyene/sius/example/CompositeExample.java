@@ -7,6 +7,7 @@ import org.beyene.sius.unit.impl.FactoryLength;
 import org.beyene.sius.unit.impl.FactorySpeed;
 import org.beyene.sius.unit.impl.FactoryTime;
 import org.beyene.sius.unit.length.Meter;
+import org.beyene.sius.unit.time.Hour;
 import org.beyene.sius.unit.time.Minute;
 
 public class CompositeExample {
@@ -20,8 +21,8 @@ public class CompositeExample {
 		System.out.println(String.format("Time \t\t= %s", time));
 		System.out.println(String.format("Distance\t= %s%n", s));
 		
-		Meter way = FactoryLength.meter(1000);
-		Minute duration = FactoryTime.minute(60);
+		Meter way = FactoryLength.meter(3600);
+		Hour duration = FactoryTime.hour(1);
 		MeterPerSecond runningSpeed = Operation.div(way, duration, UnitIdentifier.METER_PER_SECOND);
 		
 		System.out.println(String.format("Distance\t= %s", way));
