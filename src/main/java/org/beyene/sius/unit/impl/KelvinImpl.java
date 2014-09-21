@@ -19,7 +19,6 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Temperature;
-import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.temperature.Kelvin;
 import org.beyene.sius.util.Preferences;
@@ -48,7 +47,7 @@ final class KelvinImpl extends AbstractUnit<Temperature, Kelvin, Kelvin> impleme
 	}
 
 	@Override
-	protected Kelvin fromBase(Unit<Temperature, Kelvin, Kelvin> base) {
+	protected Kelvin fromBase(Kelvin base) {
 		return valueOf(base.getValue());
 	}
 

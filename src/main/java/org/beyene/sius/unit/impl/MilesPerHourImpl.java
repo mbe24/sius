@@ -21,7 +21,6 @@ import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Length;
 import org.beyene.sius.dimension.Time;
 import org.beyene.sius.dimension.composition.Speed;
-import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.composition.speed.Constants;
@@ -67,7 +66,7 @@ final class MilesPerHourImpl extends AbstractUnit<Speed, MeterPerSecond, MilesPe
 	}
 
 	@Override
-	protected MilesPerHour fromBase(Unit<Speed, MeterPerSecond, MeterPerSecond> base) {
+	protected MilesPerHour fromBase(MeterPerSecond base) {
 		return valueOf(base.getValue() / Constants.MPS_PER_MPH);
 	}
 

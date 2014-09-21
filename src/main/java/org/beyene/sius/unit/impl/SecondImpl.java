@@ -19,7 +19,6 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Time;
-import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.time.Second;
 import org.beyene.sius.util.Preferences;
@@ -48,7 +47,7 @@ final class SecondImpl extends AbstractUnit<Time, Second, Second> implements Sec
 	}
 
 	@Override
-	protected Second fromBase(Unit<Time, Second, Second> base) {
+	protected Second fromBase(Second base) {
 		return valueOf(base.getValue());
 	}
 	

@@ -19,7 +19,6 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Length;
-import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.length.Constants;
 import org.beyene.sius.unit.length.Foot;
@@ -50,7 +49,7 @@ final class FootImpl extends AbstractUnit<Length, Meter, Foot> implements Foot {
 	}
 	
 	@Override
-	protected Foot fromBase(Unit<Length, Meter, Meter> base) {
+	protected Foot fromBase(Meter base) {
 		return valueOf(base.getValue() / Constants.METER_PER_FOOT);
 	}
 

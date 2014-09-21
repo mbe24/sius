@@ -19,7 +19,6 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Length;
-import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.length.Constants;
 import org.beyene.sius.unit.length.Meter;
@@ -50,7 +49,7 @@ final class MileImpl extends AbstractUnit<Length, Meter, Mile> implements Mile {
 	}
 
 	@Override
-	protected Mile fromBase(Unit<Length, Meter, Meter> base) {
+	protected Mile fromBase(Meter base) {
 		return valueOf(base.getValue() / Constants.METER_PER_MILE);
 	}
 

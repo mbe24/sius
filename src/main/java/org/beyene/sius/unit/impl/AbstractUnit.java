@@ -73,7 +73,7 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 		return converted;
 	}
 
-	protected abstract SELF fromBase(Unit<D, BASE, BASE> base);
+	protected abstract SELF fromBase(BASE base);
 
 	@Override
 	public abstract BASE toBaseUnit();

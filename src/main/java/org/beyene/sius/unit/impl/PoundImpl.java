@@ -19,7 +19,6 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Mass;
-import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.mass.Constants;
 import org.beyene.sius.unit.mass.KiloGram;
@@ -50,7 +49,7 @@ final class PoundImpl extends AbstractUnit<Mass, KiloGram, Pound> implements Pou
 	}
 
 	@Override
-	protected Pound fromBase(Unit<Mass, KiloGram, KiloGram> base) {
+	protected Pound fromBase(KiloGram base) {
 		return valueOf(base.getValue() / Constants.KILOGRAM_PER_POUND);
 	}
 

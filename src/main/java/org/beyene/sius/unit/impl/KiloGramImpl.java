@@ -19,7 +19,6 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Mass;
-import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.mass.KiloGram;
 import org.beyene.sius.util.Preferences;
@@ -48,7 +47,7 @@ final class KiloGramImpl extends AbstractUnit<Mass, KiloGram, KiloGram> implemen
 	}
 
 	@Override
-	protected KiloGram fromBase(Unit<Mass, KiloGram, KiloGram> base) {
+	protected KiloGram fromBase(KiloGram base) {
 		return valueOf(base.getValue());
 	}
 

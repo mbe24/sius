@@ -19,7 +19,6 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Temperature;
-import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.temperature.Celsius;
 import org.beyene.sius.unit.temperature.Constants;
@@ -50,7 +49,7 @@ final class CelsiusImpl extends AbstractUnit<Temperature, Kelvin, Celsius> imple
 	}
 
 	@Override
-	protected Celsius fromBase(Unit<Temperature, Kelvin, Kelvin> base) {
+	protected Celsius fromBase(Kelvin base) {
 		return valueOf(base.getValue() - Constants.CELSIUS_KELVIN_OFFSET);
 	}
 	
