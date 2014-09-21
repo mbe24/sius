@@ -30,7 +30,7 @@ public final class FactorySpeed {
 		return mps.valueOf(value);
 	}
 
-	public static MilesPerHour mph = new MilesPerHourImpl(0);
+	private static MilesPerHour mph = new MilesPerHourImpl(0);
 	public static MilesPerHour mph(double value) {
 		return mph.valueOf(value);
 	}
