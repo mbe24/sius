@@ -49,12 +49,12 @@ final class PoundImpl extends AbstractUnit<Mass, KiloGram, Pound> implements Pou
 	}
 
 	@Override
-	protected Pound fromBase(KiloGram base) {
+	public Pound fromBase(KiloGram base) {
 		return valueOf(base.getValue() / Constants.KILOGRAM_PER_POUND);
 	}
 
 	@Override
-	public KiloGram toBaseUnit() {
+	public KiloGram toBase() {
 		return FactoryMass.kg(value * Constants.KILOGRAM_PER_POUND);
 	}
 

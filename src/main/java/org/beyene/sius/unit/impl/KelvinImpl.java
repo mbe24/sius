@@ -47,12 +47,12 @@ final class KelvinImpl extends AbstractUnit<Temperature, Kelvin, Kelvin> impleme
 	}
 
 	@Override
-	protected Kelvin fromBase(Kelvin base) {
+	public Kelvin fromBase(Kelvin base) {
 		return valueOf(base.getValue());
 	}
 
 	@Override
-	public Kelvin toBaseUnit() {
+	public Kelvin toBase() {
 		return this;
 	}
 

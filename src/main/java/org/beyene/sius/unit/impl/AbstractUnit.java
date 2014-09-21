@@ -29,7 +29,7 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 	private final D dimension;
 	private final UnitId<D, BASE, SELF> unitId;
 
-	private final Class<? extends Unit<D, BASE, SELF>> interfaceClass;
+	private final Class<? extends SELF> interfaceClass;
 	
 	private transient final Cache<D, BASE, SELF> dynamicCache;
 	private transient final StaticCache<D, BASE, SELF> staticCache;
@@ -38,7 +38,7 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 			double value,
 			D dimension,
 			UnitId<D, BASE, SELF> unitId,
-			Class<? extends Unit<D, BASE, SELF>> interfaceClass,
+			Class<? extends SELF> interfaceClass,
 			Cache<D, BASE, SELF> dynamicCache,
 			StaticCache<D, BASE, SELF> staticCache
 			) {
@@ -64,19 +64,10 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 	}
 
 	@Override
-	public SELF convert(Unit<D, BASE, ?> other) {
-		SELF converted;
-		if (interfaceClass.isAssignableFrom(other.getClass()))
-			converted = valueOf(other.getValue());
-		else
-			converted = fromBase(other.toBaseUnit());
-		return converted;
-	}
-
-	protected abstract SELF fromBase(BASE base);
+	public abstract SELF fromBase(BASE base);
 
 	@Override
-	public abstract BASE toBaseUnit();
+	public abstract BASE toBase();
 
 	@Override
 	public SELF valueOf(double d) {
@@ -126,7 +117,7 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 			return false;
 		if (!interfaceClass.isAssignableFrom(obj.getClass()))
 			return false;
-		Unit<D, BASE, SELF> other = interfaceClass.cast(obj);
+		SELF other = interfaceClass.cast(obj);
 		if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.getValue()))
 			return false;
 		return true;

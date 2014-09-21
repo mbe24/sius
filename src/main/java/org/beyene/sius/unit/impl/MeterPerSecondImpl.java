@@ -62,12 +62,12 @@ final class MeterPerSecondImpl extends AbstractUnit<Speed, MeterPerSecond, Meter
 	}
 
 	@Override
-	protected MeterPerSecond fromBase(MeterPerSecond base) {
+	public MeterPerSecond fromBase(MeterPerSecond base) {
 		return valueOf(base.getValue());
 	}
 
 	@Override
-	public MeterPerSecond toBaseUnit() {
+	public MeterPerSecond toBase() {
 		return this;
 	}
 

@@ -47,12 +47,12 @@ final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Mete
 	}
 
 	@Override
-	public Meter toBaseUnit() {
+	public Meter toBase() {
 		return this;
 	}
 
 	@Override
-	protected Meter fromBase(Meter base) {
+	public Meter fromBase(Meter base) {
 		return valueOf(base.getValue());
 	}
 

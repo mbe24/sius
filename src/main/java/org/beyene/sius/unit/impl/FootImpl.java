@@ -49,12 +49,12 @@ final class FootImpl extends AbstractUnit<Length, Meter, Foot> implements Foot {
 	}
 	
 	@Override
-	protected Foot fromBase(Meter base) {
+	public Foot fromBase(Meter base) {
 		return valueOf(base.getValue() / Constants.METER_PER_FOOT);
 	}
 
 	@Override
-	public Meter toBaseUnit() {
+	public Meter toBase() {
 		return FactoryLength.meter(value * Constants.METER_PER_FOOT);
 	}
 

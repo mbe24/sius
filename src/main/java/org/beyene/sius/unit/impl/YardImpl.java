@@ -49,12 +49,12 @@ final class YardImpl extends AbstractUnit<Length, Meter, Yard> implements Yard {
 	}
 
 	@Override
-	protected Yard fromBase(Meter base) {
+	public Yard fromBase(Meter base) {
 		return valueOf((base.getValue() / Constants.METER_PER_YARD));
 	}
 	
 	@Override
-	public Meter toBaseUnit() {
+	public Meter toBase() {
 		return FactoryLength.meter(value * Constants.METER_PER_YARD);
 	}
 

@@ -47,12 +47,12 @@ final class SecondImpl extends AbstractUnit<Time, Second, Second> implements Sec
 	}
 
 	@Override
-	protected Second fromBase(Second base) {
+	public Second fromBase(Second base) {
 		return valueOf(base.getValue());
 	}
 	
 	@Override
-	public Second toBaseUnit() {
+	public Second toBase() {
 		return this;
 	}
 

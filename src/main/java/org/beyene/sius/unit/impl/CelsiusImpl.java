@@ -49,12 +49,12 @@ final class CelsiusImpl extends AbstractUnit<Temperature, Kelvin, Celsius> imple
 	}
 
 	@Override
-	protected Celsius fromBase(Kelvin base) {
+	public Celsius fromBase(Kelvin base) {
 		return valueOf(base.getValue() - Constants.CELSIUS_KELVIN_OFFSET);
 	}
 	
 	@Override
-	public Kelvin toBaseUnit() {
+	public Kelvin toBase() {
 		return FactoryTemperature.kelvin(value + Constants.CELSIUS_KELVIN_OFFSET);
 	}
 

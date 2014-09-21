@@ -73,7 +73,7 @@ public final class Operation {
 	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP1 extends Unit<D, B, OP1>> OP1 add(
 			Unit<D, B, OP1> op1, Unit<D, B, ?> op2) {
-		return op1.valueOf(op1.getValue() + op1.convert(op2).getValue());
+		return op1.valueOf(op1.getValue() + Converter.convert(op2, op1.getIdentifier()).getValue());
 	}
 
 	/**
@@ -94,7 +94,8 @@ public final class Operation {
 	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP1 extends Unit<D, B, OP1>> OP1 add(
 			OP1 op1, Unit<D, B, ?> op2, Unit<D, B, ?> op3) {
-		return op1.valueOf(op1.getValue() + op1.convert(op2).getValue() + op1.convert(op3).getValue());
+		return op1.valueOf(op1.getValue() + Converter.convert(op2, op1.getIdentifier()).getValue() 
+				+ Converter.convert(op2, op1.getIdentifier()).getValue());
 	}
 
 	/**
@@ -138,7 +139,7 @@ public final class Operation {
 	 */
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>> OP sub(
 			OP op1, Unit<D, B, ?> op2) {
-		return op1.valueOf(op1.getValue() - op1.convert(op2).getValue());
+		return op1.valueOf(op1.getValue() - Converter.convert(op2, op1.getIdentifier()).getValue());
 	}
 
 	/**
@@ -208,7 +209,7 @@ public final class Operation {
 	BASE_FRACTION extends Unit<DIM_FRACTION, BASE_FRACTION, BASE_FRACTION>,
 	UNIT_FRACTION extends FractionUnit<DIM_NUMERATOR, BASE_NUMERATOR, UNIT_NUMERATOR, DIM_DENOMINATOR, BASE_DENOMINATOR, UNIT_DENOMINATOR, DIM_FRACTION, BASE_FRACTION, UNIT_FRACTION>> 
 	UNIT_NUMERATOR mul(UNIT_FRACTION factor1, Unit<DIM_DENOMINATOR, BASE_DENOMINATOR, ?> factor2) {
-		double valueF2 = Operation.convert(factor2, factor1.getComponentUnit2Id()).getValue();
+		double valueF2 = Converter.convert(factor2, factor1.getComponentUnit2Id()).getValue();
 		return UnitFactory.valueOf(factor1.getValue() * valueF2, factor1.getComponentUnit1Id());
 	}
 	
@@ -239,7 +240,7 @@ public final class Operation {
 	BASE_PRODUCT extends Unit<DIM_PRODUCT, BASE_PRODUCT, BASE_PRODUCT>,
 	UNIT_PRODUCT extends ProductUnit<DIM_FACTOR1, BASE_FACTOR1, UNIT_FACTOR1, DIM_FACTOR2, BASE_FACTOR2, UNIT_FACTOR2, DIM_PRODUCT, BASE_PRODUCT, UNIT_PRODUCT>> 
 	UNIT_FACTOR2 div1(UNIT_PRODUCT product, Unit<DIM_FACTOR1, BASE_FACTOR1, ?> divisor) {
-		double valueDivisor = Operation.convert(divisor, product.getComponentUnit1Id()).getValue();
+		double valueDivisor = Converter.convert(divisor, product.getComponentUnit1Id()).getValue();
 		return UnitFactory.valueOf(product.getValue() / valueDivisor, product.getComponentUnit2Id());
 	}
 	
@@ -270,7 +271,7 @@ public final class Operation {
 	BASE_PRODUCT extends Unit<DIM_PRODUCT, BASE_PRODUCT, BASE_PRODUCT>,
 	UNIT_PRODUCT extends ProductUnit<DIM_FACTOR1, BASE_FACTOR1, UNIT_FACTOR1, DIM_FACTOR2, BASE_FACTOR2, UNIT_FACTOR2, DIM_PRODUCT, BASE_PRODUCT, UNIT_PRODUCT>>  
 	UNIT_FACTOR1 div2(UNIT_PRODUCT product, Unit<DIM_FACTOR2, BASE_FACTOR2, ?> divisor) {
-		double valueDivisor = Operation.convert(divisor, product.getComponentUnit2Id()).getValue();
+		double valueDivisor = Converter.convert(divisor, product.getComponentUnit2Id()).getValue();
 		return UnitFactory.valueOf(product.getValue() / valueDivisor, product.getComponentUnit1Id());
 	}
 	
@@ -304,8 +305,8 @@ public final class Operation {
 	UNIT_FRACTION extends FractionUnit<DIM_DIVIDEND, BASE_DIVIDEND, DIVIDEND, DIM_DIVISOR, BASE_DIVISOR, DIVISOR, DIM_FRACTION, BASE_FRACTION, UNIT_FRACTION>,
 	TARGET_UNIT_ID extends CompositeUnitId<DIM_DIVIDEND, BASE_DIVIDEND, DIVIDEND, DIM_DIVISOR, BASE_DIVISOR, DIVISOR, DIM_FRACTION, BASE_FRACTION, UNIT_FRACTION>> 
 	UNIT_FRACTION div(Unit<DIM_DIVIDEND, BASE_DIVIDEND, ?> dividend, Unit<DIM_DIVISOR, BASE_DIVISOR, ?> divisor, TARGET_UNIT_ID id) {
-		double valueDividend = Operation.convert(dividend, id.getComponentUnit1Id()).getValue();
-		double valueDivisor = Operation.convert(divisor, id.getComponentUnit2Id()).getValue();
+		double valueDividend = Converter.convert(dividend, id.getComponentUnit1Id()).getValue();
+		double valueDivisor = Converter.convert(divisor, id.getComponentUnit2Id()).getValue();
 		return UnitFactory.valueOf(valueDividend / valueDivisor, id);
 	}
 	
@@ -339,8 +340,8 @@ public final class Operation {
 	UNIT_PRODUCT extends ProductUnit<DIM_FACTOR1, BASE_FACTOR1, UNIT_FACTOR1, DIM_FACTOR2, BASE_FACTOR2, UNIT_FACTOR2, DIM_PRODUCT, BASE_PRODUCT, UNIT_PRODUCT>,
 	TARGET_UNIT_ID extends CompositeUnitId<DIM_FACTOR1, BASE_FACTOR1, UNIT_FACTOR1, DIM_FACTOR2, BASE_FACTOR2, UNIT_FACTOR2, DIM_PRODUCT, BASE_PRODUCT, UNIT_PRODUCT>> 
 	UNIT_PRODUCT mul(Unit<DIM_FACTOR1, BASE_FACTOR1, ?> factor1, Unit<DIM_FACTOR2, BASE_FACTOR2, ?> factor2, TARGET_UNIT_ID id) {
-		double valueFactor1 = Operation.convert(factor1, id.getComponentUnit1Id()).getValue();
-		double valueFactor2 = Operation.convert(factor2, id.getComponentUnit2Id()).getValue();
+		double valueFactor1 = Converter.convert(factor1, id.getComponentUnit1Id()).getValue();
+		double valueFactor2 = Converter.convert(factor2, id.getComponentUnit2Id()).getValue();
 		return UnitFactory.valueOf(valueFactor1 * valueFactor2, id);
 	}
 }

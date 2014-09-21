@@ -49,12 +49,12 @@ final class HourImpl extends AbstractUnit<Time, Second, Hour> implements Hour {
 	}
 
 	@Override
-	protected Hour fromBase(Second base) {
+	public Hour fromBase(Second base) {
 		return valueOf(base.getValue() / Constants.SECONDS_PER_HOUR);
 	}
 
 	@Override
-	public Second toBaseUnit() {
+	public Second toBase() {
 		return FactoryTime.second(value * Constants.SECONDS_PER_HOUR);
 	}
 

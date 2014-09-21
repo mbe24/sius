@@ -22,35 +22,34 @@ import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitFactory;
 import org.beyene.sius.unit.UnitId;
 
-final class ArithmeticMeanImpl<D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>> extends AbstractFunctor<D, B, CU, ArithmeticMean<D, B, CU>> implements ArithmeticMean<D, B, CU> {
+final class ArithmeticMeanImpl<D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UNIT extends Unit<D, B, TARGET_UNIT>> extends AbstractFunctor<D, B, TARGET_UNIT, ArithmeticMean<D, B, TARGET_UNIT>> implements ArithmeticMean<D, B, TARGET_UNIT> {
 
-	private CU cachedResult;
+	private TARGET_UNIT cachedResult;
 	
-	public ArithmeticMeanImpl(UnitId<D, B, CU> cunitId) {
-		super(cunitId);
+	public ArithmeticMeanImpl(UnitId<D, B, TARGET_UNIT> targetId) {
+		super(targetId);
 	}
 
 	@Override
-	public CU apply() {
+	public TARGET_UNIT apply() {
 		if (operands.isEmpty())
-			return UnitFactory.valueOf(0, cunitId);
+			return UnitFactory.valueOf(0, targetId);
 
 		if (cachedResult != null)
 			return cachedResult;
 		
 		double res = 0d;
 		for (Unit<D, B, ?> op : operands)
-			res += op.toBaseUnit().getValue();
+			res += Operation.convert(op, targetId).getValue();
 
 		double mean = res / operands.size();
-		B base = UnitFactory.valueOf(mean, operands.get(0).toBaseUnit().getIdentifier());
 
-		cachedResult = Operation.convert(base, cunitId);
+		cachedResult = UnitFactory.valueOf(mean, targetId);
 		return cachedResult;
 	}
 
 	@Override
-	protected ArithmeticMean<D, B, CU> self() {
+	protected ArithmeticMean<D, B, TARGET_UNIT> _this() {
 		return this;
 	}
 
@@ -61,6 +60,6 @@ final class ArithmeticMeanImpl<D extends Dimension<D>, B extends Unit<D, B, B>, 
 
 	@Override
 	public String toString() {
-		return String.format("ArithmeticMean [cunitId=%s, operands=%s]", cunitId, operands);
+		return String.format("ArithmeticMean [cunitId=%s, operands=%s]", targetId, operands);
 	}
 }

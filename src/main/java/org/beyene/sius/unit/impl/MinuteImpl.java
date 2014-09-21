@@ -49,12 +49,12 @@ final class MinuteImpl extends AbstractUnit<Time, Second, Minute> implements Min
 	}
 
 	@Override
-	protected Minute fromBase(Second base) {
+	public Minute fromBase(Second base) {
 		return valueOf(base.getValue() / Constants.SECONDS_PER_MINUTE);
 	}
 
 	@Override
-	public Second toBaseUnit() {
+	public Second toBase() {
 		return FactoryTime.second(value * Constants.SECONDS_PER_MINUTE);
 	}
 

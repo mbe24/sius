@@ -36,6 +36,13 @@ final class Converter {
 	public static <D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UNIT extends Unit<D, B, TARGET_UNIT>>
 	TARGET_UNIT convert(Unit<D, B, ?> op, UnitId<D, B, TARGET_UNIT> targetId) {
 		TARGET_UNIT conversionUnit = UnitFactory.valueOf(0, targetId);
-		return conversionUnit.convert(op);
+		
+//		if (targetId.getInterface().isAssignableFrom(op.getClass()))
+//			return targetId.getInterface().cast(op);
+		
+		if (conversionUnit.getIdentifier().equals(op.getIdentifier()))
+			return conversionUnit.valueOf(op.getValue());
+		
+		return conversionUnit.fromBase(op.toBase());
 	}
 }

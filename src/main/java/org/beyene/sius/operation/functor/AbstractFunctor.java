@@ -23,27 +23,27 @@ import org.beyene.sius.dimension.Dimension;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 
-abstract class AbstractFunctor<D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>, F extends Functor<D, B, CU, F>> implements Functor<D, B, CU, F>{
+abstract class AbstractFunctor<D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UNIT extends Unit<D, B, TARGET_UNIT>, F extends Functor<D, B, TARGET_UNIT, F>> implements Functor<D, B, TARGET_UNIT, F>{
 	
-	protected final UnitId<D, B, CU> cunitId;
+	protected final UnitId<D, B, TARGET_UNIT> targetId;
 	protected final List<Unit<D, B, ?>> operands = new LinkedList<>();
 	
-	public AbstractFunctor(UnitId<D, B, CU> cunitId) {
-		this.cunitId = cunitId;
+	public AbstractFunctor(UnitId<D, B, TARGET_UNIT> targetId) {
+		this.targetId = targetId;
 	}
 
 	@Override
 	public F op(Unit<D, B, ?> op) {
 		resetCache();
 		operands.add(op);
-		return self();
+		return _this();
 	}
 
 	@Override
-	public abstract CU apply();
+	public abstract TARGET_UNIT apply();
 	
 	/* should return this */
-	protected abstract F self();
+	protected abstract F _this();
 	
 	protected abstract void resetCache();
 	

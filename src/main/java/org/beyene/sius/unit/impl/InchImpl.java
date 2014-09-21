@@ -49,12 +49,12 @@ final class InchImpl extends AbstractUnit<Length, Meter, Inch> implements Inch {
 	}
 
 	@Override
-	protected Inch fromBase(Meter base) {
+	public Inch fromBase(Meter base) {
 		return valueOf(base.getValue() / Constants.METER_PER_INCH);
 	}
 
 	@Override
-	public Meter toBaseUnit() {
+	public Meter toBase() {
 		return FactoryLength.meter(value * Constants.METER_PER_INCH);
 	}
 

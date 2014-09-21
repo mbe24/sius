@@ -29,4 +29,5 @@ import org.beyene.sius.dimension.Dimension;
  */
 public interface UnitId<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, U extends Unit<D, BASE, U>> {
 	
+	//public Class<? extends U> getInterface();
 }

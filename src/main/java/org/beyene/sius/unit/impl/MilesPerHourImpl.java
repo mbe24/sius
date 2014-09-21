@@ -66,12 +66,12 @@ final class MilesPerHourImpl extends AbstractUnit<Speed, MeterPerSecond, MilesPe
 	}
 
 	@Override
-	protected MilesPerHour fromBase(MeterPerSecond base) {
+	public MilesPerHour fromBase(MeterPerSecond base) {
 		return valueOf(base.getValue() / Constants.MPS_PER_MPH);
 	}
 
 	@Override
-	public MeterPerSecond toBaseUnit() {
+	public MeterPerSecond toBase() {
 		return FactorySpeed.mps(value * Constants.MPS_PER_MPH);
 	}
 

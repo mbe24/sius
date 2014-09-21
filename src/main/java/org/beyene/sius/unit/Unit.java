@@ -32,10 +32,10 @@ public interface Unit<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, 
 	public D getDimension();
 
 	public UnitId<D, BASE, SELF> getIdentifier();
-
-	public SELF convert(Unit<D, BASE, ?> other);
 	
-	public BASE toBaseUnit();
+	public SELF fromBase(BASE base);
+	
+	public BASE toBase();
 	
 	public SELF valueOf(double d);
 

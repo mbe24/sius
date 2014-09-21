@@ -47,12 +47,12 @@ final class KiloGramImpl extends AbstractUnit<Mass, KiloGram, KiloGram> implemen
 	}
 
 	@Override
-	protected KiloGram fromBase(KiloGram base) {
+	public KiloGram fromBase(KiloGram base) {
 		return valueOf(base.getValue());
 	}
 
 	@Override
-	public KiloGram toBaseUnit() {
+	public KiloGram toBase() {
 		return this;
 	}
 

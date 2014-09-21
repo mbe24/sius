@@ -1,6 +1,7 @@
 package org.beyene.sius.unit.impl;
 
 
+import org.beyene.sius.operation.Operation;
 import org.beyene.sius.unit.impl.FactoryLength;
 import org.beyene.sius.unit.impl.MeterImpl;
 import org.beyene.sius.unit.length.Constants;
@@ -11,15 +12,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class MeterImplTest {
-
-	@Test
-	public void testToBaseUnit() throws Exception {
-		Meter first = FactoryLength.meter(1);
-		Meter second = first.toBaseUnit();
-
-		Assert.assertEquals(first, second);
-		Assert.assertTrue(first == second);
-	}
 
 	@Test
 	public void testValueOf() throws Exception {
@@ -59,11 +51,11 @@ public class MeterImplTest {
 		Inch in = FactoryLength.inch(100);
 		Meter other = FactoryLength.meter(i);
 		
-		Meter convertedMeter = reference.convert(other);
+		Meter convertedMeter = Operation.convert(other, reference.getIdentifier());
 		Assert.assertEquals(convertedMeter, other);
 		Assert.assertTrue(convertedMeter == other);
 		
-		Meter convertedInch = reference.convert(in);
+		Meter convertedInch = Operation.convert(in, reference.getIdentifier());
 		Meter coresponding = FactoryLength.meter(100 * Constants.METER_PER_INCH);
 		Assert.assertEquals(convertedInch, coresponding);
 		Assert.assertTrue(convertedInch == coresponding);

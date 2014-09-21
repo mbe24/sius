@@ -49,12 +49,12 @@ final class MileImpl extends AbstractUnit<Length, Meter, Mile> implements Mile {
 	}
 
 	@Override
-	protected Mile fromBase(Meter base) {
+	public Mile fromBase(Meter base) {
 		return valueOf(base.getValue() / Constants.METER_PER_MILE);
 	}
 
 	@Override
-	public Meter toBaseUnit() {
+	public Meter toBase() {
 		return FactoryLength.meter(value * Constants.METER_PER_MILE);
 	}
 

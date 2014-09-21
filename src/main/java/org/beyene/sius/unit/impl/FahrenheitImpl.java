@@ -49,7 +49,7 @@ final class FahrenheitImpl extends AbstractUnit<Temperature, Kelvin, Fahrenheit>
 	}
 
 	@Override
-	protected Fahrenheit fromBase(Kelvin base) {
+	public Fahrenheit fromBase(Kelvin base) {
 		 return valueOf((base.getValue()
 		 * (Constants.FAHRENHEIT_KELVIN_SCALE_NINE /
 		 Constants.FAHRENHEIT_KELVIN_SCALE_FIVE))
@@ -57,7 +57,7 @@ final class FahrenheitImpl extends AbstractUnit<Temperature, Kelvin, Fahrenheit>
 	}
 
 	@Override
-	public Kelvin toBaseUnit() {
+	public Kelvin toBase() {
 		return FactoryTemperature.kelvin((value + Constants.FAHRENHEIT_KELVIN_OFFSET)
 						* (Constants.FAHRENHEIT_KELVIN_SCALE_FIVE / Constants.FAHRENHEIT_KELVIN_SCALE_NINE));
 	}
