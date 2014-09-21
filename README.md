@@ -8,3 +8,7 @@ S.I. Unit System
 
 Sius is a library for SI unit conversion. It is statically typed to prevent computations with uncompatible units
 at compile time.
+
+### Documentation ###
+
+The classes documentation is available here http://mbe24.github.io/sius/.
