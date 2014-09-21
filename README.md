@@ -15,7 +15,7 @@ The classes documentation is available here http://mbe24.github.io/sius/.
 
 ### Continuous integration ###
 
-I use two CI services: travis-ci and drone, since travis does not allow to provide build artifacts and drone does not support
-gradle for java.
+Sius' build configuration uses two CI services: travis-ci and drone, since travis does not allow downloading build artifacts
+and drone does not support gradle for java.
 
 Please visit https://drone.io/github.com/mbe24/sius/files for current jars.
