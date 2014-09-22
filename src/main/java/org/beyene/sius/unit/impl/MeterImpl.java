@@ -19,6 +19,7 @@ package org.beyene.sius.unit.impl;
 import org.beyene.sius.cache.Cache;
 import org.beyene.sius.cache.Caches;
 import org.beyene.sius.dimension.Length;
+import org.beyene.sius.unit.UnitId;
 import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.util.Preferences;
@@ -40,6 +41,14 @@ final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Mete
 			staticCache = new StaticCache<>(Preferences.getInt("meter.cache.static.low", 0), sizeStatic, MeterImpl.class);
 		else
 			staticCache = null;
+	}
+
+	MeterImpl(double value, Length dimension,
+			UnitId<Length, Meter, Meter> unitId,
+			Class<? extends Meter> interfaceClass,
+			Cache<Length, Meter, Meter> dynamicCache,
+			StaticCache<Length, Meter, Meter> staticCache) {
+		super(value, dimension, unitId, interfaceClass, dynamicCache, staticCache);
 	}
 
 	public MeterImpl(double value) {
