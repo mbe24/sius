@@ -1,8 +1,13 @@
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 sourceCompatibility = 1.7
+
+group = 'org.beyene'
+archivesBaseName = 'sius'
 version = '0.2.0-SNAPSHOT'
 
 sourceSets {
@@ -27,14 +32,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'target'
-       }
-    }
-} 
-
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
@@ -52,4 +49,20 @@ tasks.withType(JavaCompile) {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+    }
+  }
 }
