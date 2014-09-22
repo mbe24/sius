@@ -2,5 +2,11 @@ language: java
 jdk:
   - oraclejdk7
   
+# whitelist
+branches:
+  only:
+    - master
+
+# send coverage data	
 after_success:
   - mvn clean test jacoco:report coveralls:jacoco
