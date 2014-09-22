@@ -19,3 +19,13 @@ Sius' build configuration uses two CI services: travis-ci and drone, since travi
 and drone does not support gradle for java.
 
 Please visit https://drone.io/github.com/mbe24/sius/files for current jars.
+
+### Usage ###
+
+Download the jars manually or add sius to your maven dependencies
+
+    <dependency>
+        <groupId>org.beyene</groupId>
+        <artifactId>sius</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
+    </dependency>
