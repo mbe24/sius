@@ -10,3 +10,10 @@ branches:
 # send coverage data	
 after_success:
   - mvn clean test jacoco:report coveralls:jacoco
+  
+before_script:
+  - mv build.gradle build.gradle.deploy 
+  - mv build.gradle.travis build.gradle
+after_script:
+  - mv build.gradle build.gradle.travis
+  - mv build.gradle.deploy build.gradle
