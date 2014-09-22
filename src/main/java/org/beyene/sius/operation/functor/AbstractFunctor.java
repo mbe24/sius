@@ -25,11 +25,15 @@ import org.beyene.sius.unit.UnitId;
 
 abstract class AbstractFunctor<D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UNIT extends Unit<D, B, TARGET_UNIT>, F extends Functor<D, B, TARGET_UNIT, F>> implements Functor<D, B, TARGET_UNIT, F>{
 	
+	private final String functionName;
 	protected final UnitId<D, B, TARGET_UNIT> targetId;
-	protected final List<Unit<D, B, ?>> operands = new LinkedList<>();
 	
-	public AbstractFunctor(UnitId<D, B, TARGET_UNIT> targetId) {
+	protected final List<Unit<D, B, ?>> operands = new LinkedList<>();
+	protected TARGET_UNIT cachedResult;
+	
+	public AbstractFunctor(UnitId<D, B, TARGET_UNIT> targetId, String functionName) {
 		this.targetId = targetId;
+		this.functionName = functionName;
 	}
 
 	@Override
@@ -42,11 +46,14 @@ abstract class AbstractFunctor<D extends Dimension<D>, B extends Unit<D, B, B>, 
 	@Override
 	public abstract TARGET_UNIT apply();
 	
-	/* should return this */
 	protected abstract F _this();
 	
-	protected abstract void resetCache();
+	private void resetCache() {
+		cachedResult = null;
+	}
 	
 	@Override
-	public abstract String toString();
+	public String toString() {
+		return String.format("%s [targetId=%s, operands=%s]", functionName, targetId, operands);
+	}
 }

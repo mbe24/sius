@@ -37,7 +37,7 @@ final class PoundImpl extends AbstractUnit<Mass, KiloGram, Pound> implements Pou
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.getInt("pound.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("pound.cache.static.size", 1);
 		if (sizeStatic > 0)
 			staticCache = new StaticCache<>(Preferences.getInt("pound.cache.static.low", 0), sizeStatic, PoundImpl.class);
 		else

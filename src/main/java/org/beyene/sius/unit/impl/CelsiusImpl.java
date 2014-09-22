@@ -37,7 +37,7 @@ final class CelsiusImpl extends AbstractUnit<Temperature, Kelvin, Celsius> imple
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.getInt("celsius.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("celsius.cache.static.size", 1);
 		if (sizeStatic > 0)
 			staticCache = new StaticCache<>(Preferences.getInt("celsius.cache.static.low", 0), sizeStatic, CelsiusImpl.class);
 		else

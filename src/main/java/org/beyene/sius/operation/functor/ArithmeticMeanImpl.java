@@ -27,7 +27,7 @@ final class ArithmeticMeanImpl<D extends Dimension<D>, B extends Unit<D, B, B>, 
 	private TARGET_UNIT cachedResult;
 	
 	public ArithmeticMeanImpl(UnitId<D, B, TARGET_UNIT> targetId) {
-		super(targetId);
+		super(targetId, ArithmeticMean.class.getSimpleName());
 	}
 
 	@Override
@@ -51,15 +51,5 @@ final class ArithmeticMeanImpl<D extends Dimension<D>, B extends Unit<D, B, B>, 
 	@Override
 	protected ArithmeticMean<D, B, TARGET_UNIT> _this() {
 		return this;
-	}
-
-	@Override
-	protected void resetCache() {
-		this.cachedResult = null;
-	}
-
-	@Override
-	public String toString() {
-		return String.format("ArithmeticMean [cunitId=%s, operands=%s]", targetId, operands);
 	}
 }

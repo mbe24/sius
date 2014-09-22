@@ -26,10 +26,10 @@ import org.beyene.sius.unit.Unit;
  *
  * @param <D> dimension
  * @param <B> base unit
- * @param <CU> target unit
+ * @param <TARGET_UNIT> target unit
  * @param <F> self reference
  */
-public interface Functor<D extends Dimension<D>, B extends Unit<D, B, B>,  CU extends Unit<D, B, CU>, F extends Functor<D, B, CU, F>> {
+public interface Functor<D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UNIT extends Unit<D, B, TARGET_UNIT>, F extends Functor<D, B, TARGET_UNIT, F>> {
 
 	/**
 	 * Adds operand.
@@ -44,7 +44,7 @@ public interface Functor<D extends Dimension<D>, B extends Unit<D, B, B>,  CU ex
 	 * 
 	 * @return result
 	 */
-	public CU apply();
+	public TARGET_UNIT apply();
 	
 	@Override
 	public String toString();

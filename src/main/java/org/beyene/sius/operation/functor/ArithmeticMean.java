@@ -19,6 +19,7 @@ package org.beyene.sius.operation.functor;
 import org.beyene.sius.dimension.Dimension;
 import org.beyene.sius.unit.Unit;
 
-public interface ArithmeticMean<D extends Dimension<D>, B extends Unit<D, B, B>, CU extends Unit<D, B, CU>> extends Functor<D, B, CU, ArithmeticMean<D, B, CU>> {
+public interface ArithmeticMean<D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UNIT extends Unit<D, B, TARGET_UNIT>>
+extends Functor<D, B, TARGET_UNIT, ArithmeticMean<D, B, TARGET_UNIT>> {
 
 }

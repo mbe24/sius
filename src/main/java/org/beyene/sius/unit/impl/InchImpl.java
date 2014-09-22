@@ -37,7 +37,7 @@ final class InchImpl extends AbstractUnit<Length, Meter, Inch> implements Inch {
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.getInt("inch.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("inch.cache.static.size", 1);
 		if (sizeStatic > 0)
 			staticCache = new StaticCache<>(Preferences.getInt("inch.cache.static.low", 0), sizeStatic, InchImpl.class);
 		else

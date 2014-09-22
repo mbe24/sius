@@ -35,7 +35,7 @@ final class KiloGramImpl extends AbstractUnit<Mass, KiloGram, KiloGram> implemen
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.getInt("kg.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("kg.cache.static.size", 1);
 		if (sizeStatic > 0)
 			staticCache = new StaticCache<>(Preferences.getInt("kg.cache.static.low", 0), sizeStatic, KiloGramImpl.class);
 		else

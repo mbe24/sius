@@ -35,7 +35,7 @@ final class KelvinImpl extends AbstractUnit<Temperature, Kelvin, Kelvin> impleme
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.getInt("kelvin.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("kelvin.cache.static.size", 1);
 		if (sizeStatic > 0)
 			staticCache = new StaticCache<>(Preferences.getInt("kelvin.cache.static.low", 0), sizeStatic, KelvinImpl.class);
 		else

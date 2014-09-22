@@ -27,7 +27,7 @@ final class AdderImpl<D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UN
 	private TARGET_UNIT cachedResult;
 	
 	public AdderImpl(UnitId<D, B, TARGET_UNIT> targetId) {
-		super(targetId);
+		super(targetId, Adder.class.getSimpleName());
 	}
 
 	@Override
@@ -49,15 +49,5 @@ final class AdderImpl<D extends Dimension<D>, B extends Unit<D, B, B>, TARGET_UN
 	@Override
 	protected Adder<D, B, TARGET_UNIT> _this() {
 		return this;
-	}
-
-	@Override
-	protected void resetCache() {
-		cachedResult = null;
-	}
-	
-	@Override
-	public String toString() {
-		return String.format("Adder [cunitId=%s, operands=%s]", targetId, operands);
 	}
 }
