@@ -25,12 +25,12 @@ public final class FactorySpeed {
 		// private constructor to prevent instantiation
 	}
 
-	private static MeterPerSecond mps = new MeterPerSecondImpl(0);
+	private static MeterPerSecond mps = new MeterPerSecondImpl(0).valueOf(0);
 	public static MeterPerSecond mps(double value) {
 		return mps.valueOf(value);
 	}
 
-	private static MilesPerHour mph = new MilesPerHourImpl(0);
+	private static MilesPerHour mph = new MilesPerHourImpl(0).valueOf(0);
 	public static MilesPerHour mph(double value) {
 		return mph.valueOf(value);
 	}

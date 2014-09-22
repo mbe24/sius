@@ -34,15 +34,15 @@ final class MeterPerSecondImpl extends AbstractUnit<Speed, MeterPerSecond, Meter
 	private static final transient StaticCache<Speed, MeterPerSecond, MeterPerSecond> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("mps.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("mps.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.METER_PER_SECOND, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("mps.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("mps.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("mps.cache.static.low", 0), sizeStatic, MeterPerSecondImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("mps.cache.static.low", 0), sizeStatic, MeterPerSecondImpl.class);
 		else
 			staticCache = null;
 	}

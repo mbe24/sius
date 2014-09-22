@@ -29,15 +29,15 @@ final class KiloGramImpl extends AbstractUnit<Mass, KiloGram, KiloGram> implemen
 	private static final transient StaticCache<Mass, KiloGram, KiloGram> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("kg.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("kg.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.KILOGRAM, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("kg.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("kg.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("kg.cache.static.low", 0), sizeStatic, KiloGramImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("kg.cache.static.low", 0), sizeStatic, KiloGramImpl.class);
 		else
 			staticCache = null;
 	}

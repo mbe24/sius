@@ -29,15 +29,15 @@ final class SecondImpl extends AbstractUnit<Time, Second, Second> implements Sec
 	private static final transient StaticCache<Time, Second, Second> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("second.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("second.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.SECOND, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("second.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("second.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("second.cache.static.low", 0), sizeStatic, SecondImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("second.cache.static.low", 0), sizeStatic, SecondImpl.class);
 		else
 			staticCache = null;
 	}

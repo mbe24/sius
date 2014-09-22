@@ -31,15 +31,15 @@ final class HourImpl extends AbstractUnit<Time, Second, Hour> implements Hour {
 	private static final transient StaticCache<Time, Second, Hour> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("hour.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("hour.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.HOUR, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("hour.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("hour.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("hour.cache.static.low", 0), sizeStatic, HourImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("hour.cache.static.low", 0), sizeStatic, HourImpl.class);
 		else
 			staticCache = null;
 	}

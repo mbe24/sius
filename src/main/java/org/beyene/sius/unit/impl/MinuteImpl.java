@@ -31,15 +31,15 @@ final class MinuteImpl extends AbstractUnit<Time, Second, Minute> implements Min
 	private static final transient StaticCache<Time, Second, Minute>  staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("minute.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("minute.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.MINUTE, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("minute.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("minute.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("minute.cache.static.low", 0), sizeStatic, MinuteImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("minute.cache.static.low", 0), sizeStatic, MinuteImpl.class);
 		else
 			staticCache = null;
 	}

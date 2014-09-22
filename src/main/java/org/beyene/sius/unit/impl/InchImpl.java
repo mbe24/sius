@@ -31,15 +31,15 @@ final class InchImpl extends AbstractUnit<Length, Meter, Inch> implements Inch {
 	private static final transient StaticCache<Length, Meter, Inch> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("inch.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("inch.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.INCH, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("inch.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("inch.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("inch.cache.static.low", 0), sizeStatic, InchImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("inch.cache.static.low", 0), sizeStatic, InchImpl.class);
 		else
 			staticCache = null;
 	}

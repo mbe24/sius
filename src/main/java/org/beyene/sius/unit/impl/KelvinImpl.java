@@ -29,15 +29,15 @@ final class KelvinImpl extends AbstractUnit<Temperature, Kelvin, Kelvin> impleme
 	private static final transient StaticCache<Temperature, Kelvin, Kelvin> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("kelvin.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("kelvin.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.KELVIN, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("kelvin.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("kelvin.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("kelvin.cache.static.low", 0), sizeStatic, KelvinImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("kelvin.cache.static.low", 0), sizeStatic, KelvinImpl.class);
 		else
 			staticCache = null;
 	}

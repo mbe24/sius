@@ -25,11 +25,9 @@ public final class Preferences {
 	private static Properties p = new Properties();
 
 	static {
-		InputStream is = Preferences.class.getClassLoader().getResourceAsStream("sius.config");
 		try {
-			p.load(is);
+			readConfiguration(Preferences.class.getClassLoader().getResourceAsStream("sius.config"));
 		} catch (IOException e) {
-			// TODO think about other ways of error handling...
 			throw new RuntimeException(e);
 		}
 	}
@@ -38,7 +36,11 @@ public final class Preferences {
 		// private constructor to prevent instantiation
 	}
 
-	public static int loadInt(String key, int defaultValue) {
+	public static void readConfiguration(InputStream is) throws IOException {
+		p.load(is);
+	}
+
+	public static int getInt(String key, int defaultValue) {
 		String value = _load(key);
 		if (value != null) {
 			try {

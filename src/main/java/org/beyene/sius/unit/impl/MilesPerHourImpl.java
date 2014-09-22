@@ -38,15 +38,15 @@ final class MilesPerHourImpl extends AbstractUnit<Speed, MeterPerSecond, MilesPe
 	private static final transient StaticCache<Speed, MeterPerSecond, MilesPerHour> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("mph.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("mph.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.MILES_PER_HOUR, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("mph.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("mph.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("mph.cache.static.low", 0), sizeStatic, MilesPerHourImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("mph.cache.static.low", 0), sizeStatic, MilesPerHourImpl.class);
 		else
 			staticCache = null;
 	}

@@ -31,15 +31,15 @@ final class CelsiusImpl extends AbstractUnit<Temperature, Kelvin, Celsius> imple
 	private static final transient StaticCache<Temperature, Kelvin, Celsius> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("celsius.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("celsius.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.CELSIUS, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("celsius.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("celsius.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("celsius.cache.static.low", 0), sizeStatic, CelsiusImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("celsius.cache.static.low", 0), sizeStatic, CelsiusImpl.class);
 		else
 			staticCache = null;
 	}
@@ -65,6 +65,6 @@ final class CelsiusImpl extends AbstractUnit<Temperature, Kelvin, Celsius> imple
 
 	@Override
 	protected Celsius _new_instance(double value) {
-		return new CelsiusImpl(0);
+		return new CelsiusImpl(value);
 	}
 }

@@ -29,15 +29,15 @@ final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Mete
 	private static final transient StaticCache<Length, Meter, Meter> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("meter.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("meter.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.METER, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("meter.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("meter.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("meter.cache.static.low", 0), sizeStatic, MeterImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("meter.cache.static.low", 0), sizeStatic, MeterImpl.class);
 		else
 			staticCache = null;
 	}

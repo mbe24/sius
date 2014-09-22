@@ -31,15 +31,15 @@ final class YardImpl extends AbstractUnit<Length, Meter, Yard> implements Yard {
 	private static final transient StaticCache<Length, Meter, Yard> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("yard.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("yard.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.YARD, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("yard.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("yard.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("yard.cache.static.low", 0), sizeStatic, YardImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("yard.cache.static.low", 0), sizeStatic, YardImpl.class);
 		else
 			staticCache = null;
 	}

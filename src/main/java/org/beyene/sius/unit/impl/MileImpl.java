@@ -31,15 +31,15 @@ final class MileImpl extends AbstractUnit<Length, Meter, Mile> implements Mile {
 	private static final transient StaticCache<Length, Meter, Mile> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("mile.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("mile.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.MILE, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("mile.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("mile.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("mile.cache.static.low", 0), sizeStatic, MileImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("mile.cache.static.low", 0), sizeStatic, MileImpl.class);
 		else
 			staticCache = null;
 	}

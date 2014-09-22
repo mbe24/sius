@@ -31,15 +31,15 @@ final class PoundImpl extends AbstractUnit<Mass, KiloGram, Pound> implements Pou
 	private static final transient StaticCache<Mass, KiloGram, Pound>  staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("pound.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("pound.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.POUND, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("pound.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("pound.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("pound.cache.static.low", 0), sizeStatic, PoundImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("pound.cache.static.low", 0), sizeStatic, PoundImpl.class);
 		else
 			staticCache = null;
 	}

@@ -15,8 +15,8 @@ public class MeterImplTest {
 
 	@Test
 	public void testValueOf() throws Exception {
-		int low = Preferences.loadInt("meter.cache.static.low", 0);
-		int high = low + Math.abs((Preferences.loadInt("meter.cache.static.size", 128) - 1));
+		int low = Preferences.getInt("meter.cache.static.low", 0);
+		int high = low + Math.abs((Preferences.getInt("meter.cache.static.size", 128) - 1));
 		
 		int i = (low + high) / 2;
 		Meter reference = FactoryLength.meter(0);
@@ -42,8 +42,8 @@ public class MeterImplTest {
 
 	@Test
 	public void testConvert() throws Exception {
-		int low = Preferences.loadInt("meter.cache.static.low", 0);
-		int high = low + Math.abs((Preferences.loadInt("meter.cache.static.size", 128) - 1));
+		int low = Preferences.getInt("meter.cache.static.low", 0);
+		int high = low + Math.abs((Preferences.getInt("meter.cache.static.size", 128) - 1));
 		int i = (low + high) / 2;
 		
 		Meter reference = FactoryLength.meter(0);

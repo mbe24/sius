@@ -25,17 +25,17 @@ public final class FactoryTime {
 		// private constructor to prevent instantiation
 	}
 	
-	private static final Second second = new SecondImpl(0);
+	private static final Second second = new SecondImpl(0).valueOf(0);
 	public static Second second(double value) {
 		return second.valueOf(value);
 	}
 	
-	private static final Minute minute = new MinuteImpl(0);
+	private static final Minute minute = new MinuteImpl(0).valueOf(0);
 	public static Minute minute(double value) {
 		return minute.valueOf(value);
 	}
 	
-	private static final Hour hour = new HourImpl(0);
+	private static final Hour hour = new HourImpl(0).valueOf(0);
 	public static Hour hour(double value) {
 		return hour.valueOf(value);
 	}

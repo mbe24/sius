@@ -31,15 +31,15 @@ final class FootImpl extends AbstractUnit<Length, Meter, Foot> implements Foot {
 	private static final transient StaticCache<Length, Meter, Foot> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("foot.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("foot.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.FOOT, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("foot.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("foot.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("foot.cache.static.low", 0), sizeStatic, FootImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("foot.cache.static.low", 0), sizeStatic, FootImpl.class);
 		else
 			staticCache = null;
 	}

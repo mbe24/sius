@@ -31,15 +31,15 @@ final class FahrenheitImpl extends AbstractUnit<Temperature, Kelvin, Fahrenheit>
 	private static final transient StaticCache<Temperature, Kelvin, Fahrenheit> staticCache;
 	
 	static {
-		int sizeDyn = Preferences.loadInt("fahrenheit.cache.dynamic.size", 0);
+		int sizeDyn = Preferences.getInt("fahrenheit.cache.dynamic.size", 0);
 		if (sizeDyn > 0)
 			dynamicCache = Caches.newInstance(UnitIdentifier.FAHRENHEIT, Math.abs((sizeDyn)));
 		else
 			dynamicCache = null;
 
-		int sizeStatic = Preferences.loadInt("fahrenheit.cache.static.size", 0);
+		int sizeStatic = Preferences.getInt("fahrenheit.cache.static.size", 0);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.loadInt("fahrenheit.cache.static.low", 0), sizeStatic, FahrenheitImpl.class);
+			staticCache = new StaticCache<>(Preferences.getInt("fahrenheit.cache.static.low", 0), sizeStatic, FahrenheitImpl.class);
 		else
 			staticCache = null;
 	}
@@ -50,9 +50,7 @@ final class FahrenheitImpl extends AbstractUnit<Temperature, Kelvin, Fahrenheit>
 
 	@Override
 	public Fahrenheit fromBase(Kelvin base) {
-		 return valueOf((base.getValue()
-		 * (Constants.FAHRENHEIT_KELVIN_SCALE_NINE /
-		 Constants.FAHRENHEIT_KELVIN_SCALE_FIVE))
+		 return valueOf((base.getValue() * (Constants.FAHRENHEIT_KELVIN_SCALE_NINE / Constants.FAHRENHEIT_KELVIN_SCALE_FIVE))
 		 - Constants.FAHRENHEIT_KELVIN_OFFSET);
 	}
 
