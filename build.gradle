@@ -1,8 +1,12 @@
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'eclipse'
-apply plugin: 'maven'
-apply plugin: 'signing'
+
+def dontDeploy = System.getenv("DONT_DEPLOY") ?: ""
+if ( dontDeploy.length() == 0 ) {
+  apply plugin: 'maven'
+  apply plugin: 'signing'
+}
 
 sourceCompatibility = 1.7
 
@@ -49,6 +53,8 @@ tasks.withType(JavaCompile) {
 artifacts {
     archives sourcesJar, javadocJar
 }
+
+if ( dontDeploy.length() == 0 ) {
 
 signing {
     sign configurations.archives
