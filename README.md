@@ -27,5 +27,5 @@ Download the jars manually or add sius to your maven dependencies
     <dependency>
         <groupId>org.beyene</groupId>
         <artifactId>sius</artifactId>
-        <version>0.2.0</version>
+        <version>0.3.0</version>
     </dependency>
