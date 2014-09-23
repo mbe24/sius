@@ -17,6 +17,7 @@
 package org.beyene.sius.example;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.beyene.sius.dimension.Length;
 import org.beyene.sius.dimension.Mass;
@@ -82,7 +83,9 @@ public class Example {
 		Inch inch = Operation.convert(foot, UnitIdentifier.INCH);
 		System.out.println(String.format("Converted %s to %s", foot, inch));
 		
-		System.out.println(String.format("Summands \t= %s", Arrays.<Unit<Length, Meter, ?>>asList(FactoryLength.meter(1000), FactoryLength.mile(1), FactoryLength.meter(1000)).toString()));
+		@SuppressWarnings("unchecked")
+		List<Unit<Length, Meter, ?>> lengths = Arrays.<Unit<Length, Meter, ?>>asList(FactoryLength.meter(1000), FactoryLength.mile(1), FactoryLength.meter(1000));
+		System.out.println(String.format("Summands \t= %s", lengths.toString()));
 		System.out.println("Sum \t\t= " + Operation.add(FactoryLength.meter(1000), FactoryLength.mile(1), FactoryLength.meter(1000)));
 		
 		Adder<Length, Meter, Meter> adder = FunctorFactory.sum(UnitIdentifier.METER)
@@ -100,21 +103,6 @@ public class Example {
 		.op(foot);
 		System.out.println(adder);
 		System.out.println(adder.apply());
-		
-		Meter sameRes = Operation.add(UnitIdentifier.METER,
-				lengthSecond,
-				lengthSecond,
-				lengthSecond,
-				lengthSecond,
-				lengthSecond,
-				lengthSecond,
-				lengthSecond,
-				lengthSecond,
-				lengthSecond,
-				lengthSecond,
-				foot,
-				foot);
-		System.out.println(sameRes);
 		
 		ArithmeticMean<Mass, KiloGram, KiloGram> mean = FunctorFactory.mean(UnitIdentifier.KILOGRAM)
 				.op(FactoryMass.kg(10))

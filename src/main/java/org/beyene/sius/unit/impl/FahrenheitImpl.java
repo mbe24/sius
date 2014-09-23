@@ -39,7 +39,7 @@ final class FahrenheitImpl extends AbstractUnit<Temperature, Kelvin, Fahrenheit>
 
 		int sizeStatic = Preferences.getInt("fahrenheit.cache.static.size", 1);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.getInt("fahrenheit.cache.static.low", 0), sizeStatic, FahrenheitImpl.class);
+			staticCache = new StaticCache<Temperature, Kelvin, Fahrenheit>(Preferences.getInt("fahrenheit.cache.static.low", 0), sizeStatic, FahrenheitImpl.class);
 		else
 			staticCache = null;
 	}

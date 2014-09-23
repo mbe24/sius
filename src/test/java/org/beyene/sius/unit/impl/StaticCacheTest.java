@@ -28,7 +28,7 @@ public class StaticCacheTest {
 	public void testCtor1() throws Exception {
 		int low = -5;
 		int size = 10;
-		StaticCache<Length, Meter, Inch> staticCache = new StaticCache<>(low,
+		StaticCache<Length, Meter, Inch> staticCache = new StaticCache<Length, Meter, Inch>(low,
 				size, InchImpl.class);
 
 		int start = low;
@@ -40,7 +40,7 @@ public class StaticCacheTest {
 	@Test(expected = IllegalStateException.class)
 	public void testCtor2() throws Exception {
 		@SuppressWarnings("unused")
-		StaticCache<Length, Meter, Inch> staticCache = new StaticCache<>(0, 5, Inch.class);
+		StaticCache<Length, Meter, Inch> staticCache = new StaticCache<Length, Meter, Inch>(0, 5, Inch.class);
 		Assert.fail("Class parameter has to be class of an interface to throw the expected exception!");
 	}
 }

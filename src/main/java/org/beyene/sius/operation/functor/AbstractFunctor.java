@@ -28,7 +28,7 @@ abstract class AbstractFunctor<D extends Dimension<D>, B extends Unit<D, B, B>, 
 	private final String functionName;
 	protected final UnitId<D, B, TARGET_UNIT> targetId;
 	
-	protected final List<Unit<D, B, ?>> operands = new LinkedList<>();
+	protected final List<Unit<D, B, ?>> operands = new LinkedList<Unit<D, B, ?>>();
 	protected TARGET_UNIT cachedResult;
 	
 	public AbstractFunctor(UnitId<D, B, TARGET_UNIT> targetId, String functionName) {

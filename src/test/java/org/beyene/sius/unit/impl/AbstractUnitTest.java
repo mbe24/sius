@@ -42,7 +42,7 @@ public class AbstractUnitTest {
 	@Before
 	public void setUp() {
 		dynamicCache = Caches.newInstance(unitId, 10);
-		staticCache = new StaticCache<>(0, 10, MeterImpl.class);
+		staticCache = new StaticCache<Length, Meter, Meter>(0, 10, MeterImpl.class);
 		m = new MeterImpl(value, dimension, unitId, interfaceClass, dynamicCache, staticCache);
 	}
 	
@@ -94,6 +94,16 @@ public class AbstractUnitTest {
 		Meter dynCache1 =  m.valueOf(oneThird);
 		Meter dynCache2 =  m.valueOf(oneThird);
 		Assert.assertTrue(dynCache1 == dynCache2);
+		
+		m = new MeterImpl(oneThird, dimension, unitId, interfaceClass, null, null);
+		Meter sameInstance = m.valueOf(oneThird);
+		Assert.assertTrue(m == sameInstance);
+		
+		double twoThird = 2d /  3d;
+		Meter m2 = m.valueOf(twoThird);
+		Meter notSame = m.valueOf(twoThird);
+		Assert.assertTrue(m2 != notSame);
+		
 	}
 
 	@Test

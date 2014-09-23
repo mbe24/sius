@@ -46,7 +46,7 @@ final class MilesPerHourImpl extends AbstractUnit<Speed, MeterPerSecond, MilesPe
 
 		int sizeStatic = Preferences.getInt("mph.cache.static.size", 1);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.getInt("mph.cache.static.low", 0), sizeStatic, MilesPerHourImpl.class);
+			staticCache = new StaticCache<Speed, MeterPerSecond, MilesPerHour>(Preferences.getInt("mph.cache.static.low", 0), sizeStatic, MilesPerHourImpl.class);
 		else
 			staticCache = null;
 	}

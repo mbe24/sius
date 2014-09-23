@@ -38,7 +38,7 @@ final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Mete
 
 		int sizeStatic = Preferences.getInt("meter.cache.static.size", 1);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.getInt("meter.cache.static.low", 0), sizeStatic, MeterImpl.class);
+			staticCache = new StaticCache<Length, Meter, Meter>(Preferences.getInt("meter.cache.static.low", 0), sizeStatic, MeterImpl.class);
 		else
 			staticCache = null;
 	}

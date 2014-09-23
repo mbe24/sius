@@ -19,8 +19,6 @@ package org.beyene.sius.operation;
 import org.beyene.sius.dimension.Dimension;
 import org.beyene.sius.dimension.composition.util.Fraction;
 import org.beyene.sius.dimension.composition.util.Product;
-import org.beyene.sius.operation.functor.Adder;
-import org.beyene.sius.operation.functor.FunctorFactory;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitFactory;
 import org.beyene.sius.unit.UnitId;
@@ -98,30 +96,6 @@ public final class Operation {
 				+ Converter.convert(op2, op1.getIdentifier()).getValue());
 	}
 
-	/**
-	 * Adds (different) units of the same dimension.
-	 * 
-	 * @param targetId
-	 *            resulting unit
-	 * @param op
-	 *            first operand
-	 * @param ops
-	 *            further operands
-	 * @return sum
-	 * 
-	 * @param <D> dimension
-	 * @param <B> base unit of dimension
-	 * @param <OP> first operands unit
-	 * @param <TARGET_UNIT> target unit
-	 */
-	@SafeVarargs
-	public static <D extends Dimension<D>, B extends Unit<D, B, B>, OP extends Unit<D, B, OP>, TARGET_UNIT extends Unit<D, B, TARGET_UNIT>> TARGET_UNIT add(
-			UnitId<D, B, TARGET_UNIT> targetId, OP op, Unit<D, B, ?>... ops) {
-		Adder<D, B, TARGET_UNIT> adder = FunctorFactory.sum(targetId).op(op);
-		for (Unit<D, B, ?> o : ops)
-			adder.op(o);
-		return adder.apply();
-	}
 
 	/**
 	 * Subtracts two (different) units of the same dimension. Result is of same

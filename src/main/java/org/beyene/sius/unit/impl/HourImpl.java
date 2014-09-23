@@ -39,7 +39,7 @@ final class HourImpl extends AbstractUnit<Time, Second, Hour> implements Hour {
 
 		int sizeStatic = Preferences.getInt("hour.cache.static.size", 1);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.getInt("hour.cache.static.low", 0), sizeStatic, HourImpl.class);
+			staticCache = new StaticCache<Time, Second, Hour>(Preferences.getInt("hour.cache.static.low", 0), sizeStatic, HourImpl.class);
 		else
 			staticCache = null;
 	}

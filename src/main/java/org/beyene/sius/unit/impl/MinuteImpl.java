@@ -39,7 +39,7 @@ final class MinuteImpl extends AbstractUnit<Time, Second, Minute> implements Min
 
 		int sizeStatic = Preferences.getInt("minute.cache.static.size", 1);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.getInt("minute.cache.static.low", 0), sizeStatic, MinuteImpl.class);
+			staticCache = new StaticCache<Time, Second, Minute>(Preferences.getInt("minute.cache.static.low", 0), sizeStatic, MinuteImpl.class);
 		else
 			staticCache = null;
 	}

@@ -29,7 +29,7 @@ import org.beyene.sius.unit.impl.FactoryTime;
 
 public final class UnitFactory {
 
-	private static final Map<UnitId<?, ?, ?>, Unit<?, ?, ?>> instanceMapMutable = new HashMap<>();
+	private static final Map<UnitId<?, ?, ?>, Unit<?, ?, ?>> instanceMapMutable = new HashMap<UnitId<?, ?, ?>, Unit<?, ?, ?>>();
 
 	/* initialize map */
 	static {

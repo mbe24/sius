@@ -39,7 +39,7 @@ final class FootImpl extends AbstractUnit<Length, Meter, Foot> implements Foot {
 
 		int sizeStatic = Preferences.getInt("foot.cache.static.size", 1);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.getInt("foot.cache.static.low", 0), sizeStatic, FootImpl.class);
+			staticCache = new StaticCache<Length, Meter, Foot>(Preferences.getInt("foot.cache.static.low", 0), sizeStatic, FootImpl.class);
 		else
 			staticCache = null;
 	}

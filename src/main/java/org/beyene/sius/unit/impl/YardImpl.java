@@ -39,7 +39,7 @@ final class YardImpl extends AbstractUnit<Length, Meter, Yard> implements Yard {
 
 		int sizeStatic = Preferences.getInt("yard.cache.static.size", 1);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.getInt("yard.cache.static.low", 0), sizeStatic, YardImpl.class);
+			staticCache = new StaticCache<Length, Meter, Yard>(Preferences.getInt("yard.cache.static.low", 0), sizeStatic, YardImpl.class);
 		else
 			staticCache = null;
 	}

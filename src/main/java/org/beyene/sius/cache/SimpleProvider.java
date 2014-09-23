@@ -25,6 +25,6 @@ final class SimpleProvider implements Provider {
 	@Override
 	public <D extends Dimension<D>, B extends Unit<D, B, B>, U extends Unit<D, B, U>> Cache<D, B, U> newInstance(
 			UnitId<D, B, U> id, int capacity) {
-		return new SimpleCache<>(capacity);
+		return new SimpleCache<D, B, U>(capacity);
 	}
 }

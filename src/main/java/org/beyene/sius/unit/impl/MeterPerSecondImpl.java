@@ -42,7 +42,7 @@ final class MeterPerSecondImpl extends AbstractUnit<Speed, MeterPerSecond, Meter
 
 		int sizeStatic = Preferences.getInt("mps.cache.static.size", 1);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.getInt("mps.cache.static.low", 0), sizeStatic, MeterPerSecondImpl.class);
+			staticCache = new StaticCache<Speed, MeterPerSecond, MeterPerSecond>(Preferences.getInt("mps.cache.static.low", 0), sizeStatic, MeterPerSecondImpl.class);
 		else
 			staticCache = null;
 	}

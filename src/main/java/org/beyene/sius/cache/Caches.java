@@ -25,7 +25,7 @@ import org.beyene.sius.unit.UnitId;
 
 public final class Caches {
 
-	private static Map<String, Provider> providers = new ConcurrentHashMap<>();
+	private static Map<String, Provider> providers = new ConcurrentHashMap<String, Provider>();
 	private static String DEFAULT_PROVIDER_NAME = "<def>";
 
 	static {

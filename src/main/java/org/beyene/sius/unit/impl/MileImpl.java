@@ -39,7 +39,7 @@ final class MileImpl extends AbstractUnit<Length, Meter, Mile> implements Mile {
 
 		int sizeStatic = Preferences.getInt("mile.cache.static.size", 1);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.getInt("mile.cache.static.low", 0), sizeStatic, MileImpl.class);
+			staticCache = new StaticCache<Length, Meter, Mile>(Preferences.getInt("mile.cache.static.low", 0), sizeStatic, MileImpl.class);
 		else
 			staticCache = null;
 	}

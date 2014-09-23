@@ -37,7 +37,7 @@ final class SecondImpl extends AbstractUnit<Time, Second, Second> implements Sec
 
 		int sizeStatic = Preferences.getInt("second.cache.static.size", 1);
 		if (sizeStatic > 0)
-			staticCache = new StaticCache<>(Preferences.getInt("second.cache.static.low", 0), sizeStatic, SecondImpl.class);
+			staticCache = new StaticCache<Time, Second, Second>(Preferences.getInt("second.cache.static.low", 0), sizeStatic, SecondImpl.class);
 		else
 			staticCache = null;
 	}

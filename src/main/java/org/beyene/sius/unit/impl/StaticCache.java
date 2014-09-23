@@ -43,10 +43,17 @@ public class StaticCache<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE
 		for (int k = 0; k < cache.length; k++)
 			try {
 				cache[k] = (SELF) implementingClass.getDeclaredConstructor(double.class).newInstance(j++);
-			} catch (InstantiationException | IllegalAccessException
-					| IllegalArgumentException | InvocationTargetException
-					| NoSuchMethodException | SecurityException e) {
-				// not supposed to happen
+			} catch (InstantiationException e) {
+				throw new IllegalStateException(e);
+			} catch (IllegalAccessException e) {
+				throw new IllegalStateException(e);
+			} catch (IllegalArgumentException e) {
+				throw new IllegalStateException(e);
+			} catch (InvocationTargetException e) {
+				throw new IllegalStateException(e);
+			} catch (NoSuchMethodException e) {
+				throw new IllegalStateException(e);
+			} catch (SecurityException e) {
 				throw new IllegalStateException(e);
 			}
 	}

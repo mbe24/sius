@@ -28,7 +28,7 @@ public class SimpleCacheTest {
 
 	@Test
 	public void testLookUp() throws Exception {
-		SimpleCache<Time, Second, Hour> cache = new SimpleCache<>(5);
+		SimpleCache<Time, Second, Hour> cache = new SimpleCache<Time, Second, Hour>(5);
 
 		double value = 5;
 		Hour h = FactoryTime.hour(value);
@@ -41,7 +41,7 @@ public class SimpleCacheTest {
 	@Test
 	public void testPut() throws Exception {
 		int size = 10;
-		SimpleCache<Time, Second, Minute> cache = new SimpleCache<>(size);
+		SimpleCache<Time, Second, Minute> cache = new SimpleCache<Time, Second, Minute>(size);
 
 		int min = 1000;
 		boolean flag = true;
