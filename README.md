@@ -1,4 +1,4 @@
-sius [![Build Status](https://travis-ci.org/mbe24/sius.svg?branch=master)](https://travis-ci.org/mbe24/sius) [![Coverage Status](https://img.shields.io/coveralls/mbe24/sius.svg)](https://coveralls.io/r/mbe24/sius) [![Version Info](http://img.shields.io/badge/version-v0.2.0-blue.svg)](https://github.com/mbe24/sius) [![License Info](http://img.shields.io/badge/license-Apache%20License%20v2.0-orange.svg)](https://raw.githubusercontent.com/mbe24/jcurry/master/LICENSE)
+sius [![Build Status](https://travis-ci.org/mbe24/sius.svg?branch=master)](https://travis-ci.org/mbe24/sius) [![Coverage Status](https://img.shields.io/coveralls/mbe24/sius.svg)](https://coveralls.io/r/mbe24/sius) [![Version Info](http://img.shields.io/badge/version-v0.3.0-blue.svg)](https://github.com/mbe24/sius) [![License Info](http://img.shields.io/badge/license-Apache%20License%20v2.0-orange.svg)](https://raw.githubusercontent.com/mbe24/jcurry/master/LICENSE)
 ====
 
 S.I. Unit System
