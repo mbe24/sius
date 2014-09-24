@@ -1,12 +1,25 @@
 language: java
 jdk:
-  - oraclejdk7
+  - openjdk6
   
 # whitelist
 branches:
   only:
     - master
+    - coverity_scan
 
-# send coverage data	
-after_success:
-  - mvn clean test jacoco:report coveralls:jacoco
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "NP9duaXRP8Y4uGm7QT/L1TCs4ElQ79u8wS6GXUcxfcyUNiDTE9FziUmnewTU0rpwu3S86AFn9lDuXdFlwLc7HjEkfWUHqPZldr8oEZLkzOvfu9Mbso90ZrZvOWf1BAMhG/tGmI4zds/0tinZnwYOMRjaHhDitrPDBfR5x47wDfo="
+
+addons:
+  coverity_scan:
+    project:
+      name: "mbe24/sius"
+      description: "S.I. Unit System - unit conversion/processing library in java"
+    notification_email: dev@beyene.org
+    build_command_prepend: "mvn clean"
+    build_command: "mvn -DskipTests=true compile"
+    branch_pattern: coverity_scan
