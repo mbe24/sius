@@ -66,6 +66,7 @@ public final class UnitFactory {
 		/* speed */
 		instanceMapMutable.put(UnitIdentifier.METER_PER_SECOND, FactorySpeed.mps(0));
 		instanceMapMutable.put(UnitIdentifier.MILES_PER_HOUR, FactorySpeed.mph(0));
+        instanceMapMutable.put(UnitIdentifier.FOOT_PER_SECOND, FactorySpeed.ftps(0));
 	}
 	private static final Map<UnitId<?, ?, ?>, Unit<?, ?, ?>> instanceMap = Collections.unmodifiableMap(instanceMapMutable);
 

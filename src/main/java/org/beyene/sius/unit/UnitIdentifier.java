@@ -28,6 +28,7 @@ import org.beyene.sius.unit.composition.area.SquareFoot;
 import org.beyene.sius.unit.composition.area.SquareKiloMeter;
 import org.beyene.sius.unit.composition.area.SquareMeter;
 import org.beyene.sius.unit.composition.area.SquareMile;
+import org.beyene.sius.unit.composition.speed.FootPerSecond;
 import org.beyene.sius.unit.composition.speed.MeterPerSecond;
 import org.beyene.sius.unit.composition.speed.MilesPerHour;
 import org.beyene.sius.unit.length.Foot;
@@ -109,6 +110,8 @@ public final class UnitIdentifier {
 	public static final MeterPerSecondId METER_PER_SECOND = new MeterPerSecondId();
 
 	public static final MilesPerHourId MILES_PER_HOUR = new MilesPerHourId();
+
+    public static final FootPerSecondId FOOT_PER_SECOND = new FootPerSecondId();
 
 	/* length */
 
@@ -207,6 +210,10 @@ public final class UnitIdentifier {
 			return UnitIdentifier.SECOND;
 		}
 	}
+
+    private static class FootPerSecondId extends AbstractUnitId<Speed, MeterPerSecond, FootPerSecond>{
+
+    }
 
 	private static class MilesPerHourId extends
 			AbstractUnitId<Speed, MeterPerSecond, MilesPerHour> {
