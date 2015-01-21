@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.beyene.sius.dimension.Dimension;
+import org.beyene.sius.unit.impl.FactoryArea;
 import org.beyene.sius.unit.impl.FactoryLength;
 import org.beyene.sius.unit.impl.FactoryMass;
 import org.beyene.sius.unit.impl.FactorySpeed;
@@ -38,6 +39,8 @@ public final class UnitFactory {
 		instanceMapMutable.put(UnitIdentifier.POUND, FactoryMass.lb(0));
 
 		/* length */
+        instanceMapMutable.put(UnitIdentifier.KILOMETER, FactoryLength.kilometer(0));
+        instanceMapMutable.put(UnitIdentifier.MILLIMETER, FactoryLength.millimeter(0));
 		instanceMapMutable.put(UnitIdentifier.METER, FactoryLength.meter(0));
 		instanceMapMutable.put(UnitIdentifier.MILE, FactoryLength.mile(0));
 		instanceMapMutable.put(UnitIdentifier.YARD, FactoryLength.yard(0));
@@ -53,7 +56,13 @@ public final class UnitFactory {
 		instanceMapMutable.put(UnitIdentifier.KELVIN, FactoryTemperature.kelvin(0));
 		instanceMapMutable.put(UnitIdentifier.CELSIUS, FactoryTemperature.celsius(0));
 		instanceMapMutable.put(UnitIdentifier.FAHRENHEIT, FactoryTemperature.fahrenheit(0));
-		
+
+        /* area */
+        instanceMapMutable.put(UnitIdentifier.SQUARE_METER, FactoryArea.squareMeter(0));
+        instanceMapMutable.put(UnitIdentifier.SQUARE_FOOT, FactoryArea.squareFoot(0));
+        instanceMapMutable.put(UnitIdentifier.SQUARE_KILOMETER, FactoryArea.squareKiloMeter(0));
+        instanceMapMutable.put(UnitIdentifier.SQUARE_MILE, FactoryArea.squareMile(0));
+
 		/* speed */
 		instanceMapMutable.put(UnitIdentifier.METER_PER_SECOND, FactorySpeed.mps(0));
 		instanceMapMutable.put(UnitIdentifier.MILES_PER_HOUR, FactorySpeed.mph(0));

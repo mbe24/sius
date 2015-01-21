@@ -25,6 +25,8 @@ import org.beyene.sius.unit.length.Inch;
 import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.util.Preferences;
 
+import java.util.Locale;
+
 final class InchImpl extends AbstractUnit<Length, Meter, Inch> implements Inch {
 
 	private static final transient Cache<Length, Meter, Inch> dynamicCache;
@@ -47,6 +49,11 @@ final class InchImpl extends AbstractUnit<Length, Meter, Inch> implements Inch {
 	public InchImpl(double value) {
 		super(value, Length.INSTANCE, UnitIdentifier.INCH, Inch.class, dynamicCache, staticCache);
 	}
+
+    @Override
+    public String toString(){
+        return String.format(Locale.US, "%2.1f in", value);
+    }
 
 	@Override
 	public Inch fromBase(Meter base) {

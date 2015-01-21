@@ -19,6 +19,6 @@ package org.beyene.sius.unit.length;
 import org.beyene.sius.dimension.Length;
 import org.beyene.sius.unit.Unit;
 
-interface LengthUnit<U extends LengthUnit<U>> extends Unit<Length, Meter, U> {
+public interface LengthUnit<U extends LengthUnit<U>> extends Unit<Length, Meter, U> {
 
 }

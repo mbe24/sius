@@ -20,7 +20,11 @@ public final class Constants {
 	private Constants() {
 		// private constructor to prevent instantiation
 	}
-	
+
+    public static final double METER_PER_KILOMETER = 1000;
+
+    public static final double METER_PER_MILLIMETER = 0.001;
+
 	public static final double METER_PER_MILE = 1609.344;
 	
 	public static final double METER_PER_YARD = 0.9144;

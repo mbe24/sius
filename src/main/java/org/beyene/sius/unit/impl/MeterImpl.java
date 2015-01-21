@@ -24,6 +24,8 @@ import org.beyene.sius.unit.UnitIdentifier;
 import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.util.Preferences;
 
+import java.util.Locale;
+
 final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Meter {
 
 	private static final transient Cache<Length, Meter, Meter> dynamicCache;
@@ -54,6 +56,11 @@ final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Mete
 	public MeterImpl(double value) {
 		super(value, Length.INSTANCE, UnitIdentifier.METER, Meter.class, dynamicCache, staticCache);
 	}
+
+    @Override
+    public String toString(){
+        return String.format(Locale.US, "%2.1f m", value);
+    }
 
 	@Override
 	public Meter toBase() {
