@@ -127,7 +127,7 @@ public class AbstractUnitTest {
 
 	@Test
 	public void testToString() throws Exception {
-		Assert.assertTrue("Expected was " + m.toString(), m.toString().equals("Meter [value=5.0]"));
+		Assert.assertTrue("Expected was " + m.toString(), m.toString().equals("5.0 m"));
 	}
 
 	@Test

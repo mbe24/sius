@@ -25,9 +25,11 @@ import org.beyene.sius.dimension.composition.Area;
 import org.beyene.sius.dimension.composition.Speed;
 import org.beyene.sius.unit.composition.CompositeUnitId;
 import org.beyene.sius.unit.composition.area.SquareFoot;
+import org.beyene.sius.unit.composition.area.SquareInch;
 import org.beyene.sius.unit.composition.area.SquareKiloMeter;
 import org.beyene.sius.unit.composition.area.SquareMeter;
 import org.beyene.sius.unit.composition.area.SquareMile;
+import org.beyene.sius.unit.composition.area.SquareMilliMeter;
 import org.beyene.sius.unit.composition.speed.FootPerSecond;
 import org.beyene.sius.unit.composition.speed.MeterPerSecond;
 import org.beyene.sius.unit.composition.speed.MilesPerHour;
@@ -97,9 +99,13 @@ public final class UnitIdentifier {
 	public static final FahrenheitId FAHRENHEIT = new FahrenheitId();
 
     /* area */
+	public static final SquareMilliMeterId SQUARE_MILLIMETER = new SquareMilliMeterId();
+
     public static final SquareMeterId SQUARE_METER = new SquareMeterId();
 
     public static final SquareKiloMeterId SQUARE_KILOMETER = new SquareKiloMeterId();
+
+	public static final SquareInchId SQUARE_INCH = new SquareInchId();
 
     public static final SquareFootId SQUARE_FOOT = new SquareFootId();
 
@@ -185,8 +191,12 @@ public final class UnitIdentifier {
         }
     }
 
+	private static class SquareMilliMeterId extends AbstractUnitId<Area, SquareMeter, SquareMilliMeter>{}
+
     private static class SquareKiloMeterId extends AbstractUnitId<Area, SquareMeter, SquareKiloMeter> {
     }
+
+	private static class SquareInchId extends AbstractUnitId<Area, SquareMeter, SquareInch>{}
 
     private static class SquareFootId extends AbstractUnitId<Area, SquareMeter, SquareFoot> {
 

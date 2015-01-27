@@ -13,6 +13,8 @@ import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.unit.length.Mile;
 import org.beyene.sius.util.Preferences;
 
+import java.util.Locale;
+
 /**
  * Created by Fredia Huya-Kouadio on 1/21/15.
  */
@@ -43,6 +45,11 @@ public class SquareMileImpl extends AbstractUnit<Area, SquareMeter, SquareMile> 
     @Override
     public SquareMile fromBase(SquareMeter squareMeter) {
         return valueOf(squareMeter.getValue() / Constants.SQM_PER_SQMILE);
+    }
+
+    @Override
+    public String toString(){
+        return String.format(Locale.US, "%2.1f mi" + Constants.SQUARE_SYMBOL, value);
     }
 
     @Override

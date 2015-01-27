@@ -58,6 +58,8 @@ public final class UnitFactory {
 		instanceMapMutable.put(UnitIdentifier.FAHRENHEIT, FactoryTemperature.fahrenheit(0));
 
         /* area */
+		instanceMapMutable.put(UnitIdentifier.SQUARE_MILLIMETER, FactoryArea.squareMilliMeter(0));
+		instanceMapMutable.put(UnitIdentifier.SQUARE_INCH, FactoryArea.squareInch(0));
         instanceMapMutable.put(UnitIdentifier.SQUARE_METER, FactoryArea.squareMeter(0));
         instanceMapMutable.put(UnitIdentifier.SQUARE_FOOT, FactoryArea.squareFoot(0));
         instanceMapMutable.put(UnitIdentifier.SQUARE_KILOMETER, FactoryArea.squareKiloMeter(0));

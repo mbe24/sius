@@ -13,7 +13,11 @@ public class Constants {
 
     public final static String SQUARE_SYMBOL = "\u00B2";
 
+    public static final double SQM_PER_SQMM = Math.pow(METER_PER_MILLIMETER, 2);
+
     public static final double SQM_PER_SQKM = Math.pow(METER_PER_KILOMETER, 2);
+
+    public static final double SQM_PER_SQINCH = Math.pow(METER_PER_INCH, 2);
 
     public static final double SQM_PER_SQFOOT = Math.pow(METER_PER_FOOT, 2);
 
