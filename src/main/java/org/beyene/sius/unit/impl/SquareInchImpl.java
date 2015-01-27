@@ -45,7 +45,7 @@ public class SquareInchImpl extends AbstractUnit<Area, SquareMeter, SquareInch> 
 
     @Override
     public String toString(){
-        return String.format(Locale.US, "%2.1f in" + Constants.SQUARE_SYMBOL, value);
+        return String.format(Locale.US, "%2.2f in" + Constants.SQUARE_SYMBOL, value);
     }
 
     @Override
