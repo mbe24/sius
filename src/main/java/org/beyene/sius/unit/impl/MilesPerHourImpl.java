@@ -32,6 +32,8 @@ import org.beyene.sius.unit.time.Hour;
 import org.beyene.sius.unit.time.Second;
 import org.beyene.sius.util.Preferences;
 
+import java.util.Locale;
+
 final class MilesPerHourImpl extends AbstractUnit<Speed, MeterPerSecond, MilesPerHour> implements MilesPerHour {
 
 	private static final transient Cache<Speed, MeterPerSecond, MilesPerHour> dynamicCache;
@@ -53,6 +55,11 @@ final class MilesPerHourImpl extends AbstractUnit<Speed, MeterPerSecond, MilesPe
 	
 	public MilesPerHourImpl(double value) {
 		super(value, Speed.INSTANCE, UnitIdentifier.MILES_PER_HOUR, MilesPerHour.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	public String toString(){
+		return String.format(Locale.US, "%2.1f mph", value);
 	}
 
 	@Override
