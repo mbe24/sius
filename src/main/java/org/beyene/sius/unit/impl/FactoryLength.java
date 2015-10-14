@@ -18,14 +18,26 @@ package org.beyene.sius.unit.impl;
 
 import org.beyene.sius.unit.length.Foot;
 import org.beyene.sius.unit.length.Inch;
+import org.beyene.sius.unit.length.KiloMeter;
 import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.unit.length.Mile;
+import org.beyene.sius.unit.length.MilliMeter;
 import org.beyene.sius.unit.length.Yard;
 
 public final class FactoryLength {
 	private FactoryLength() {
 		// private constructor to prevent instantiation
 	}
+
+    private static final KiloMeter kilometer = new KiloMeterImpl(0).valueOf(0);
+    public static KiloMeter kilometer(double value){
+        return kilometer.valueOf(value);
+    }
+
+    private static final MilliMeter millimeter = new MilliMeterImpl(0).valueOf(0);
+    public static MilliMeter millimeter(double value){
+        return millimeter.valueOf(value);
+    }
 
 	private static final Meter meter = new MeterImpl(0).valueOf(0);
 	public static Meter meter(double value) {

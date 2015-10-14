@@ -43,7 +43,12 @@ final class CelsiusImpl extends AbstractUnit<Temperature, Kelvin, Celsius> imple
 		else
 			staticCache = null;
 	}
-	
+
+	@Override
+	public String getUnitSymbol(){
+		return "°C";
+	}
+
 	public CelsiusImpl(double value) {
 		super(value, Temperature.INSTANCE, UnitIdentifier.CELSIUS, Celsius.class, dynamicCache, staticCache);
 	}

@@ -25,6 +25,8 @@ import org.beyene.sius.unit.length.Foot;
 import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.util.Preferences;
 
+import java.util.Locale;
+
 final class FootImpl extends AbstractUnit<Length, Meter, Foot> implements Foot {
 
 	private static final transient Cache<Length, Meter, Foot> dynamicCache;
@@ -46,6 +48,11 @@ final class FootImpl extends AbstractUnit<Length, Meter, Foot> implements Foot {
 	
 	public FootImpl(double value) {
 		super(value, Length.INSTANCE, UnitIdentifier.FOOT, Foot.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	public String getUnitSymbol(){
+		return "ft";
 	}
 	
 	@Override

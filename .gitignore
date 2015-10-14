@@ -8,3 +8,9 @@ bin/
 build/
 .gradle/
 gradle.properties
+
+# Project
+.idea/
+*.iml
+local.properties
+classes/

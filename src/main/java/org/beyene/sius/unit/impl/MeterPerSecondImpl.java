@@ -28,6 +28,8 @@ import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.unit.time.Second;
 import org.beyene.sius.util.Preferences;
 
+import java.util.Locale;
+
 final class MeterPerSecondImpl extends AbstractUnit<Speed, MeterPerSecond, MeterPerSecond> implements MeterPerSecond {
 
 	private static final transient Cache<Speed, MeterPerSecond, MeterPerSecond> dynamicCache;
@@ -49,6 +51,11 @@ final class MeterPerSecondImpl extends AbstractUnit<Speed, MeterPerSecond, Meter
 	
 	public MeterPerSecondImpl(double value) {
 		super(value, Speed.INSTANCE, UnitIdentifier.METER_PER_SECOND, MeterPerSecond.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	public String getUnitSymbol(){
+		return "m/s";
 	}
 
 	@Override

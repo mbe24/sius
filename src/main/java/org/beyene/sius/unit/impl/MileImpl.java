@@ -25,6 +25,8 @@ import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.unit.length.Mile;
 import org.beyene.sius.util.Preferences;
 
+import java.util.Locale;
+
 final class MileImpl extends AbstractUnit<Length, Meter, Mile> implements Mile {
 
 	private static final transient Cache<Length, Meter, Mile> dynamicCache;
@@ -46,6 +48,11 @@ final class MileImpl extends AbstractUnit<Length, Meter, Mile> implements Mile {
 	
 	public MileImpl(double value) {
 		super(value, Length.INSTANCE, UnitIdentifier.MILE, Mile.class, dynamicCache, staticCache);
+	}
+
+	@Override
+	public String getUnitSymbol(){
+		return "mi";
 	}
 
 	@Override

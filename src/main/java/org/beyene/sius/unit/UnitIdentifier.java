@@ -21,14 +21,24 @@ import org.beyene.sius.dimension.Length;
 import org.beyene.sius.dimension.Mass;
 import org.beyene.sius.dimension.Temperature;
 import org.beyene.sius.dimension.Time;
+import org.beyene.sius.dimension.composition.Area;
 import org.beyene.sius.dimension.composition.Speed;
 import org.beyene.sius.unit.composition.CompositeUnitId;
+import org.beyene.sius.unit.composition.area.SquareFoot;
+import org.beyene.sius.unit.composition.area.SquareInch;
+import org.beyene.sius.unit.composition.area.SquareKiloMeter;
+import org.beyene.sius.unit.composition.area.SquareMeter;
+import org.beyene.sius.unit.composition.area.SquareMile;
+import org.beyene.sius.unit.composition.area.SquareMilliMeter;
+import org.beyene.sius.unit.composition.speed.FootPerSecond;
 import org.beyene.sius.unit.composition.speed.MeterPerSecond;
 import org.beyene.sius.unit.composition.speed.MilesPerHour;
 import org.beyene.sius.unit.length.Foot;
 import org.beyene.sius.unit.length.Inch;
+import org.beyene.sius.unit.length.KiloMeter;
 import org.beyene.sius.unit.length.Meter;
 import org.beyene.sius.unit.length.Mile;
+import org.beyene.sius.unit.length.MilliMeter;
 import org.beyene.sius.unit.length.Yard;
 import org.beyene.sius.unit.mass.KiloGram;
 import org.beyene.sius.unit.mass.Pound;
@@ -51,6 +61,10 @@ public final class UnitIdentifier {
 	}
 
 	/* length */
+
+    public static final KiloMeterId KILOMETER = new KiloMeterId();
+
+    public static final MilliMeterId MILLIMETER = new MilliMeterId();
 
 	public static final MeterId METER = new MeterId();
 
@@ -84,13 +98,34 @@ public final class UnitIdentifier {
 
 	public static final FahrenheitId FAHRENHEIT = new FahrenheitId();
 
+    /* area */
+	public static final SquareMilliMeterId SQUARE_MILLIMETER = new SquareMilliMeterId();
+
+    public static final SquareMeterId SQUARE_METER = new SquareMeterId();
+
+    public static final SquareKiloMeterId SQUARE_KILOMETER = new SquareKiloMeterId();
+
+	public static final SquareInchId SQUARE_INCH = new SquareInchId();
+
+    public static final SquareFootId SQUARE_FOOT = new SquareFootId();
+
+    public static final SquareMileId SQUARE_MILE = new SquareMileId();
+
 	/* speed */
 
 	public static final MeterPerSecondId METER_PER_SECOND = new MeterPerSecondId();
 
 	public static final MilesPerHourId MILES_PER_HOUR = new MilesPerHourId();
 
+    public static final FootPerSecondId FOOT_PER_SECOND = new FootPerSecondId();
+
 	/* length */
+
+    private static class KiloMeterId extends AbstractUnitId<Length, Meter, KiloMeter>{
+    }
+
+    private static class MilliMeterId extends AbstractUnitId<Length, Meter, MilliMeter>{
+    }
 
 	private static class MeterId extends AbstractUnitId<Length, Meter, Meter> {
 	}
@@ -141,6 +176,36 @@ public final class UnitIdentifier {
 			AbstractUnitId<Temperature, Kelvin, Fahrenheit> {
 	}
 
+    /* area */
+    private static class SquareMeterId extends AbstractUnitId<Area, SquareMeter, SquareMeter>
+            implements CompositeUnitId<Length, Meter, Meter, Length, Meter, Meter, Area, SquareMeter, SquareMeter> {
+
+        @Override
+        public UnitId<Length, Meter, Meter> getComponentUnit1Id() {
+            return UnitIdentifier.METER;
+        }
+
+        @Override
+        public UnitId<Length, Meter, Meter> getComponentUnit2Id() {
+            return UnitIdentifier.METER;
+        }
+    }
+
+	private static class SquareMilliMeterId extends AbstractUnitId<Area, SquareMeter, SquareMilliMeter>{}
+
+    private static class SquareKiloMeterId extends AbstractUnitId<Area, SquareMeter, SquareKiloMeter> {
+    }
+
+	private static class SquareInchId extends AbstractUnitId<Area, SquareMeter, SquareInch>{}
+
+    private static class SquareFootId extends AbstractUnitId<Area, SquareMeter, SquareFoot> {
+
+    }
+
+    private static class SquareMileId extends AbstractUnitId<Area, SquareMeter, SquareMile> {
+
+    }
+
 	/* speed */
 	private static class MeterPerSecondId extends
 			AbstractUnitId<Speed, MeterPerSecond, MeterPerSecond> implements CompositeUnitId<Length, Meter, Meter, Time, Second, Second, Speed, MeterPerSecond, MeterPerSecond> {
@@ -155,6 +220,10 @@ public final class UnitIdentifier {
 			return UnitIdentifier.SECOND;
 		}
 	}
+
+    private static class FootPerSecondId extends AbstractUnitId<Speed, MeterPerSecond, FootPerSecond>{
+
+    }
 
 	private static class MilesPerHourId extends
 			AbstractUnitId<Speed, MeterPerSecond, MilesPerHour> {

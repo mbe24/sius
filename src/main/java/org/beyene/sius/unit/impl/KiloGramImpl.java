@@ -47,6 +47,11 @@ final class KiloGramImpl extends AbstractUnit<Mass, KiloGram, KiloGram> implemen
 	}
 
 	@Override
+	public String getUnitSymbol(){
+		return "kg";
+	}
+
+	@Override
 	public KiloGram fromBase(KiloGram base) {
 		return valueOf(base.getValue());
 	}

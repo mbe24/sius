@@ -47,6 +47,11 @@ final class SecondImpl extends AbstractUnit<Time, Second, Second> implements Sec
 	}
 
 	@Override
+	public String getUnitSymbol(){
+		return "s";
+	}
+
+	@Override
 	public Second fromBase(Second base) {
 		return valueOf(base.getValue());
 	}

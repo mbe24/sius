@@ -49,6 +49,11 @@ final class FahrenheitImpl extends AbstractUnit<Temperature, Kelvin, Fahrenheit>
 	}
 
 	@Override
+	public String getUnitSymbol(){
+		return "°F";
+	}
+
+	@Override
 	public Fahrenheit fromBase(Kelvin base) {
 		 return valueOf((base.getValue() * (Constants.FAHRENHEIT_KELVIN_SCALE_NINE / Constants.FAHRENHEIT_KELVIN_SCALE_FIVE))
 		 - Constants.FAHRENHEIT_KELVIN_OFFSET);

@@ -49,6 +49,11 @@ final class MinuteImpl extends AbstractUnit<Time, Second, Minute> implements Min
 	}
 
 	@Override
+	public String getUnitSymbol(){
+		return "min";
+	}
+
+	@Override
 	public Minute fromBase(Second base) {
 		return valueOf(base.getValue() / Constants.SECONDS_PER_MINUTE);
 	}

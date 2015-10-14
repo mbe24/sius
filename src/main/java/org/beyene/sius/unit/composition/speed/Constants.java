@@ -16,10 +16,14 @@
  */
 package org.beyene.sius.unit.composition.speed;
 
+import static org.beyene.sius.unit.length.Constants.METER_PER_FOOT;
+
 public final class Constants {
 	private Constants() {
 		// private constructor to prevent instantiation
 	}
 	
 	public static final double MPS_PER_MPH = 0.44704;
+
+    public static final double MPS_PER_FTPS = METER_PER_FOOT;
 }

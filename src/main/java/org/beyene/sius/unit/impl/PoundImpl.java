@@ -49,6 +49,11 @@ final class PoundImpl extends AbstractUnit<Mass, KiloGram, Pound> implements Pou
 	}
 
 	@Override
+	public String getUnitSymbol(){
+		return "lb";
+	}
+
+	@Override
 	public Pound fromBase(KiloGram base) {
 		return valueOf(base.getValue() / Constants.KILOGRAM_PER_POUND);
 	}
