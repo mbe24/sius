@@ -49,6 +49,11 @@ final class YardImpl extends AbstractUnit<Length, Meter, Yard> implements Yard {
 	}
 
 	@Override
+	public String getUnitSymbol(){
+		return "yd";
+	}
+
+	@Override
 	public Yard fromBase(Meter base) {
 		return valueOf((base.getValue() / Constants.METER_PER_YARD));
 	}

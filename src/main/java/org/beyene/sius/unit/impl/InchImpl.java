@@ -50,10 +50,10 @@ final class InchImpl extends AbstractUnit<Length, Meter, Inch> implements Inch {
 		super(value, Length.INSTANCE, UnitIdentifier.INCH, Inch.class, dynamicCache, staticCache);
 	}
 
-    @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f in", value);
-    }
+	@Override
+	public String getUnitSymbol(){
+		return "in";
+	}
 
 	@Override
 	public Inch fromBase(Meter base) {

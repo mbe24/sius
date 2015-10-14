@@ -58,8 +58,8 @@ final class MilesPerHourImpl extends AbstractUnit<Speed, MeterPerSecond, MilesPe
 	}
 
 	@Override
-	public String toString(){
-		return String.format(Locale.US, "%2.1f mph", value);
+	public String getUnitSymbol(){
+		return "mph";
 	}
 
 	@Override

@@ -46,8 +46,8 @@ public class SquareMilliMeterImpl extends AbstractUnit<Area, SquareMeter, Square
     }
 
     @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f mm" + Constants.SQUARE_SYMBOL, value);
+    public String getUnitSymbol(){
+        return "mm" + Constants.SQUARE_SYMBOL;
     }
 
     @Override

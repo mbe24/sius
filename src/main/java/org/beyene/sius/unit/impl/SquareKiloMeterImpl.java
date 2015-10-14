@@ -44,8 +44,8 @@ public class SquareKiloMeterImpl extends AbstractUnit<Area, SquareMeter, SquareK
     }
 
     @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f km" + Constants.SQUARE_SYMBOL, value);
+    public String getUnitSymbol(){
+        return "km" + Constants.SQUARE_SYMBOL;
     }
 
     @Override

@@ -21,6 +21,8 @@ import org.beyene.sius.dimension.Dimension;
 import org.beyene.sius.unit.Unit;
 import org.beyene.sius.unit.UnitId;
 
+import java.util.Locale;
+
 public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, SELF extends Unit<D, BASE, SELF>>
 		implements Unit<D, BASE, SELF> {
 
@@ -124,8 +126,8 @@ public abstract class AbstractUnit<D extends Dimension<D>, BASE extends Unit<D, 
 	}
 
 	@Override
-	public String toString() {
-		return interfaceClass.getSimpleName() + " [value=" + value + "]";
+	public final String toString() {
+		return String.format(Locale.US, "%2.1f %s", value, getUnitSymbol());
 	}
 
 	protected abstract SELF _this();

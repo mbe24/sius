@@ -47,8 +47,8 @@ public class KiloMeterImpl extends AbstractUnit<Length, Meter, KiloMeter> implem
     }
 
     @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f km", value);
+    public String getUnitSymbol(){
+        return "km";
     }
 
     @Override

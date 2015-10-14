@@ -50,4 +50,6 @@ public interface Unit<D extends Dimension<D>, BASE extends Unit<D, BASE, BASE>, 
 	
 	@Override
 	public String toString();
+
+	String getUnitSymbol();
 }

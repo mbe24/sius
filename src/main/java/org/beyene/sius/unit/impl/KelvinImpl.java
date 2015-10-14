@@ -47,6 +47,11 @@ final class KelvinImpl extends AbstractUnit<Temperature, Kelvin, Kelvin> impleme
 	}
 
 	@Override
+	public String getUnitSymbol(){
+		return "K";
+	}
+
+	@Override
 	public Kelvin fromBase(Kelvin base) {
 		return valueOf(base.getValue());
 	}

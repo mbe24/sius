@@ -46,8 +46,8 @@ public class FootPerSecondImpl extends AbstractUnit<Speed, MeterPerSecond, FootP
     }
 
     @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f ft/s", value);
+    public String getUnitSymbol(){
+        return "ft/s";
     }
 
     @Override

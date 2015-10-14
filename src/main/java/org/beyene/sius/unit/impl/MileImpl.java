@@ -50,10 +50,10 @@ final class MileImpl extends AbstractUnit<Length, Meter, Mile> implements Mile {
 		super(value, Length.INSTANCE, UnitIdentifier.MILE, Mile.class, dynamicCache, staticCache);
 	}
 
-    @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f mi", value);
-    }
+	@Override
+	public String getUnitSymbol(){
+		return "mi";
+	}
 
 	@Override
 	public Mile fromBase(Meter base) {

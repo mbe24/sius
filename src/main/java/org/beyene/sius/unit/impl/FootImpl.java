@@ -50,10 +50,10 @@ final class FootImpl extends AbstractUnit<Length, Meter, Foot> implements Foot {
 		super(value, Length.INSTANCE, UnitIdentifier.FOOT, Foot.class, dynamicCache, staticCache);
 	}
 
-    @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f ft", value);
-    }
+	@Override
+	public String getUnitSymbol(){
+		return "ft";
+	}
 	
 	@Override
 	public Foot fromBase(Meter base) {

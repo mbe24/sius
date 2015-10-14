@@ -53,10 +53,10 @@ final class MeterPerSecondImpl extends AbstractUnit<Speed, MeterPerSecond, Meter
 		super(value, Speed.INSTANCE, UnitIdentifier.METER_PER_SECOND, MeterPerSecond.class, dynamicCache, staticCache);
 	}
 
-    @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f m/s", value);
-    }
+	@Override
+	public String getUnitSymbol(){
+		return "m/s";
+	}
 
 	@Override
 	public UnitId<Length, Meter, Meter> getComponentUnit1Id() {

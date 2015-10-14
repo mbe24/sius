@@ -48,8 +48,8 @@ public class SquareMileImpl extends AbstractUnit<Area, SquareMeter, SquareMile> 
     }
 
     @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f mi" + Constants.SQUARE_SYMBOL, value);
+    public String getUnitSymbol(){
+        return "mi" + Constants.SQUARE_SYMBOL;
     }
 
     @Override

@@ -45,8 +45,8 @@ public class MilliMeterImpl extends AbstractUnit<Length, Meter, MilliMeter> impl
     }
 
     @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f mm", value);
+    public String getUnitSymbol(){
+        return "mm";
     }
 
     @Override

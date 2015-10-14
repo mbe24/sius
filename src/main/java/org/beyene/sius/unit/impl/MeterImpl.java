@@ -57,10 +57,10 @@ final class MeterImpl extends AbstractUnit<Length, Meter, Meter> implements Mete
 		super(value, Length.INSTANCE, UnitIdentifier.METER, Meter.class, dynamicCache, staticCache);
 	}
 
-    @Override
-    public String toString(){
-        return String.format(Locale.US, "%2.1f m", value);
-    }
+	@Override
+	public String getUnitSymbol(){
+		return "m";
+	}
 
 	@Override
 	public Meter toBase() {

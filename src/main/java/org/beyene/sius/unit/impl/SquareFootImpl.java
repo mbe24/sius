@@ -53,8 +53,8 @@ public class SquareFootImpl extends AbstractUnit<Area, SquareMeter, SquareFoot> 
     }
 
     @Override
-    public String toString() {
-        return String.format(Locale.US, "%2.1f ft" + Constants.SQUARE_SYMBOL, value);
+    public String getUnitSymbol(){
+        return "ft" + Constants.SQUARE_SYMBOL;
     }
 
     @Override
